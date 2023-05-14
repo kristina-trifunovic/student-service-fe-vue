@@ -1,0 +1,24 @@
+{
+  "header": {
+    "menuComponent": "{componentName}",
+    "goToMenuComponent": "Lista {componentName}",
+    "addMenuComponent": "Dodaj {componentName}",
+    "applyExams": "Prijavi ispit",
+    "settings": "Podešavanja",
+    "logout": "Odjavi se"
+  },
+  "component": {
+    "subject": "predmet",
+    "city": "grad",
+    "professor": "profesor",
+    "student": "student",
+    "exam": "ispit",
+    "exam period": "ispitni rok",
+    "subjectPlural": "predmeta",
+    "cityPlural": "gradova",
+    "professorPlural": "profesora",
+    "studentPlural": "studenata",
+    "examPlural": "ispita",
+    "exam periodPlural": "ispitnih rokova"
+  }
+}

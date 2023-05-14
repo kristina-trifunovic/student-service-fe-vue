@@ -1,0 +1,24 @@
+{
+  "header": {
+    "menuComponent": "{componentName}",
+    "goToMenuComponent": "Go to {componentName}",
+    "addMenuComponent": "Add {componentName}",
+    "applyExams": "Apply exams",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "component": {
+    "subject": "subject",
+    "city": "city",
+    "professor": "professor",
+    "student": "student",
+    "exam": "exam",
+    "exam period": "exam period",
+    "subjectPlural": "subjects",
+    "cityPlural": "cities",
+    "professorPlural": "professors",
+    "studentPlural": "students",
+    "examPlural": "exams",
+    "exam periodPlural": "exam periods"
+  }
+}

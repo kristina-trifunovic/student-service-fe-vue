@@ -1,128 +1,112 @@
 <template>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- Navbar brand -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="#">
-          <img
-            src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-            height="15"
-            alt="MDB Logo"
+  <MDBNavbar expand="lg" light bg="light" container>
+    <MDBNavbarBrand></MDBNavbarBrand>
+    <MDBNavbarToggler
+      @click="navbarCollapse = !navbarCollapse"
+      target="#navbarSupportedContent"
+    ></MDBNavbarToggler>
+    <MDBCollapse v-model="navbarCollapse" id="menu">
+      <MDBNavbarNav class="mb-lg-0">
+        <MDBNavbarItem to="#" active> Home </MDBNavbarItem>
+        <!-- City navbar dropdown -->
+        <MDBNavbarItem>
+          <app-dropdown name="city" plural="cities"></app-dropdown>
+        </MDBNavbarItem>
+        <!-- Student navbar dropdown -->
+        <MDBNavbarItem>
+          <app-dropdown name="student" plural="students"></app-dropdown>
+        </MDBNavbarItem>
+        <!-- Subject navbar dropdown -->
+        <MDBNavbarItem>
+          <app-dropdown name="subject" plural="subjects"></app-dropdown>
+        </MDBNavbarItem>
+        <!-- Professor navbar dropdown -->
+        <MDBNavbarItem>
+          <app-dropdown name="professor" plural="professors"></app-dropdown>
+        </MDBNavbarItem>
+        <!-- Exam navbar dropdown -->
+        <MDBNavbarItem>
+          <app-dropdown name="exam" plural="exams"></app-dropdown>
+        </MDBNavbarItem>
+        <!-- Exam period navbar dropdown -->
+        <MDBNavbarItem>
+          <app-dropdown name="exam period" plural="exam periods"></app-dropdown>
+        </MDBNavbarItem>
+      </MDBNavbarNav>
+    </MDBCollapse>
+    <!-- User and language -->
+    <MDBNavbarNav>
+      <MDBDropdown class="nav-item" v-model="dropdownUser">
+        <MDBDropdownToggle
+          tag="a"
+          class="nav-link"
+          @click="dropdownUser = !dropdownUser"
+          ><img
+            src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
+            class="rounded-circle"
+            height="33"
+            alt=""
             loading="lazy"
           />
-        </a>
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Team</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Projects</a>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-      <!-- Collapsible wrapper -->
-
-      <!-- Right elements -->
-      <div class="d-flex align-items-center">
-        <!-- Icon -->
-        <a class="text-reset me-3" href="#">
-          <i class="fas fa-shopping-cart"></i>
-        </a>
-
-        <!-- Notifications -->
-        <div class="dropdown">
-          <a
-            class="text-reset me-3 dropdown-toggle hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="fas fa-bell"></i>
-            <span class="badge rounded-pill badge-notification bg-danger"
-              >1</span
-            >
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <li>
-              <a class="dropdown-item" href="#">Some news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Another news</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </li>
-          </ul>
-        </div>
-        <!-- Avatar -->
-        <div class="dropdown">
-          <a
-            class="dropdown-toggle d-flex align-items-center hidden-arrow"
-            href="#"
-            id="navbarDropdownMenuAvatar"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-              class="rounded-circle"
-              height="25"
-              alt="Black and White Portrait of a Man"
-              loading="lazy"
-            />
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdownMenuAvatar"
-          >
-            <li>
-              <a class="dropdown-item" href="#">My profile</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Settings</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- Right elements -->
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
+        </MDBDropdownToggle>
+        <MDBDropdownMenu>
+          <MDBDropdownItem disabled href="#">{{ fullName }}</MDBDropdownItem>
+          <MDBDropdownItem href="#">{{
+            $t("header.settings")
+          }}</MDBDropdownItem>
+          <MDBDropdownItem href="#">{{ $t("header.logout") }}</MDBDropdownItem>
+        </MDBDropdownMenu>
+      </MDBDropdown>
+    </MDBNavbarNav>
+  </MDBNavbar>
 </template>
+
 <script>
+import {
+  MDBBtn,
+  MDBNavbar,
+  MDBNavbarToggler,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBCollapse,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+} from "mdb-vue-ui-kit";
+import useUserStore from "@/stores/user";
+import { ref } from "vue";
+import AppDropdown from "@/components/DropdownItem.vue";
+
 export default {
   name: "AppHeader",
+  components: {
+    MDBBtn,
+    MDBNavbar,
+    MDBNavbarToggler,
+    MDBNavbarBrand,
+    MDBNavbarNav,
+    MDBNavbarItem,
+    MDBCollapse,
+    AppDropdown,
+    MDBDropdown,
+    MDBDropdownToggle,
+    MDBDropdownMenu,
+    MDBDropdownItem,
+  },
+  setup() {
+    const navbarCollapse = ref(false);
+    const dropdownUser = ref(false);
+
+    const userStore = useUserStore();
+    const fullName = `${userStore.user.firstName} ${userStore.user.lastName}`;
+    return {
+      fullName,
+      navbarCollapse,
+      dropdownUser,
+    };
+  },
 };
 </script>
 

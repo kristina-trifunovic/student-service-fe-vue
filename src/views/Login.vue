@@ -48,31 +48,41 @@
 
 <script>
 import { MDBRow, MDBCol, MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
-import { reactive } from "vue";
-import axios from "axios";
-import router from "@/router/index.js";
+import { reactive, ref } from "vue";
+import router from "@/router/index";
+import useUserStore from "@/stores/user";
 
 export default {
   name: "AppLogin",
   components: { MDBRow, MDBCol, MDBInput, MDBCheckbox, MDBBtn },
   setup() {
+    const userStore = useUserStore();
     const user = reactive({ username: "", password: "" });
+    const rememberMe = ref(true);
+
     const login = () => {
-      const params = new URLSearchParams();
-      params.append("username", user.username);
-      params.append("password", user.password);
-      const config = {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      };
-      axios
-        .post("http://localhost:9090/auth/login", params, config)
-        .then(() => router.push({ name: "home" }))
-        .catch((err) => console.log(err));
+      userStore
+        .login(user)
+        .then((res) => {
+          actionOnLogin(res.data);
+        })
+        // TODO add a popup
+        .catch((err) => console.log("error happened", err));
     };
 
-    return { user, login };
+    const actionOnLogin = (user) => {
+      userStore.isUserLoggedIn = true;
+      // userStore.userLoggedIn = user;
+      if (rememberMe) {
+        sessionStorage.setItem("user", JSON.stringify(user));
+      } else {
+        localStorage.setItem("user", JSON.stringify(user));
+      }
+      localStorage.setItem("rememberMe", rememberMe);
+      router.push({ name: "home" });
+    };
+
+    return { user, login, rememberMe };
   },
 };
 </script>

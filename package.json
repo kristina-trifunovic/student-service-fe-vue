@@ -7,11 +7,15 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^1.4.0",
+    "mdb-vue-ui-kit": "^4.0.0",
     "vue": "^3.2.13",
+    "vue-axios": "^3.5.2",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "vue-cli-plugin-mdb5": "~2.1.0"
   }
 }

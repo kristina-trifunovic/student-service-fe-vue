@@ -28,19 +28,8 @@
           v-model="user.password"
           wrapperClass="mb-4"
         />
-        <MDBRow class="mb-4">
-          <MDBCol class="d-flex justify-content-center">
-            <!-- Checkbox -->
-            <MDBCheckbox
-              label="Remember me"
-              id="rememberMe"
-              v-model="rememberMe"
-              wrapperClass="mb-3 mb-md-0"
-            />
-          </MDBCol>
-        </MDBRow>
         <!-- Submit button -->
-        <MDBBtn color="primary" block @click.prevent="login"> Sign in </MDBBtn>
+        <MDBBtn color="primary" block @click="login"> Sign in </MDBBtn>
       </form>
     </div>
   </div>
@@ -48,7 +37,7 @@
 
 <script>
 import { MDBRow, MDBCol, MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
-import { reactive, ref } from "vue";
+import { reactive } from "vue";
 import router from "@/router/index";
 import useUserStore from "@/stores/user";
 
@@ -58,7 +47,6 @@ export default {
   setup() {
     const userStore = useUserStore();
     const user = reactive({ username: "", password: "" });
-    const rememberMe = ref(true);
 
     const login = () => {
       userStore
@@ -71,18 +59,12 @@ export default {
     };
 
     const actionOnLogin = (user) => {
-      userStore.isUserLoggedIn = true;
-      // userStore.userLoggedIn = user;
-      if (rememberMe) {
-        sessionStorage.setItem("user", JSON.stringify(user));
-      } else {
-        localStorage.setItem("user", JSON.stringify(user));
-      }
-      localStorage.setItem("rememberMe", rememberMe);
+      userStore.userLoggedIn = user;
+      sessionStorage.setItem("user", JSON.stringify(user));
       router.push({ name: "home" });
     };
 
-    return { user, login, rememberMe };
+    return { user, login };
   },
 };
 </script>

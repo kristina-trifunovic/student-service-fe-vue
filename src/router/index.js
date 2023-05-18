@@ -30,4 +30,13 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from) => {
+  if (!sessionStorage.getItem("user") && to.name !== "login") {
+    return { name: "login" };
+  }
+  if (sessionStorage.getItem("user") && to.name == "login") {
+    return { name: "home" };
+  }
+});
+
 export default router;

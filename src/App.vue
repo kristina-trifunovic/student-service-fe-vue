@@ -5,14 +5,13 @@
 
 <script>
 import AppHeader from "./components/Header.vue";
-// import AppLogin from "@/views/Login.vue";
 
 export default {
   name: "App",
   components: {
     AppHeader,
-    // AppLogin,
   },
+  setup() {},
 };
 </script>
 

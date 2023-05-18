@@ -3,19 +3,20 @@ import axios from "axios";
 
 export default defineStore("user", {
   state: () => ({
-    // isUserLoggedIn: false,
-    // userLoggedIn: reactive({
-    //   accountNonExpired: true,
-    //   accountNonLocked: true,
-    //   address: "",
-    //   authorities: [{ authority: "" }],
-    //   city: { postalCode: 0, name: "" },
-    //   credentialsNonExpired: true,
-    //   firstName: "",
-    //   lastName: "",
-    //   password: "",
-    //   username: "",
-    // }),
+    userLoggedIn: sessionStorage.getItem("user")
+      ? JSON.parse(sessionStorage.getItem("user"))
+      : {
+          accountNonExpired: true,
+          accountNonLocked: true,
+          address: "",
+          authorities: [{ authority: "" }],
+          city: { postalCode: 0, name: "" },
+          credentialsNonExpired: true,
+          firstName: "",
+          lastName: "",
+          password: "",
+          username: "",
+        },
   }),
   actions: {
     login(credentials) {
@@ -32,14 +33,9 @@ export default defineStore("user", {
       };
       return axios.post("http://localhost:9090/auth/login", params, config);
     },
-  },
-  getters: {
-    user: () => {
-      if (localStorage.getItem("user")) {
-        return JSON.parse(localStorage.getItem("user"));
-      } else if (sessionStorage.getItem("user")) {
-        return JSON.parse(sessionStorage.getItem("user"));
-      }
+    logout() {
+      sessionStorage.removeItem("user");
+      this.$reset();
     },
   },
 });

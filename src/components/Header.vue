@@ -1,5 +1,11 @@
 <template>
-  <MDBNavbar expand="lg" light bg="light" container>
+  <MDBNavbar
+    v-show="userStore.userLoggedIn.firstName"
+    expand="lg"
+    light
+    bg="light"
+    container
+  >
     <MDBNavbarBrand></MDBNavbarBrand>
     <MDBNavbarToggler
       @click="navbarCollapse = !navbarCollapse"
@@ -44,7 +50,7 @@
           ><img
             src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
             class="rounded-circle"
-            height="33"
+            height="50"
             alt=""
             loading="lazy"
           />
@@ -54,7 +60,9 @@
           <MDBDropdownItem href="#">{{
             $t("header.settings")
           }}</MDBDropdownItem>
-          <MDBDropdownItem href="#">{{ $t("header.logout") }}</MDBDropdownItem>
+          <MDBDropdownItem href="#" @click="logout">{{
+            $t("header.logout")
+          }}</MDBDropdownItem>
         </MDBDropdownMenu>
       </MDBDropdown>
     </MDBNavbarNav>
@@ -100,11 +108,22 @@ export default {
     const dropdownUser = ref(false);
 
     const userStore = useUserStore();
-    const fullName = `${userStore.user.firstName} ${userStore.user.lastName}`;
+
+    let fullName = "";
+    if (userStore.userLoggedIn.firstName) {
+      fullName = `${userStore.userLoggedIn.firstName} ${userStore.userLoggedIn.lastName}`;
+    }
+
+    const logout = () => {
+      userStore.logout();
+    };
+
     return {
       fullName,
       navbarCollapse,
       dropdownUser,
+      logout,
+      userStore,
     };
   },
 };

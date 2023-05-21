@@ -20,8 +20,5 @@
     "studentPlural": "studenata",
     "examPlural": "ispita",
     "exam periodPlural": "ispitnih rokova"
-  },
-  "messages": {
-    "required": "Ovo polje je obavezno"
   }
 }

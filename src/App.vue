@@ -11,7 +11,9 @@ export default {
   components: {
     AppHeader,
   },
-  setup() {},
+  setup() {
+    // VeeValidate.Validator.locale = `${language}`; // to change the locale for vee validate
+  },
 };
 </script>
 

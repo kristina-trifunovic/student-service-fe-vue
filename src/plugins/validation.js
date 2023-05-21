@@ -5,17 +5,8 @@ import {
   ErrorMessage,
   configure,
 } from "vee-validate";
-import {
-  required,
-  min,
-  max,
-  alpha_spaces as alphaSpaces,
-  email,
-  min_value as minValue,
-  max_value as maxValue,
-  confirmed,
-  not_one_of as excluded,
-} from "@vee-validate/rules";
+import { required, min, max, between } from "@vee-validate/rules";
+import { localize } from "@vee-validate/i18n";
 
 export default {
   install(app) {
@@ -23,30 +14,40 @@ export default {
     app.component("VeeField", VeeField);
     app.component("ErrorMessage", ErrorMessage);
 
-    defineRule("required", (value) => {
-      if (value && value.trim()) return true;
-      return "This field is required";
-    });
+    defineRule("required", required);
     defineRule("min", min);
     defineRule("max", max);
+    defineRule("between", between);
 
     configure({
-      generateMessage: (context) => {
-        const messages = {
-          required: `The field ${context.field} is required.`,
-          min: `The field ${context.field} is too short.`,
-          max: `The field ${context.field} is too long.`,
-        };
-
-        const message = messages[context.rule.name]
-          ? messages[context.rule.name]
-          : `The field ${context.field} is invalid`;
-        return message;
-      },
-      validateOnBlur: true, // tells vee-validate if it will validate on blur event
-      validateOnChange: true, // if it should validate the field on the change event
-      validateOnInput: true,
-      validateOnModelUpdate: true,
+      generateMessage: localize({
+        en: {
+          names: {
+            username: "Username",
+            password: "Password",
+          },
+          messages: {
+            required: "{field} is required.",
+            between: "{field} must be between 0:{min} and 1:{max}",
+            min: "{field} must be at least 0:{min} characters",
+          },
+        },
+        sr: {
+          names: {
+            username: "Korisničko ime",
+            password: "Lozinka",
+          },
+          messages: {
+            required: "{field} je obavezno polje",
+            min: "{field} mora biti najmanje 0:{min} karaktera",
+            between: "{field} mora biti izmedju 0:{min} i 1:{max} karaktera",
+          },
+        },
+        validateOnBlur: true,
+        validateOnChange: true,
+        validateOnInput: false,
+        validateOnModelUpdate: true,
+      }),
     });
   },
 };

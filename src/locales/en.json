@@ -20,8 +20,5 @@
     "studentPlural": "students",
     "examPlural": "exams",
     "exam periodPlural": "exam periods"
-  },
-  "error": {
-    "password": "Password is required"
   }
 }

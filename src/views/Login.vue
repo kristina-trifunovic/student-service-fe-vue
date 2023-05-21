@@ -12,44 +12,25 @@
         </p>
       </div>
       <div class="col-lg-4 col-md-6 col-12">
-        <MDBRow
+        <vee-form
           md="6"
           class="align-items-center"
-          tag="form"
-          novalidate
-          ref="formRef"
+          :validation-schema="schema"
+          @submit.prevent="login"
         >
           <!-- Username input -->
-          <MDBInput
-            type="text"
-            label="Username"
-            id="username"
-            v-model="user.username"
-            validationEvent="input"
-            :invalidFeedback="$t('...')"
-            wrapperClass="mb-4"
-            required
-            minLength="3"
-            maxLength="30"
-          />
-          <Field name="username" v-slot="{}">
-            <!-- Password input -->
-            <MDBInput
-              type="password"
-              label="Password"
-              id="password"
-              v-model="user.password"
-              validationEvent="input"
-              :invalidFeedback="$t('error.password')"
-              wrapperClass="mb-4"
-              required
-              minLength="4"
-            />
-          </Field>
-          <MDBBtn color="primary" block type="submit" @click="checkForm"
-            >Sign in</MDBBtn
-          >
-        </MDBRow>
+          <div class="d-flex flex-column col-12">
+            <vee-field class="form-control mb-2" name="username" type="text" />
+            <ErrorMessage name="username" class="mb-3 text-danger" />
+          </div>
+          <!-- Password input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field class="form-control mb-2" name="password" type="text" />
+          </div>
+          <ErrorMessage name="password" class="mb-3 text-danger" />
+          <!-- Submit button -->
+          <MDBBtn color="primary" block type="submit">Sign in</MDBBtn>
+        </vee-form>
       </div>
     </div>
   </div>
@@ -64,8 +45,6 @@ import {
   MDBBtn,
   MDBContainer,
 } from "mdb-vue-ui-kit";
-import { useForm, Field } from "vee-validate";
-import { reactive } from "vue";
 import router from "@/router/index";
 import useUserStore from "@/stores/user";
 
@@ -78,21 +57,22 @@ export default {
     MDBCheckbox,
     MDBBtn,
     MDBContainer,
-    Field,
   },
   setup() {
     const userStore = useUserStore();
-    const user = reactive({ username: "", password: "" });
-
+    const schema = {
+      username: "required|min:3|max:30",
+      password: "required|min:4",
+    };
     const actionOnLogin = (user) => {
       userStore.userLoggedIn = user;
       sessionStorage.setItem("user", JSON.stringify(user));
       router.push({ name: "home" });
     };
 
-    const login = () => {
+    const login = (values) => {
       userStore
-        .login(user)
+        .login(values)
         .then((res) => {
           actionOnLogin(res.data);
         })
@@ -100,14 +80,19 @@ export default {
         .catch((err) => console.log("error happened", err));
     };
 
-    const { handleSubmit, resetForm } = useForm();
+    // const { handleSubmit, resetForm } = useForm();
 
-    const checkForm = handleSubmit((values) => {
-      alert("Success! Your data: " + JSON.stringify(values, null, 2));
-      login();
-    });
+    // const checkForm = handleSubmit(
+    //   (values) => {
+    //     alert("Success! Your data: " + JSON.stringify(values, null, 2));
+    //     login();
+    //   },
+    //   () => {
+    //     console.log("form is not correctly validated");
+    //   }
+    // );
 
-    return { user, login, checkForm };
+    return { schema, login };
   },
 };
 </script>

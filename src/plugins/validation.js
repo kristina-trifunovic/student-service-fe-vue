@@ -28,7 +28,7 @@ export default {
           },
           messages: {
             required: "{field} is required.",
-            between: "{field} must be between 0:{min} and 1:{max}",
+            between: "{field} must be between 0:{min} and 1:{max} characters",
             min: "{field} must be at least 0:{min} characters",
           },
         },

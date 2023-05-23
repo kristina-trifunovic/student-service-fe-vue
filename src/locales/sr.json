@@ -20,5 +20,11 @@
     "studentPlural": "studenata",
     "examPlural": "ispita",
     "exam periodPlural": "ispitnih rokova"
+  },
+  "login": {
+    "welcome": "Dobrodošli",
+    "name": "Studentski portal",
+    "description": "Ovde možete naći naš nov sistem čuvanja ispita, studenata, profesora...",
+    "signIn": "Prijavi se"
   }
 }

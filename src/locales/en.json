@@ -20,5 +20,11 @@
     "studentPlural": "students",
     "examPlural": "exams",
     "exam periodPlural": "exam periods"
+  },
+  "login": {
+    "welcome": "Welcome to",
+    "name": "Faculty portal",
+    "description": "This is where you can find our new system for storing exams, students, professors...",
+    "signIn": "Sign in"
   }
 }

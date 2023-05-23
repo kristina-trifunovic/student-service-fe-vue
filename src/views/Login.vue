@@ -3,12 +3,11 @@
     <div class="row lg-6 md-6 align-items-center justify-content-center">
       <div class="col-lg-6 col-md-6 col-12">
         <h1 class="my-5 display-3 fw-bold">
-          Welcome to <br />
-          <span class="text-primary">Faculty portal</span>
+          {{ $t("login.welcome") }} <br />
+          <span class="text-primary">{{ $t("login.name") }}</span>
         </h1>
         <p class="text-muted">
-          This is where you can find our new system for storing exams, students,
-          professors...
+          {{ $t("login.description") }}
         </p>
       </div>
       <div class="col-lg-4 col-md-6 col-12">
@@ -29,7 +28,9 @@
           </div>
           <ErrorMessage name="password" class="mb-3 text-danger" />
           <!-- Submit button -->
-          <MDBBtn color="primary" block type="submit">Sign in</MDBBtn>
+          <MDBBtn color="primary" block type="submit">{{
+            $t("login.signIn")
+          }}</MDBBtn>
         </vee-form>
       </div>
     </div>
@@ -61,7 +62,7 @@ export default {
   setup() {
     const userStore = useUserStore();
     const schema = {
-      username: "required|min:3|max:30",
+      username: "required|between:3,30",
       password: "required|min:4",
     };
     const actionOnLogin = (user) => {

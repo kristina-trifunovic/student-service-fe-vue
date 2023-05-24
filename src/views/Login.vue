@@ -15,7 +15,7 @@
           md="6"
           class="align-items-center"
           :validation-schema="schema"
-          @submit.prevent="login"
+          @submit="login"
         >
           <!-- Username input -->
           <div class="d-flex flex-column col-12">
@@ -24,7 +24,11 @@
           </div>
           <!-- Password input -->
           <div class="d-flex flex-column col-12">
-            <vee-field class="form-control mb-2" name="password" type="text" />
+            <vee-field
+              class="form-control mb-2"
+              name="password"
+              type="password"
+            />
           </div>
           <ErrorMessage name="password" class="mb-3 text-danger" />
           <!-- Submit button -->
@@ -49,7 +53,6 @@ import {
 import router from "@/router/index";
 import useUserStore from "@/stores/user";
 
-// TODO  on input error message doesn't change
 export default {
   name: "AppLogin",
   components: {
@@ -63,7 +66,7 @@ export default {
   setup() {
     const userStore = useUserStore();
     const schema = {
-      username: "required|between:3,30",
+      username: "required|min:3|max:30",
       password: "required|min:4",
     };
     const actionOnLogin = (user) => {

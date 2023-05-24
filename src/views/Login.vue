@@ -1,5 +1,5 @@
 <template>
-  <div class="container h-100">
+  <div class="container">
     <div class="row lg-6 md-6 align-items-center justify-content-center">
       <div class="col-lg-6 col-md-6 col-12">
         <h1 class="my-5 display-3 fw-bold">

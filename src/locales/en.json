@@ -30,10 +30,14 @@
   "actions": {
     "delete": "Delete",
     "edit": "Update",
-    "view": "Show"
+    "view": "Show",
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "city": {
     "listTitle": "List of cities",
+    "addTitle": "Add city",
+    "updateTitle": "Update city",
     "postalCode": "Postal code",
     "name": "Name"
   }

@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { cityLoadOneResolver } from "@/resolvers/city.resolver";
+
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import CityList from "@/views/cities/CityList.vue";
+import CityForm from "@/views/cities/CityForm.vue";
 
 const routes = [
   {
@@ -9,13 +13,27 @@ const routes = [
     component: Home,
   },
   {
-    path: "/cities",
-    name: "cities",
-    component: function () {
-      return import(
-        /* webpackChunkName: "about" */ "../views/cities/CityList.vue"
-      );
-    },
+    path: "/city",
+    name: "city",
+    children: [
+      {
+        path: "list",
+        name: "city-list",
+        component: CityList,
+      },
+      {
+        path: "form",
+        name: "city-add",
+        component: CityForm,
+      },
+      {
+        path: "form/:id",
+        name: "city-update",
+        component: CityForm,
+        beforeEnter: cityLoadOneResolver,
+      },
+    ],
+    redirect: { name: "city-list" },
   },
   {
     path: "/login",

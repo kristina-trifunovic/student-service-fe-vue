@@ -49,6 +49,7 @@ import {
 import router from "@/router/index";
 import useUserStore from "@/stores/user";
 
+// TODO  on input error message doesn't change
 export default {
   name: "AppLogin",
   components: {

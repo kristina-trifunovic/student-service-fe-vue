@@ -32,7 +32,7 @@ export default {
             min: "{field} must be at least 0:{min} characters",
           },
         },
-        sr: {
+        rs: {
           names: {
             username: "Korisničko ime",
             password: "Lozinka",
@@ -43,10 +43,10 @@ export default {
             between: "{field} mora biti izmedju 0:{min} i 1:{max} karaktera",
           },
         },
-        validateOnBlur: true,
-        validateOnChange: true,
-        validateOnInput: false,
-        validateOnModelUpdate: true,
+        // validateOnBlur: true,
+        // validateOnChange: true,
+        // validateOnInput: false,
+        // validateOnModelUpdate: true,
       }),
     });
   },

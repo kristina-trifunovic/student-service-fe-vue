@@ -1,13 +1,17 @@
 import { createI18n } from "vue-i18n";
 import en from "@/locales/en.json";
-import sr from "@/locales/sr.json";
+import rs from "@/locales/rs.json";
 
 export default createI18n({
-  locale: "en",
-  fallbackLocale: "en",
+  locale: sessionStorage.getItem("language")
+    ? sessionStorage.getItem("language")
+    : "en",
+  fallbackLocale: sessionStorage.getItem("language")
+    ? sessionStorage.getItem("language")
+    : "en",
   messages: {
     en,
-    sr,
+    rs,
   },
   numberFormats: {
     en: {
@@ -16,7 +20,7 @@ export default createI18n({
         currency: "USD",
       },
     },
-    sr: {
+    rs: {
       currency: {
         style: "currency",
         currency: "RSD",

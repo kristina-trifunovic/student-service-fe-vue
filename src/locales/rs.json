@@ -26,5 +26,15 @@
     "name": "Studentski portal",
     "description": "Ovde možete naći naš nov sistem čuvanja ispita, studenata, profesora...",
     "signIn": "Prijavi se"
+  },
+  "actions": {
+    "delete": "Obriši",
+    "edit": "Izmeni",
+    "view": "Pregled"
+  },
+  "city": {
+    "listTitle": "Lista gradova",
+    "postalCode": "Poštanski broj",
+    "name": "Naziv"
   }
 }

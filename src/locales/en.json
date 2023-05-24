@@ -26,5 +26,15 @@
     "name": "Faculty portal",
     "description": "This is where you can find our new system for storing exams, students, professors...",
     "signIn": "Sign in"
+  },
+  "actions": {
+    "delete": "Delete",
+    "edit": "Update",
+    "view": "Show"
+  },
+  "city": {
+    "listTitle": "List of cities",
+    "postalCode": "Postal code",
+    "name": "Name"
   }
 }

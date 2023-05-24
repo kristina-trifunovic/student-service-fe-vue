@@ -80,22 +80,13 @@ export default {
         .login(values)
         .then((res) => {
           actionOnLogin(res.data);
+          const token =
+            "Basic " + btoa(`${values.username}:${values.password}`);
+          sessionStorage.setItem("token", token);
         })
         // TODO add a popup
         .catch((err) => console.log("error happened", err));
     };
-
-    // const { handleSubmit, resetForm } = useForm();
-
-    // const checkForm = handleSubmit(
-    //   (values) => {
-    //     alert("Success! Your data: " + JSON.stringify(values, null, 2));
-    //     login();
-    //   },
-    //   () => {
-    //     console.log("form is not correctly validated");
-    //   }
-    // );
 
     return { schema, login };
   },

@@ -35,6 +35,7 @@ export default defineStore("user", {
     },
     logout() {
       sessionStorage.removeItem("user");
+      sessionStorage.removeItem("token");
       this.$reset();
     },
   },

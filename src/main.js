@@ -7,7 +7,8 @@ import router from "./router";
 import i18n from "@/plugins/i18n";
 import VeeValidatePlugin from "@/plugins/validation";
 import PrimeVue from "primevue/config";
-import progressBar from "./plugins/progress-bar";
+import progressBar from "@/plugins/progress-bar";
+import { basicInterceptor } from "@/plugins/basic.interceptor";
 
 import "nprogress/nprogress.css";
 
@@ -22,5 +23,6 @@ app.use(pinia);
 app.use(i18n);
 app.use(VeeValidatePlugin);
 app.use(PrimeVue);
+basicInterceptor();
 
 app.mount("#app");

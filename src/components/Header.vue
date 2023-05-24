@@ -50,7 +50,7 @@
           ><img
             src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp"
             class="rounded-circle"
-            height="50"
+            height="40"
             alt=""
             loading="lazy"
           />

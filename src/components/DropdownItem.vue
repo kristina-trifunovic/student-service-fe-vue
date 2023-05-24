@@ -4,7 +4,7 @@
       capitalizeFirstLetter($t(`component.${name}`))
     }}</MDBDropdownToggle>
     <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
-      <MDBDropdownItem href="#">{{
+      <MDBDropdownItem :href="props.plural">{{
         $t("header.goToMenuComponent", {
           componentName: $t(`component.${name}Plural`),
         })
@@ -43,7 +43,7 @@ export default {
       return s && s[0].toUpperCase() + s.slice(1);
     };
 
-    return { dropdown, capitalizeFirstLetter };
+    return { props, dropdown, capitalizeFirstLetter };
   },
 };
 </script>

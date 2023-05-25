@@ -25,4 +25,6 @@ app.use(VeeValidatePlugin);
 app.use(PrimeVue);
 basicInterceptor();
 
+sessionStorage.setItem("language", "en");
+
 app.mount("#app");

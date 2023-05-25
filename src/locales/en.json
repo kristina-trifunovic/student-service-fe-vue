@@ -36,7 +36,11 @@
     "close": "Close",
     "yes": "Yes",
     "no": "No",
-    "deleteAction": "Are you sure you want to delete {name}?"
+    "deleteAction": "Are you sure you want to delete {name}?",
+    "deleting": "Deleting..."
+  },
+  "messages": {
+    "success_delete": "Successfully deleted {componentName}"
   },
   "city": {
     "listTitle": "List of cities",

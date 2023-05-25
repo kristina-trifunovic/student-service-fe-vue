@@ -27,6 +27,9 @@
     "description": "Ovde možete naći naš nov sistem čuvanja ispita, studenata, profesora...",
     "signIn": "Prijavi se"
   },
+  "messages": {
+    "success_delete": "Uspešno obrisan {componentName}"
+  },
   "actions": {
     "delete": "Obriši",
     "edit": "Izmeni",
@@ -36,7 +39,8 @@
     "close": "Zatvori",
     "yes": "Da",
     "no": "Ne",
-    "deleteAction": "Da li ste sigurno da želite da obrišete {name}?"
+    "deleteAction": "Da li ste sigurno da želite da obrišete {name}?",
+    "deleting": "Brišem..."
   },
   "city": {
     "listTitle": "Lista gradova",

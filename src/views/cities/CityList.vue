@@ -47,7 +47,6 @@
     tabindex="-1"
     labelledby="viewModal"
     v-model="viewModal"
-    centered
   >
   <MDBModalHeader></MDBModalHeader>
     <MDBModalBody>
@@ -71,7 +70,7 @@
     v-model="deleteModal"
   >
     <MDBModalHeader>
-      <MDBModalTitle id="deleteModal"> Modal title </MDBModalTitle>
+      <MDBModalTitle id="deleteModal"> {{$t('actions.deleting')}} </MDBModalTitle>
     </MDBModalHeader>
     <MDBModalBody>{{$t('actions.deleteAction', {name: cityToDelete.name})}}</MDBModalBody>
     <MDBModalFooter>

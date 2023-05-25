@@ -32,7 +32,11 @@
     "edit": "Izmeni",
     "view": "Pregled",
     "save": "Sačuvaj",
-    "cancel": "Otkaži"
+    "cancel": "Otkaži",
+    "close": "Zatvori",
+    "yes": "Da",
+    "no": "Ne",
+    "deleteAction": "Da li ste sigurno da želite da obrišete {name}?"
   },
   "city": {
     "listTitle": "Lista gradova",

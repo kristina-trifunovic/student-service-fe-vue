@@ -5,7 +5,7 @@
     style="position: absolute; bottom: 0; right: 0"
   >
     <i class="flag flag-serbia"></i>
-    <MDBSwitch v-model="language" @click="changeLocale"></MDBSwitch>
+    <MDBSwitch v-model="isEnglish" @click="changeLocale"></MDBSwitch>
     <i class="flag flag-united-states"></i>
   </div>
   <router-view />
@@ -27,7 +27,7 @@ export default {
     MDBSwitch,
   },
   setup() {
-    const language = ref(
+    const isEnglish = ref(
       sessionStorage.getItem("language") === "en" ? true : false
     );
 
@@ -38,15 +38,14 @@ export default {
     });
 
     const changeLocale = () => {
-      //reverted boolean values
-      const lang = language.value ? "rs" : "en";
+      const lang = isEnglish.value ? "rs" : "en";
       setLocale(lang);
       i18n.global.locale = lang;
       sessionStorage.setItem("language", lang);
     };
 
     return {
-      language,
+      isEnglish,
       changeLocale,
     };
   },

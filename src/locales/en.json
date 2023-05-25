@@ -32,7 +32,11 @@
     "edit": "Update",
     "view": "Show",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "deleteAction": "Are you sure you want to delete {name}?"
   },
   "city": {
     "listTitle": "List of cities",

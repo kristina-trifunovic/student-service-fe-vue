@@ -27,9 +27,11 @@
               </td>
               <td>
                 <MDBBtnGroup>
-                  <MDBBtn color="light">{{ $t("actions.view") }}</MDBBtn>
-                  <MDBBtn color="warning">{{ $t("actions.edit") }}</MDBBtn>
-                  <MDBBtn color="danger">{{ $t("actions.delete") }}</MDBBtn>
+                  <MDBBtn color="light" @click="openModal(city)">{{
+                    $t("actions.view")
+                  }}</MDBBtn>
+                  <MDBBtn color="warning" @click="router.push({name: 'city-update', params: {id: city.postalCode} })">{{ $t("actions.edit") }}</MDBBtn>
+                  <MDBBtn color="danger" @click="onDelete(city)">{{ $t("actions.delete") }}</MDBBtn>
                 </MDBBtnGroup>
               </td>
             </tr>
@@ -38,6 +40,46 @@
       </MDBCol>
     </MDBRow>
   </MDBContainer>
+
+  <!-- View Modal -->
+  <MDBModal
+    id="viewModal"
+    tabindex="-1"
+    labelledby="viewModal"
+    v-model="viewModal"
+    centered
+  >
+  <MDBModalHeader></MDBModalHeader>
+    <MDBModalBody>
+      <p style="margin-left: 2em;">
+        <h1 class="display-6"><small class="text-muted">{{$t('city.postalCode')}}: </small>{{cityToShow.postalCode}}</h1>
+        <h1 class="display-6"><small class="text-muted">{{$t('city.name')}}: </small>{{cityToShow.name}}</h1>
+      </p>
+    </MDBModalBody>
+    <MDBModalFooter>
+      <MDBBtn color="secondary" @click="viewModal = false">
+        {{ $t("actions.close") }}
+      </MDBBtn>
+    </MDBModalFooter>
+  </MDBModal>
+
+  <!-- Delete modal -->
+  <MDBModal
+    id="deleteModal"
+    tabindex="-1"
+    labelledby="deleteModal"
+    v-model="deleteModal"
+  >
+    <MDBModalHeader>
+      <MDBModalTitle id="deleteModal"> Modal title </MDBModalTitle>
+    </MDBModalHeader>
+    <MDBModalBody>{{$t('actions.deleteAction', {name: cityToDelete.name})}}</MDBModalBody>
+    <MDBModalFooter>
+      <MDBBtn color="danger" @click="deleteCity">{{$t('actions.yes')}}</MDBBtn>
+      <MDBBtn color="outline" @click="deleteModal = false">{{$t('actions.no')}}</MDBBtn>
+    </MDBModalFooter>
+  </MDBModal>
+
 </template>
 
 <script>
@@ -48,14 +90,33 @@ import {
   MDBTable,
   MDBBtn,
   MDBBtnGroup,
+  MDBModal,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
 } from "mdb-vue-ui-kit";
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
+import { useRouter } from 'vue-router';
 
 export default {
   name: "AppCityList",
-  components: { MDBContainer, MDBRow, MDBCol, MDBTable, MDBBtn, MDBBtnGroup },
+  components: {
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBTable,
+    MDBBtn,
+    MDBBtnGroup,
+    MDBModal,
+    MDBModalHeader,
+    MDBModalTitle,
+    MDBModalBody,
+    MDBModalFooter,
+    MDBBtn,
+  },
   setup() {
     let cities = ref([]);
 
@@ -72,7 +133,32 @@ export default {
         .catch((err) => console.log("error happened", err));
     });
 
-    return { cities };
+    const viewModal = ref(false);
+    const cityToShow = ref({});
+    const openModal = (city) => {
+      cityToShow.value = city;
+      viewModal.value = true;
+    };
+
+    const router = useRouter();
+
+    const deleteModal = ref(false);
+    const cityToDelete = ref({})
+    const onDelete = (city) => {
+      cityToDelete.value = city;
+      deleteModal.value = true;
+    }
+    const deleteCity = () => {
+      axios.delete(`${environment.serverUrl}/cities/${cityToDelete.value.postalCode}`)
+        .then(() => {
+          const deletedCityIndex = cities.value.findIndex(city => city.postalCode == cityToDelete.value.postalCode)
+          cities.value.splice(deletedCityIndex, 1)
+          deleteModal.value = false;
+        })
+        .catch((err) => console.log('error happened', err))
+    }
+
+    return { cities, openModal, cityToShow, viewModal, router, onDelete, deleteModal, cityToDelete, deleteCity };
   },
 };
 </script>

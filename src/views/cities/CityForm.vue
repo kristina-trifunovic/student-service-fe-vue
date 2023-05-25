@@ -3,14 +3,13 @@
     <div class="row lg-6 md-6 align-items-center justify-content-center">
       <div class="col-lg-6 col-md-6 col-12">
         <h1 class="display-6 text-center m-4">
-          {{ $t("city.listTitle") }}
+          {{ mode == "update" ? $t("city.updateTitle") : $t("city.addTitle") }}
         </h1>
       </div>
     </div>
-    <div class="row lg-6 md-6 align-items-center justify-content-center">
-      <div class="col-lg-6 col-md-6 col-12">
+    <div class="row lg-4 md-4 align-items-center justify-content-center">
+      <div class="col-lg-4 col-md-4 col-12">
         <vee-form
-          md="6"
           class="align-items-center"
           :validation-schema="schema"
           @submit="addOrUpdateCity"
@@ -21,9 +20,9 @@
               class="form-control mb-2"
               name="postalCode"
               type="number"
-              placeholder="Postal code"
+              :placeholder="$t('city.postalCode')"
               v-model="city.postalCode"
-              :disabled="city.postalCode != 0"
+              :disabled="mode == 'update'"
             />
             <ErrorMessage name="postalCode" class="mb-3 text-danger" />
           </div>
@@ -33,14 +32,14 @@
               class="form-control mb-2"
               name="name"
               type="text"
-              placeholder="Name"
+              :placeholder="$t('city.name')"
               v-model="city.name"
             />
           </div>
           <ErrorMessage name="name" class="mb-3 text-danger" />
           <!-- Submit button -->
           <MDBBtnGroup class="d-flex justify-content-center">
-            <MDBBtn color="sucess" type="submit">{{
+            <MDBBtn color="outline" type="submit">{{
               $t("actions.save")
             }}</MDBBtn>
             <MDBBtn color="warning" @click="redirect">{{
@@ -54,7 +53,7 @@
 </template>
 
 <script>
-import { onBeforeMount, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
 import { environment } from "@/environments/environment";
@@ -67,13 +66,12 @@ export default {
     const route = useRoute();
     const router = useRouter();
 
-    let city = ref({ postalCode: 0, name: "" });
-    let mode = "";
-    onBeforeMount(() => {
+    let mode = ref("");
+    onMounted(() => {
       if (route.params.id) {
         city.value = route.meta.city["data"];
-        mode = "update";
-      } else mode = "add";
+        mode.value = "update";
+      } else mode.value = "add";
     });
 
     const schema = {
@@ -81,18 +79,16 @@ export default {
       name: "required|alpha|min:2|max:30",
     };
 
+    let city = ref({});
     const addOrUpdateCity = (values) => {
-      if (mode === "add") {
+      if (mode.value == "add") {
         addCity(values)
-          .then((res) => {
-            router.push({ name: "city-list" });
-          })
+          .then(() => redirect())
           .catch((err) => console.log("error happened", err));
-      } else if (mode === "update") {
+      } else if (mode.value == "update") {
         updateCity(values)
-          .then((res) => {
-            router.push({ name: "city-list" });
-          })
+          .then(() => redirect())
+          // TODO add a popup
           .catch((err) => console.log("error happened", err));
       }
     };
@@ -108,7 +104,13 @@ export default {
       router.push({ name: "city-list" });
     };
 
-    return { city, schema, addOrUpdateCity, redirect };
+    return {
+      city,
+      schema,
+      addOrUpdateCity,
+      redirect,
+      mode,
+    };
   },
 };
 </script>

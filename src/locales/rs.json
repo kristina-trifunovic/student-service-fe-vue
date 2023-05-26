@@ -48,5 +48,18 @@
     "updateTitle": "Izmeni grad",
     "postalCode": "Poštanski broj",
     "name": "Naziv"
+  },
+  "student": {
+    "listTitle": "Lista studenata",
+    "addTitle": "Dodaj studenta",
+    "updateTitle": "Izmeni studenta",
+    "index": "Indeks",
+    "indexNumber": "Broj indeksa",
+    "indexYear": "Godina indeksa",
+    "firstName": "Ime",
+    "lastName": "Prezime",
+    "email": "Email",
+    "currentYearOfStudy": "Trenutna godina studija",
+    "city": "Grad"
   }
 }

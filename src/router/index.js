@@ -1,10 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { cityLoadOneResolver } from "@/resolvers/city.resolver";
 
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
-import CityList from "@/views/cities/CityList.vue";
 import CityForm from "@/views/cities/CityForm.vue";
+import CityList from "@/views/cities/CityList.vue";
+import StudentForm from "@/views/students/StudentForm.vue";
+import StudentList from "@/views/students/StudentList.vue";
+
+import { cityLoadOneResolver } from "@/resolvers/city.resolver";
+import { studentLoadOneResolver } from "@/resolvers/student.resolver";
 
 const routes = [
   {
@@ -13,32 +17,51 @@ const routes = [
     component: Home,
   },
   {
-    path: "/city",
-    name: "city",
-    children: [
-      {
-        path: "list",
-        name: "city-list",
-        component: CityList,
-      },
-      {
-        path: "form",
-        name: "city-add",
-        component: CityForm,
-      },
-      {
-        path: "form/:id",
-        name: "city-update",
-        component: CityForm,
-        beforeEnter: cityLoadOneResolver,
-      },
-    ],
-    redirect: { name: "city-list" },
-  },
-  {
     path: "/login",
     name: "login",
     component: Login,
+  },
+  {
+    path: "/city",
+    name: "city",
+    redirect: { name: "city-list" },
+  },
+  {
+    path: "/city/list",
+    name: "city-list",
+    component: CityList,
+  },
+  {
+    path: "/city/form",
+    name: "city-add",
+    component: CityForm,
+  },
+  {
+    path: "/city/form/:id",
+    name: "city-update",
+    component: CityForm,
+    beforeEnter: cityLoadOneResolver,
+  },
+  {
+    path: "/student",
+    name: "student",
+    redirect: { name: "student-list" },
+  },
+  {
+    path: "/student/list",
+    name: "student-list",
+    component: StudentList,
+  },
+  {
+    path: "/student/form",
+    name: "student-add",
+    component: StudentForm,
+  },
+  {
+    path: "/student/form/:username",
+    name: "student-update",
+    component: StudentForm,
+    beforeEnter: studentLoadOneResolver,
   },
 ];
 

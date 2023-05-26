@@ -48,5 +48,18 @@
     "updateTitle": "Update city",
     "postalCode": "Postal code",
     "name": "Name"
+  },
+  "student": {
+    "listTitle": "List of students",
+    "addTitle": "Add student",
+    "updateTitle": "Update student",
+    "index": "Index",
+    "indexNumber": "Index number",
+    "indexYear": "Index year",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "currentYearOfStudy": "Current year of study",
+    "city": "City"
   }
 }

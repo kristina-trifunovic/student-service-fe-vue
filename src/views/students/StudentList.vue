@@ -89,9 +89,9 @@
     <MDBModalHeader>
       <MDBModalTitle id="deleteModal"> {{$t('actions.deleting')}} </MDBModalTitle>
     </MDBModalHeader>
-    <MDBModalBody>{{$t('actions.deleteAction', {name: studentToDelete.name})}}</MDBModalBody>
+    <MDBModalBody>{{$t('actions.deleteAction', {name: studentToDelete.firstName + " " + studentToDelete.lastName})}}</MDBModalBody>
     <MDBModalFooter>
-      <MDBBtn color="danger" @click="deletestudent">{{$t('actions.yes')}}</MDBBtn>
+      <MDBBtn color="danger" @click="deleteStudent">{{$t('actions.yes')}}</MDBBtn>
       <MDBBtn color="outline" @click="deleteModal = false">{{$t('actions.no')}}</MDBBtn>
     </MDBModalFooter>
   </MDBModal>

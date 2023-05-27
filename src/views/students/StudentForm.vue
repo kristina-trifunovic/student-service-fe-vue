@@ -19,12 +19,36 @@
           @submit="addOrUpdateStudent"
         >
           <div class="row">
+            <!-- Username input -->
+            <div class="d-flex flex-column col-12">
+              <vee-field
+                class="form-control mb-2"
+                name="username"
+                type="text"
+                :placeholder="$t('login.username')"
+                v-model="student.username"
+                :disabled="mode == 'update'"
+              />
+              <ErrorMessage name="username" class="mb-3 text-danger" />
+            </div>
+            <!-- Password input -->
+            <div class="d-flex flex-column col-12">
+              <vee-field
+                class="form-control mb-2"
+                name="password"
+                type="password"
+                :placeholder="$t('login.password')"
+                v-model="student.password"
+                :disabled="mode == 'update'"
+              />
+              <ErrorMessage name="password" class="mb-3 text-danger" />
+            </div>
             <!-- Index number input -->
             <div class="d-flex flex-column col-6">
               <vee-field
                 class="form-control mb-2"
                 name="indexNumber"
-                type="number"
+                type="text"
                 :placeholder="$t('student.indexNumber')"
                 v-model="student.index.indexNumber"
                 :disabled="mode == 'update'"
@@ -65,7 +89,7 @@
               v-model="student.lastName"
             />
           </div>
-          <ErrorMessage name="firstName" class="mb-3 text-danger" />
+          <ErrorMessage name="lastName" class="mb-3 text-danger" />
           <!-- Email input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -77,6 +101,17 @@
             />
           </div>
           <ErrorMessage name="email" class="mb-3 text-danger" />
+          <!-- Address input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="address"
+              type="text"
+              :placeholder="$t('student.address')"
+              v-model="student.address"
+            />
+          </div>
+          <ErrorMessage name="address" class="mb-3 text-danger" />
           <!-- Current year of study input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -87,14 +122,16 @@
               v-model="student.currentYearOfStudy"
             />
           </div>
-          <ErrorMessage name="email" class="mb-3 text-danger" />
+          <ErrorMessage name="currentYearOfStudy" class="mb-3 text-danger" />
           <!-- City select -->
           <vee-field
             class="form-control mb-2"
             name="city"
             as="select"
             v-model="student.city"
+            :placeholder="$t('student.city')"
           >
+            <option value="" disabled>{{ $t("student.selectCity") }}</option>
             <option v-for="city in cities" :key="city.postalCode" :value="city">
               {{ city.name }}
             </option>
@@ -146,12 +183,16 @@ export default {
     };
 
     const schema = {
-      indexNumber: "required|max_value:9999",
+      username: "required|min:4",
+      password: "required",
+      indexNumber: "required|max:4|numeric",
       indexYear: "required|min_value:2000|max_value:2100",
-      firstName: "required",
-      lastName: "required",
-      email: "",
+      firstName: "required|min:3|max:30",
+      lastName: "required|min:3|max:30",
+      email: "required|email|max:30",
+      address: "min:3|max:50",
       city: "required",
+      currentYearOfStudy: "required|min_value:1|max_value:9",
     };
 
     let student = ref({ index: {} });

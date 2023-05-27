@@ -13,6 +13,8 @@ import {
   min_value,
   alpha,
   max_value,
+  email,
+  numeric,
 } from "@vee-validate/rules";
 import { localize } from "@vee-validate/i18n";
 
@@ -29,6 +31,8 @@ export default {
     defineRule("min_value", min_value);
     defineRule("max_value", max_value);
     defineRule("alpha", alpha);
+    defineRule("email", email);
+    defineRule("numeric", numeric);
 
     configure({
       generateMessage: localize({
@@ -45,14 +49,18 @@ export default {
             email: "Email",
             currentYearOfStudy: "Current year of study",
             city: "City",
+            address: "Address",
           },
           messages: {
             required: "{field} is required.",
             between: "{field} must be between 0:{min} and 1:{max} characters",
             min: "{field} must be at least 0:{min} characters",
+            max: "{field} must be maximum of 0:{min} characters",
             alpha: "{field} must only be alphabetical characters",
             min_value: "{field} must be minimum value of 0:{min_value}",
             max_value: "{field} must be maximum value of 0:{max_value}",
+            email: "{field} is not a valid email",
+            numeric: "{field} must only consist of numbers",
           },
         },
         rs: {
@@ -68,14 +76,18 @@ export default {
             email: "Email",
             currentYearOfStudy: "Trenutna godina studija",
             city: "Grad",
+            address: "Adresa",
           },
           messages: {
             required: "{field} je obavezno polje",
             min: "{field} mora biti najmanje 0:{min} karaktera",
+            max: "{field} mora biti najviše 0:{max} karaktera",
             between: "{field} mora biti izmedju 0:{min} i 1:{max} karaktera",
             alpha: "{field} mora biti sadržan samo od slova",
             min_value: "{field} mora biti minimum 0:{min_value}",
             max_value: "{field} mora biti maksimum 0:{max_value}",
+            email: "{field} nije validna email adresa",
+            numeric: "{field} se mora sastojati samo od brojeva",
           },
         },
       }),

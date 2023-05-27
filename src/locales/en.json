@@ -5,7 +5,8 @@
     "addMenuComponent": "Add {componentName}",
     "applyExams": "Apply exams",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "homepage": "Homepage"
   },
   "component": {
     "subject": "subject",
@@ -25,7 +26,9 @@
     "welcome": "Welcome to",
     "name": "Faculty portal",
     "description": "This is where you can find our new system for storing exams, students, professors...",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "username": "Username",
+    "password": "Password"
   },
   "actions": {
     "delete": "Delete",
@@ -60,6 +63,19 @@
     "lastName": "Last name",
     "email": "Email",
     "currentYearOfStudy": "Current year of study",
-    "city": "City"
+    "city": "City",
+    "address": "Address",
+    "selectCity": "Select a city"
+  },
+  "subject": {
+    "listTitle": "List of subjects",
+    "addTitle": "Add subject",
+    "updateTitle": "Update subject",
+    "id": "ID",
+    "name": "Name",
+    "noOfESP": "ESP",
+    "yearOfStudy": "Year of study",
+    "semester": "Semester",
+    "description": "Description"
   }
 }

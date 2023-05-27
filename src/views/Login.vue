@@ -19,7 +19,12 @@
         >
           <!-- Username input -->
           <div class="d-flex flex-column col-12">
-            <vee-field class="form-control mb-2" name="username" type="text" />
+            <vee-field
+              class="form-control mb-2"
+              name="username"
+              type="text"
+              :placeholder="$t('login.username')"
+            />
             <ErrorMessage name="username" class="mb-3 text-danger" />
           </div>
           <!-- Password input -->
@@ -28,6 +33,7 @@
               class="form-control mb-2"
               name="password"
               type="password"
+              :placeholder="$t('login.password')"
             />
           </div>
           <ErrorMessage name="password" class="mb-3 text-danger" />
@@ -66,8 +72,8 @@ export default {
   setup() {
     const userStore = useUserStore();
     const schema = {
-      username: "required|min:3|max:30",
-      password: "required|min:4",
+      username: "required|min:4",
+      password: "required",
     };
     const actionOnLogin = (user) => {
       userStore.userLoggedIn = user;

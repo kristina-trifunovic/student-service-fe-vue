@@ -13,7 +13,9 @@
     ></MDBNavbarToggler>
     <MDBCollapse v-model="navbarCollapse" id="menu">
       <MDBNavbarNav class="mb-lg-0">
-        <MDBNavbarItem to="#" active> Home </MDBNavbarItem>
+        <MDBNavbarItem to="/" active>
+          {{ $t("header.homepage") }}
+        </MDBNavbarItem>
         <!-- City navbar dropdown -->
         <MDBNavbarItem>
           <app-dropdown name="city" plural="cities"></app-dropdown>

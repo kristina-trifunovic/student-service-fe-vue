@@ -5,7 +5,8 @@
     "addMenuComponent": "Dodaj {componentName}",
     "applyExams": "Prijavi ispit",
     "settings": "Podešavanja",
-    "logout": "Odjavi se"
+    "logout": "Odjavi se",
+    "homepage": "Početna stranica"
   },
   "component": {
     "subject": "predmet",
@@ -25,7 +26,9 @@
     "welcome": "Dobrodošli",
     "name": "Studentski portal",
     "description": "Ovde možete naći naš nov sistem čuvanja ispita, studenata, profesora...",
-    "signIn": "Prijavi se"
+    "signIn": "Prijavi se",
+    "username": "Korisničko ime",
+    "password": "Lozinka"
   },
   "messages": {
     "success_delete": "Uspešno obrisan {componentName}"
@@ -60,6 +63,19 @@
     "lastName": "Prezime",
     "email": "Email",
     "currentYearOfStudy": "Trenutna godina studija",
-    "city": "Grad"
+    "city": "Grad",
+    "address": "Adresa",
+    "selectCity": "Izaberi grad"
+  },
+  "subject": {
+    "listTitle": "Lista predmeta",
+    "addTitle": "Dodaj predmet",
+    "updateTitle": "Izmeni predmet",
+    "id": "ID",
+    "name": "Naziv",
+    "noOfESP": "ESP",
+    "yearOfStudy": "Godina studija",
+    "semester": "Semestar",
+    "description": "Description"
   }
 }

@@ -6,9 +6,12 @@ import CityForm from "@/views/cities/CityForm.vue";
 import CityList from "@/views/cities/CityList.vue";
 import StudentForm from "@/views/students/StudentForm.vue";
 import StudentList from "@/views/students/StudentList.vue";
+import SubjectForm from "@/views/subjects/SubjectForm.vue";
+import SubjectList from "@/views/subjects/SubjectList.vue";
 
 import { cityLoadOneResolver } from "@/resolvers/city.resolver";
 import { studentLoadOneResolver } from "@/resolvers/student.resolver";
+import { subjectLoadOneResolver } from "@/resolvers/subject.resolver";
 
 const routes = [
   {
@@ -62,6 +65,27 @@ const routes = [
     name: "student-update",
     component: StudentForm,
     beforeEnter: studentLoadOneResolver,
+  },
+  {
+    path: "/subject",
+    name: "subject",
+    redirect: { name: "subject-list" },
+  },
+  {
+    path: "/subject/list",
+    name: "subject-list",
+    component: SubjectList,
+  },
+  {
+    path: "/subject/form",
+    name: "subject-add",
+    component: SubjectForm,
+  },
+  {
+    path: "/subject/form/:id",
+    name: "subject-update",
+    component: SubjectForm,
+    beforeEnter: subjectLoadOneResolver,
   },
 ];
 

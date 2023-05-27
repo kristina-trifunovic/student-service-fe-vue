@@ -77,8 +77,8 @@
             <option value="" disabled>
               {{ $t("subject.selectSemester") }}
             </option>
-            <option value="Summer">Summer</option>
-            <option value="Winter">Winter</option>
+            <option value="Summer">{{ $t("subject.Summer") }}</option>
+            <option value="Winter">{{ $t("subject.Winter") }}</option>
           </vee-field>
           <ErrorMessage name="semester" class="mb-3 text-danger" />
           <!-- Description input -->

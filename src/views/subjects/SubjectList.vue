@@ -35,7 +35,7 @@
                 <p class="fw-normal mb-1">{{ subject.yearOfStudy }}</p>
               </td>
               <td>
-                <p class="fw-normal mb-1">{{ subject.semester }}</p>
+                <p class="fw-normal mb-1">{{ $t(`subject.${subject.semester}`) }}</p>
               </td>
               <td>
                 <MDBBtnGroup>
@@ -68,7 +68,7 @@
         <h1 class="display-6"><small class="text-muted">{{$t('subject.name')}}: </small>{{subjectToShow.name}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('subject.noOfEsp')}}: </small>{{subjectToShow.noOfEsp}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('subject.yearOfStudy')}}: </small>{{subjectToShow.yearOfStudy}}</h1>
-        <h1 class="display-6"><small class="text-muted">{{$t('subject.semester')}}: </small>{{subjectToShow.semester}}</h1>
+        <h1 class="display-6"><small class="text-muted">{{$t('subject.semester')}}: </small>{{ $t(`subject.${subjectToShow.semester}`) }}</h1>
         <h1 class="display-6" v-show="subjectToShow.description"><small class="text-muted">{{$t('subject.description')}}: </small>{{subjectToShow.description}}</h1>
       </p>
     </MDBModalBody>

@@ -76,7 +76,26 @@
     "noOfEsp": "ESP",
     "yearOfStudy": "Godina studija",
     "semester": "Semestar",
-    "description": "Description",
-    "selectSemester": "Izaberi semestar"
+    "description": "Opis",
+    "selectSemester": "Izaberi semestar",
+    "Summer": "Letnji",
+    "Winter": "Zimski"
+  },
+  "professor": {
+    "listTitle": "Lista profesora",
+    "addTitle": "Dodaj profesora",
+    "updateTitle": "Izmeni profesora",
+    "name": "Ime",
+    "firstName": "Ime",
+    "lastName": "Prezime",
+    "email": "Email",
+    "city": "Grad",
+    "address": "Adresa",
+    "phone": "Telefon",
+    "reelectionDate": "Datum reselekcije",
+    "title": "Titula",
+    "selectTitle": "Izaberi titulu",
+    "selectCity": "Izaberi grad",
+    "subjects": "Predmeti"
   }
 }

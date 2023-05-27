@@ -77,6 +77,25 @@
     "yearOfStudy": "Year of study",
     "semester": "Semester",
     "description": "Description",
-    "selectSemester": "Select a semester"
+    "selectSemester": "Select a semester",
+    "Summer": "Summer",
+    "Winter": "Winter"
+  },
+  "professor": {
+    "listTitle": "List of profesora",
+    "addTitle": "Add profesora",
+    "updateTitle": "Update profesora",
+    "name": "Name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "city": "City",
+    "address": "Address",
+    "phone": "Phone",
+    "reelectionDate": "Reelection date",
+    "title": "Title",
+    "selectTitle": "Select a title",
+    "selectCity": "Select a city",
+    "subjects": "Subjects"
   }
 }

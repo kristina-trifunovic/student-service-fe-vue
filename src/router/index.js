@@ -8,10 +8,13 @@ import StudentForm from "@/views/students/StudentForm.vue";
 import StudentList from "@/views/students/StudentList.vue";
 import SubjectForm from "@/views/subjects/SubjectForm.vue";
 import SubjectList from "@/views/subjects/SubjectList.vue";
+import ProfessorForm from "@/views/professors/ProfessorForm.vue";
+import ProfessorList from "@/views/professors/ProfessorList.vue";
 
 import { cityLoadOneResolver } from "@/resolvers/city.resolver";
 import { studentLoadOneResolver } from "@/resolvers/student.resolver";
 import { subjectLoadOneResolver } from "@/resolvers/subject.resolver";
+import { professorLoadOneResolver } from "@/resolvers/professor.resolver";
 
 const routes = [
   {
@@ -86,6 +89,27 @@ const routes = [
     name: "subject-update",
     component: SubjectForm,
     beforeEnter: subjectLoadOneResolver,
+  },
+  {
+    path: "/professor",
+    name: "professor",
+    redirect: { name: "professor-list" },
+  },
+  {
+    path: "/professor/list",
+    name: "professor-list",
+    component: ProfessorList,
+  },
+  {
+    path: "/professor/form",
+    name: "professor-add",
+    component: ProfessorForm,
+  },
+  {
+    path: "/professor/form/:username",
+    name: "professor-update",
+    component: ProfessorForm,
+    beforeEnter: professorLoadOneResolver,
   },
 ];
 

@@ -151,8 +151,8 @@ export default {
 
     const viewModal = ref(false);
     const studentToShow = ref({});
-    const openModal = (city) => {
-      studentToShow.value = city;
+    const openModal = (student) => {
+      studentToShow.value = student;
       viewModal.value = true;
     };
 

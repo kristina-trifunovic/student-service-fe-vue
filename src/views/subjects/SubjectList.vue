@@ -14,7 +14,7 @@
             <tr>
               <th>{{ $t("subject.id") }}</th>
               <th>{{ $t("subject.name") }}</th>
-              <th>{{ $t("subject.noOfESP") }}</th>
+              <th>{{ $t("subject.noOfEsp") }}</th>
               <th>{{ $t("subject.yearOfStudy") }}</th>
               <th>{{ $t("subject.semester") }}</th>
               <th></th>
@@ -66,10 +66,10 @@
       <p style="margin-left: 2em;">
         <h1 class="display-6"><small class="text-muted">{{$t('subject.id')}}: </small>{{subjectToShow.id}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('subject.name')}}: </small>{{subjectToShow.name}}</h1>
-        <h1 class="display-6"><small class="text-muted">{{$t('subject.noOfESP')}}: </small>{{subjectToShow.noOfEsp}}</h1>
+        <h1 class="display-6"><small class="text-muted">{{$t('subject.noOfEsp')}}: </small>{{subjectToShow.noOfEsp}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('subject.yearOfStudy')}}: </small>{{subjectToShow.yearOfStudy}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('subject.semester')}}: </small>{{subjectToShow.semester}}</h1>
-        <h1 class="display-6"><small class="text-muted">{{$t('subject.description')}}: </small>{{subjectToShow.description}}</h1>
+        <h1 class="display-6" v-show="subjectToShow.description"><small class="text-muted">{{$t('subject.description')}}: </small>{{subjectToShow.description}}</h1>
       </p>
     </MDBModalBody>
     <MDBModalFooter>
@@ -118,7 +118,7 @@ import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
 
 export default {
-  name: "AppStudentList",
+  name: "AppSubjectList",
   components: {
     MDBContainer,
     MDBRow,

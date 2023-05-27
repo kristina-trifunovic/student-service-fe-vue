@@ -73,9 +73,10 @@
     "updateTitle": "Izmeni predmet",
     "id": "ID",
     "name": "Naziv",
-    "noOfESP": "ESP",
+    "noOfEsp": "ESP",
     "yearOfStudy": "Godina studija",
     "semester": "Semestar",
-    "description": "Description"
+    "description": "Description",
+    "selectSemester": "Izaberi semestar"
   }
 }

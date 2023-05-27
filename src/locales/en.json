@@ -73,9 +73,10 @@
     "updateTitle": "Update subject",
     "id": "ID",
     "name": "Name",
-    "noOfESP": "ESP",
+    "noOfEsp": "ESP",
     "yearOfStudy": "Year of study",
     "semester": "Semester",
-    "description": "Description"
+    "description": "Description",
+    "selectSemester": "Select a semester"
   }
 }

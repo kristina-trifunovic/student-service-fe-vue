@@ -5,8 +5,8 @@
         <h1 class="display-6 text-center m-4">
           {{
             mode == "update"
-              ? $t("student.updateTitle")
-              : $t("student.addTitle")
+              ? $t("subject.updateTitle")
+              : $t("subject.addTitle")
           }}
         </h1>
       </div>
@@ -16,127 +16,86 @@
         <vee-form
           class="align-items-center"
           :validation-schema="schema"
-          @submit="addOrUpdateStudent"
+          @submit="addOrUpdateSubject"
         >
           <div class="row">
-            <!-- Username input -->
+            <!-- ID input -->
             <div class="d-flex flex-column col-12">
               <vee-field
                 class="form-control mb-2"
-                name="username"
+                name="id"
                 type="text"
-                :placeholder="$t('login.username')"
-                v-model="student.username"
+                :placeholder="$t('subject.id')"
+                v-model="subject.id"
                 :disabled="mode == 'update'"
               />
-              <ErrorMessage name="username" class="mb-3 text-danger" />
+              <ErrorMessage name="id" class="mb-3 text-danger" />
             </div>
-            <!-- Password input -->
+            <!-- Name input -->
             <div class="d-flex flex-column col-12">
               <vee-field
                 class="form-control mb-2"
-                name="password"
-                type="password"
-                :placeholder="$t('login.password')"
-                v-model="student.password"
-                :disabled="mode == 'update'"
-              />
-              <ErrorMessage name="password" class="mb-3 text-danger" />
-            </div>
-            <!-- Index number input -->
-            <div class="d-flex flex-column col-6">
-              <vee-field
-                class="form-control mb-2"
-                name="indexNumber"
+                name="name"
                 type="text"
-                :placeholder="$t('student.indexNumber')"
-                v-model="student.index.indexNumber"
-                :disabled="mode == 'update'"
+                :placeholder="$t('subject.name')"
+                v-model="subject.name"
               />
-              <ErrorMessage name="indexNumber" class="mb-3 text-danger" />
+              <ErrorMessage name="name" class="mb-3 text-danger" />
             </div>
-            <!-- Index year input -->
-            <div class="d-flex flex-column col-6">
+
+            <!-- No Of ESP input -->
+            <div class="d-flex flex-column col-12">
               <vee-field
                 class="form-control mb-2"
-                name="indexYear"
+                name="noOfEsp"
                 type="number"
-                :placeholder="$t('student.indexYear')"
-                v-model="student.index.indexYear"
-                :disabled="mode == 'update'"
+                :placeholder="$t('subject.noOfEsp')"
+                v-model="subject.noOfEsp"
               />
-              <ErrorMessage name="indexYear" class="mb-3 text-danger" />
+              <ErrorMessage name="noOfEsp" class="mb-3 text-danger" />
             </div>
           </div>
-          <!-- First name input -->
+          <!-- Year Of Study input -->
           <div class="d-flex flex-column col-12">
             <vee-field
               class="form-control mb-2"
-              name="firstName"
-              type="text"
-              :placeholder="$t('student.firstName')"
-              v-model="student.firstName"
+              name="yearOfStudy"
+              type="number"
+              :placeholder="$t('subject.yearOfStudy')"
+              v-model="subject.yearOfStudy"
             />
           </div>
-          <ErrorMessage name="firstName" class="mb-3 text-danger" />
-          <!-- Last name input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="lastName"
-              type="text"
-              :placeholder="$t('student.lastName')"
-              v-model="student.lastName"
-            />
-          </div>
-          <ErrorMessage name="lastName" class="mb-3 text-danger" />
-          <!-- Email input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="email"
-              type="text"
-              :placeholder="$t('student.email')"
-              v-model="student.email"
-            />
-          </div>
-          <ErrorMessage name="email" class="mb-3 text-danger" />
-          <!-- Address input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="address"
-              type="text"
-              :placeholder="$t('student.address')"
-              v-model="student.address"
-            />
-          </div>
-          <ErrorMessage name="address" class="mb-3 text-danger" />
-          <!-- Current year of study input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="currentYearOfStudy"
-              type="text"
-              :placeholder="$t('student.currentYearOfStudy')"
-              v-model="student.currentYearOfStudy"
-            />
-          </div>
-          <ErrorMessage name="currentYearOfStudy" class="mb-3 text-danger" />
-          <!-- City select -->
+          <ErrorMessage name="yearOfStudy" class="mb-3 text-danger" />
+          <!-- Semester input -->
           <vee-field
             class="form-control mb-2"
-            name="city"
+            name="semester"
             as="select"
-            v-model="student.city"
-            :placeholder="$t('student.city')"
+            v-model="subject.semester"
+            :placeholder="$t('subject.semester')"
           >
-            <option value="" disabled>{{ $t("student.selectCity") }}</option>
-            <option v-for="city in cities" :key="city.postalCode" :value="city">
-              {{ city.name }}
+            <option value="" disabled>
+              {{ $t("subject.selectSemester") }}
             </option>
+            <option value="Summer">Summer</option>
+            <option value="Winter">Winter</option>
           </vee-field>
-
+          <ErrorMessage name="semester" class="mb-3 text-danger" />
+          <!-- Description input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field name="description" v-slot="{ description }">
+              <textarea
+                class="form-control mb-2"
+                v-bind="description"
+                id="description"
+                cols="30"
+                rows="2"
+                :placeholder="$t('subject.description')"
+                v-model="subject.description"
+              />
+            </vee-field>
+            <ErrorMessage name="description" class="mb-3 text-danger" />
+          </div>
           <!-- Submit button -->
           <MDBBtnGroup class="d-flex justify-content-center">
             <MDBBtn color="outline" type="submit">{{
@@ -160,7 +119,7 @@ import { environment } from "@/environments/environment";
 import axios from "axios";
 
 export default {
-  name: "AppStudentForm",
+  name: "AppSubjectForm",
   components: { MDBBtnGroup, MDBBtn },
   setup() {
     const route = useRoute();
@@ -168,66 +127,53 @@ export default {
 
     let mode = ref("");
     onMounted(() => {
-      if (route.params.username) {
-        student.value = route.meta.student["data"];
+      if (route.params.id) {
+        subject.value = route.meta.subject["data"];
         mode.value = "update";
       } else mode.value = "add";
-      loadCities()
-        .then((res) => (cities.value = res.data))
-        .catch((err) => console.log(err));
     });
 
-    let cities = ref([]);
-    const loadCities = () => {
-      return axios.get(`${environment.serverUrl}/cities`);
-    };
+    let subject = ref({});
 
     const schema = {
-      username: "required|min:4",
-      password: "required",
-      indexNumber: "required|max:4|numeric",
-      indexYear: "required|min_value:2000|max_value:2100",
-      firstName: "required|min:3|max:30",
-      lastName: "required|min:3|max:30",
-      email: "required|email|max:30",
-      address: "min:3|max:50",
-      city: "required",
-      currentYearOfStudy: "required|min_value:1|max_value:9",
+      id: "required",
+      name: "required|min:3|max:30",
+      description: "max:200",
+      noOfEsp: "required|max_value:9",
+      yearOfStudy: "required|max_value:9",
+      semester: "required",
     };
 
-    let student = ref({ index: {} });
-
-    const addOrUpdateStudent = () => {
+    const addOrUpdateSubject = () => {
       if (mode.value == "add") {
-        addStudent(student.value)
+        addSubject(subject.value)
           .then(() => redirect())
           .catch((err) => console.log("error happened", err));
       } else if (mode.value == "update") {
-        updateStudent(student.value)
+        updateSubject(subject.value)
           .then(() => redirect())
           // TODO add a popup
           .catch((err) => console.log("error happened", err));
       }
     };
 
-    const addStudent = (student) => {
-      return axios.post(`${environment.serverUrl}/students`, student);
+    const addSubject = (subject) => {
+      return axios.post(`${environment.serverUrl}/subjects`, subject);
     };
-    const updateStudent = (student) => {
-      return axios.put(`${environment.serverUrl}/students`, student);
+    const updateSubject = (subject) => {
+      return axios.put(`${environment.serverUrl}/subjects`, subject);
     };
 
     const redirect = () => {
-      router.push({ name: "student-list" });
+      router.push({ name: "subject-list" });
     };
 
     return {
-      student,
+      subject,
       schema,
-      addOrUpdateStudent,
+      addOrUpdateSubject,
       redirect,
       mode,
-      cities,
     };
   },
 };

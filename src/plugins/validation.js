@@ -50,6 +50,11 @@ export default {
             currentYearOfStudy: "Current year of study",
             city: "City",
             address: "Address",
+            id: "ID",
+            description: "Description",
+            noOfEsp: "ESP",
+            yearOfStudy: "Year of study",
+            semester: "Semester",
           },
           messages: {
             required: "{field} is required.",
@@ -77,6 +82,11 @@ export default {
             currentYearOfStudy: "Trenutna godina studija",
             city: "Grad",
             address: "Adresa",
+            id: "ID",
+            description: "Opis",
+            noOfEsp: "ESP",
+            yearOfStudy: "Godina studija",
+            semester: "Semestar",
           },
           messages: {
             required: "{field} je obavezno polje",

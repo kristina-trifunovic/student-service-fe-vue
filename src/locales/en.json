@@ -97,5 +97,17 @@
     "selectTitle": "Select a title",
     "selectCity": "Select a city",
     "subjects": "Subjects"
+  },
+  "examPeriod": {
+    "listTitle": "List of exam periods",
+    "addTitle": "Add exam period",
+    "id": "ID",
+    "name": "Name",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "active": "Active",
+    "selectActive": "Select if active or not",
+    "yes": "Yes",
+    "no": "No"
   }
 }

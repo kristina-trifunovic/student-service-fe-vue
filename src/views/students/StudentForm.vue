@@ -43,6 +43,8 @@
               />
               <ErrorMessage name="password" class="mb-3 text-danger" />
             </div>
+          </div>
+          <div class="row">
             <!-- Index number input -->
             <div class="d-flex flex-column col-6">
               <vee-field
@@ -77,8 +79,8 @@
               :placeholder="$t('student.firstName')"
               v-model="student.firstName"
             />
+            <ErrorMessage name="firstName" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="firstName" class="mb-3 text-danger" />
           <!-- Last name input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -88,8 +90,8 @@
               :placeholder="$t('student.lastName')"
               v-model="student.lastName"
             />
+            <ErrorMessage name="lastName" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="lastName" class="mb-3 text-danger" />
           <!-- Email input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -99,8 +101,8 @@
               :placeholder="$t('student.email')"
               v-model="student.email"
             />
+            <ErrorMessage name="email" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="email" class="mb-3 text-danger" />
           <!-- Address input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -110,8 +112,8 @@
               :placeholder="$t('student.address')"
               v-model="student.address"
             />
+            <ErrorMessage name="address" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="address" class="mb-3 text-danger" />
           <!-- Current year of study input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -121,8 +123,8 @@
               :placeholder="$t('student.currentYearOfStudy')"
               v-model="student.currentYearOfStudy"
             />
+            <ErrorMessage name="currentYearOfStudy" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="currentYearOfStudy" class="mb-3 text-danger" />
           <!-- City select -->
           <vee-field
             class="form-control mb-2"

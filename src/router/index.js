@@ -10,6 +10,7 @@ import SubjectForm from "@/views/subjects/SubjectForm.vue";
 import SubjectList from "@/views/subjects/SubjectList.vue";
 import ProfessorForm from "@/views/professors/ProfessorForm.vue";
 import ProfessorList from "@/views/professors/ProfessorList.vue";
+import ExamPeriodForm from "@/views/exam-periods/ExamPeriodForm.vue";
 
 import { cityLoadOneResolver } from "@/resolvers/city.resolver";
 import { studentLoadOneResolver } from "@/resolvers/student.resolver";
@@ -31,65 +32,74 @@ const routes = [
     path: "/city",
     name: "city",
     redirect: { name: "city-list" },
+    children: [
+      {
+        path: "/list",
+        name: "city-list",
+        component: CityList,
+      },
+      {
+        path: "/form",
+        name: "city-add",
+        component: CityForm,
+      },
+      {
+        path: "/form/:id",
+        name: "city-update",
+        component: CityForm,
+        beforeEnter: cityLoadOneResolver,
+      },
+    ],
   },
-  {
-    path: "/city/list",
-    name: "city-list",
-    component: CityList,
-  },
-  {
-    path: "/city/form",
-    name: "city-add",
-    component: CityForm,
-  },
-  {
-    path: "/city/form/:id",
-    name: "city-update",
-    component: CityForm,
-    beforeEnter: cityLoadOneResolver,
-  },
+
   {
     path: "/student",
     name: "student",
     redirect: { name: "student-list" },
+    children: [
+      {
+        path: "/list",
+        name: "student-list",
+        component: StudentList,
+      },
+      {
+        path: "/form",
+        name: "student-add",
+        component: StudentForm,
+      },
+      {
+        path: "/form/:username",
+        name: "student-update",
+        component: StudentForm,
+        beforeEnter: studentLoadOneResolver,
+      },
+    ],
   },
-  {
-    path: "/student/list",
-    name: "student-list",
-    component: StudentList,
-  },
-  {
-    path: "/student/form",
-    name: "student-add",
-    component: StudentForm,
-  },
-  {
-    path: "/student/form/:username",
-    name: "student-update",
-    component: StudentForm,
-    beforeEnter: studentLoadOneResolver,
-  },
+
   {
     path: "/subject",
     name: "subject",
     redirect: { name: "subject-list" },
+    children: [
+      {
+        path: "/list",
+        name: "subject-list",
+        component: SubjectList,
+      },
+      {
+        path: "/form",
+        name: "subject-add",
+        component: SubjectForm,
+      },
+      {
+        path: "/form/:id",
+        name: "subject-update",
+        component: SubjectForm,
+        beforeEnter: subjectLoadOneResolver,
+      },
+    ],
   },
-  {
-    path: "/subject/list",
-    name: "subject-list",
-    component: SubjectList,
-  },
-  {
-    path: "/subject/form",
-    name: "subject-add",
-    component: SubjectForm,
-  },
-  {
-    path: "/subject/form/:id",
-    name: "subject-update",
-    component: SubjectForm,
-    beforeEnter: subjectLoadOneResolver,
-  },
+
   {
     path: "/professor",
     name: "professor",
@@ -110,6 +120,18 @@ const routes = [
     name: "professor-update",
     component: ProfessorForm,
     beforeEnter: professorLoadOneResolver,
+  },
+  {
+    path: "/exam-period",
+    name: "exam-period",
+    children: [
+      {
+        path: "form",
+        name: "exam-period-form",
+        component: ExamPeriodForm,
+      },
+    ],
+    // redirect: { name: "exam-period-list" },
   },
 ];
 

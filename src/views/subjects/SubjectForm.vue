@@ -42,17 +42,16 @@
             <ErrorMessage name="name" class="mb-3 text-danger" />
           </div>
 
-            <!-- No Of ESP input -->
-            <div class="d-flex flex-column col-12">
-              <vee-field
-                class="form-control mb-2"
-                name="noOfEsp"
-                type="number"
-                :placeholder="$t('subject.noOfEsp')"
-                v-model="subject.noOfEsp"
-              />
-              <ErrorMessage name="noOfEsp" class="mb-3 text-danger" />
-            </div>
+          <!-- No Of ESP input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="noOfEsp"
+              type="number"
+              :placeholder="$t('subject.noOfEsp')"
+              v-model="subject.noOfEsp"
+            />
+            <ErrorMessage name="noOfEsp" class="mb-3 text-danger" />
           </div>
           <!-- Year Of Study input -->
           <div class="d-flex flex-column col-12">
@@ -63,8 +62,8 @@
               :placeholder="$t('subject.yearOfStudy')"
               v-model="subject.yearOfStudy"
             />
+            <ErrorMessage name="yearOfStudy" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="yearOfStudy" class="mb-3 text-danger" />
           <!-- Semester input -->
           <vee-field
             class="form-control mb-2"

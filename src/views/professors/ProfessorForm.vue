@@ -54,8 +54,8 @@
                 :placeholder="$t('professor.firstName')"
                 v-model="professor.firstName"
               />
+              <ErrorMessage name="firstName" class="mb-3 text-danger" />
             </div>
-            <ErrorMessage name="firstName" class="mb-3 text-danger" />
             <!-- Last name input -->
             <div class="d-flex flex-column col-6">
               <vee-field
@@ -65,8 +65,8 @@
                 :placeholder="$t('professor.lastName')"
                 v-model="professor.lastName"
               />
+              <ErrorMessage name="lastName" class="mb-3 text-danger" />
             </div>
-            <ErrorMessage name="lastName" class="mb-3 text-danger" />
           </div>
           <!-- Email input -->
           <div class="d-flex flex-column col-12">
@@ -77,8 +77,8 @@
               :placeholder="$t('professor.email')"
               v-model="professor.email"
             />
+            <ErrorMessage name="email" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="email" class="mb-3 text-danger" />
           <!-- Address input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -88,8 +88,8 @@
               :placeholder="$t('professor.address')"
               v-model="professor.address"
             />
+            <ErrorMessage name="address" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="address" class="mb-3 text-danger" />
           <!-- Reelection Date input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -100,8 +100,8 @@
               value="professor.reelectionDate"
               v-model="professor.reelectionDate"
             />
+            <ErrorMessage name="reelectionDate" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="reelectionDate" class="mb-3 text-danger" />
           <!-- Phone input -->
           <div class="d-flex flex-column col-12">
             <vee-field
@@ -111,8 +111,8 @@
               :placeholder="$t('professor.phone')"
               v-model="professor.phone"
             />
+            <ErrorMessage name="phone" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="phone" class="mb-3 text-danger" />
           <!-- City select -->
           <vee-field
             class="form-control mb-2"
@@ -235,7 +235,6 @@ export default {
     };
 
     const formatDate = (reelectionDate) => {
-      //2023-05-26
       const [year, month, day] = reelectionDate.split("-");
       return `${day}.${month}.${year}`;
     };

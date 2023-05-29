@@ -97,5 +97,17 @@
     "selectTitle": "Izaberi titulu",
     "selectCity": "Izaberi grad",
     "subjects": "Predmeti"
+  },
+  "examPeriod": {
+    "listTitle": "Lista ispitnih rokova",
+    "addTitle": "Dodaj ispitni rok",
+    "id": "ID",
+    "name": "Rok",
+    "startDate": "Datum početka roka",
+    "endDate": "Datum kraja roka",
+    "active": "Aktivan",
+    "selectActive": "Izaberi aktivnost",
+    "yes": "Da",
+    "no": "Ne"
   }
 }

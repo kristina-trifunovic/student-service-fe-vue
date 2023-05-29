@@ -5,18 +5,18 @@
         <h1 class="display-6 text-center m-4">
           {{
             mode == "update"
-              ? $t("student.updateTitle")
-              : $t("student.addTitle")
+              ? $t("professor.updateTitle")
+              : $t("professor.addTitle")
           }}
         </h1>
       </div>
     </div>
     <div class="row lg-4 md-4 align-items-center justify-content-center">
-      <div class="col-lg-6 col-md-6 col-12">
+      <div class="col-lg-6 col-md-12 col-12">
         <vee-form
           class="align-items-center"
           :validation-schema="schema"
-          @submit="addOrUpdateStudent"
+          @submit="addOrUpdateProfessor"
         >
           <div class="row">
             <!-- Username input -->
@@ -26,7 +26,7 @@
                 name="username"
                 type="text"
                 :placeholder="$t('login.username')"
-                v-model="student.username"
+                v-model="professor.username"
                 :disabled="mode == 'update'"
               />
               <ErrorMessage name="username" class="mb-3 text-danger" />
@@ -38,66 +38,44 @@
                 name="password"
                 type="password"
                 :placeholder="$t('login.password')"
-                v-model="student.password"
+                v-model="professor.password"
                 :disabled="mode == 'update'"
               />
               <ErrorMessage name="password" class="mb-3 text-danger" />
             </div>
-            <!-- Index number input -->
+          </div>
+          <div class="row">
+            <!-- First name input -->
             <div class="d-flex flex-column col-6">
               <vee-field
                 class="form-control mb-2"
-                name="indexNumber"
+                name="firstName"
                 type="text"
-                :placeholder="$t('student.indexNumber')"
-                v-model="student.index.indexNumber"
-                :disabled="mode == 'update'"
+                :placeholder="$t('professor.firstName')"
+                v-model="professor.firstName"
               />
-              <ErrorMessage name="indexNumber" class="mb-3 text-danger" />
             </div>
-            <!-- Index year input -->
+            <ErrorMessage name="firstName" class="mb-3 text-danger" />
+            <!-- Last name input -->
             <div class="d-flex flex-column col-6">
               <vee-field
                 class="form-control mb-2"
-                name="indexYear"
-                type="number"
-                :placeholder="$t('student.indexYear')"
-                v-model="student.index.indexYear"
-                :disabled="mode == 'update'"
+                name="lastName"
+                type="text"
+                :placeholder="$t('professor.lastName')"
+                v-model="professor.lastName"
               />
-              <ErrorMessage name="indexYear" class="mb-3 text-danger" />
             </div>
+            <ErrorMessage name="lastName" class="mb-3 text-danger" />
           </div>
-          <!-- First name input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="firstName"
-              type="text"
-              :placeholder="$t('student.firstName')"
-              v-model="student.firstName"
-            />
-          </div>
-          <ErrorMessage name="firstName" class="mb-3 text-danger" />
-          <!-- Last name input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="lastName"
-              type="text"
-              :placeholder="$t('student.lastName')"
-              v-model="student.lastName"
-            />
-          </div>
-          <ErrorMessage name="lastName" class="mb-3 text-danger" />
           <!-- Email input -->
           <div class="d-flex flex-column col-12">
             <vee-field
               class="form-control mb-2"
               name="email"
               type="text"
-              :placeholder="$t('student.email')"
-              v-model="student.email"
+              :placeholder="$t('professor.email')"
+              v-model="professor.email"
             />
           </div>
           <ErrorMessage name="email" class="mb-3 text-danger" />
@@ -107,33 +85,58 @@
               class="form-control mb-2"
               name="address"
               type="text"
-              :placeholder="$t('student.address')"
-              v-model="student.address"
+              :placeholder="$t('professor.address')"
+              v-model="professor.address"
             />
           </div>
           <ErrorMessage name="address" class="mb-3 text-danger" />
-          <!-- Current year of study input -->
+          <!-- Reelection Date input -->
           <div class="d-flex flex-column col-12">
             <vee-field
               class="form-control mb-2"
-              name="currentYearOfStudy"
-              type="text"
-              :placeholder="$t('student.currentYearOfStudy')"
-              v-model="student.currentYearOfStudy"
+              name="reelectionDate"
+              type="date"
+              :placeholder="$t('professor.reelectionDate')"
+              value="professor.reelectionDate"
+              v-model="professor.reelectionDate"
             />
           </div>
-          <ErrorMessage name="currentYearOfStudy" class="mb-3 text-danger" />
+          <ErrorMessage name="reelectionDate" class="mb-3 text-danger" />
+          <!-- Phone input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="phone"
+              type="text"
+              :placeholder="$t('professor.phone')"
+              v-model="professor.phone"
+            />
+          </div>
+          <ErrorMessage name="phone" class="mb-3 text-danger" />
           <!-- City select -->
           <vee-field
             class="form-control mb-2"
             name="city"
             as="select"
-            v-model="student.city"
-            :placeholder="$t('student.city')"
+            v-model="professor.city"
+            :placeholder="$t('professor.city')"
           >
-            <option value="" disabled>{{ $t("student.selectCity") }}</option>
+            <option value="" disabled>{{ $t("professor.selectCity") }}</option>
             <option v-for="city in cities" :key="city.postalCode" :value="city">
               {{ city.name }}
+            </option>
+          </vee-field>
+          <!-- Title select -->
+          <vee-field
+            class="form-control mb-2"
+            name="title"
+            as="select"
+            v-model="professor.title"
+            :placeholder="$t('professor.title')"
+          >
+            <option value="" disabled>{{ $t("professor.selectTitle") }}</option>
+            <option v-for="title in titles" :key="title.id" :value="title">
+              {{ title.professorTitle }}
             </option>
           </vee-field>
 
@@ -169,11 +172,14 @@ export default {
     let mode = ref("");
     onMounted(() => {
       if (route.params.username) {
-        student.value = route.meta.student["data"];
+        professor.value = route.meta.professor["data"];
         mode.value = "update";
       } else mode.value = "add";
       loadCities()
         .then((res) => (cities.value = res.data))
+        .catch((err) => console.log(err));
+      loadTitles()
+        .then((res) => (titles.value = res.data))
         .catch((err) => console.log(err));
     });
 
@@ -182,52 +188,67 @@ export default {
       return axios.get(`${environment.serverUrl}/cities`);
     };
 
+    let titles = ref([]);
+    const loadTitles = () => {
+      return axios.get(`${environment.serverUrl}/titles`);
+    };
+
     const schema = {
       username: "required|min:4",
       password: "required",
-      indexNumber: "required|max:4|numeric",
-      indexYear: "required|min_value:2000|max_value:2100",
       firstName: "required|min:3|max:30",
       lastName: "required|min:3|max:30",
       email: "required|email|max:30",
       address: "min:3|max:50",
       city: "required",
-      currentYearOfStudy: "required|min_value:1|max_value:9",
+      phone: "min:9|max:15|numeric",
+      reelectionDate: "",
     };
 
-    let student = ref({ index: {} });
+    let professor = ref({});
 
-    const addOrUpdateStudent = () => {
+    const addOrUpdateProfessor = () => {
+      professor.value.reelectionDate = formatDate(
+        professor.value.reelectionDate
+      );
       if (mode.value == "add") {
-        addStudent(student.value)
+        addProfessor(professor.value)
           .then(() => redirect())
           .catch((err) => console.log("error happened", err));
       } else if (mode.value == "update") {
-        updateStudent(student.value)
+        updateProfessor(professor.value)
           .then(() => redirect())
           // TODO add a popup
           .catch((err) => console.log("error happened", err));
       }
     };
 
-    const addStudent = (student) => {
-      return axios.post(`${environment.serverUrl}/students`, student);
+    const addProfessor = (professor) => {
+      return axios.post(`${environment.serverUrl}/professors`, professor);
     };
-    const updateStudent = (student) => {
-      return axios.put(`${environment.serverUrl}/students`, student);
+    const updateProfessor = (professor) => {
+      return axios.put(`${environment.serverUrl}/professors`, professor);
     };
 
     const redirect = () => {
-      router.push({ name: "student-list" });
+      router.push({ name: "professor-list" });
+    };
+
+    const formatDate = (reelectionDate) => {
+      //2023-05-26
+      const [year, month, day] = reelectionDate.split("-");
+      return `${day}.${month}.${year}`;
     };
 
     return {
-      student,
+      professor,
       schema,
-      addOrUpdateStudent,
+      addOrUpdateProfessor,
       redirect,
       mode,
       cities,
+      titles,
+      formatDate,
     };
   },
 };

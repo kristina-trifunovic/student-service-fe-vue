@@ -82,9 +82,9 @@
     "Winter": "Winter"
   },
   "professor": {
-    "listTitle": "List of profesora",
-    "addTitle": "Add profesora",
-    "updateTitle": "Update profesora",
+    "listTitle": "List of professors",
+    "addTitle": "Add professor",
+    "updateTitle": "Update professor",
     "name": "Name",
     "firstName": "First name",
     "lastName": "Last name",

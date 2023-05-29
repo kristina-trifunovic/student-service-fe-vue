@@ -60,8 +60,8 @@
   <MDBModalHeader></MDBModalHeader>
     <MDBModalBody>
       <p style="margin-left: 2em;">
-        <h1 class="display-6"><small class="text-muted">{{$t('professor.firstName')}}: </small>{{professorToShow.firstName}}</h1>
-        <h1 class="display-6"><small class="text-muted">{{$t('professor.lastName')}}: </small>{{professorToShow.lastName}}</h1>
+        <h1 class="display-6"><small class="text-muted">{{$t('professor.name')}}: </small>{{professorToShow.firstName + " " + professorToShow.lastName}}</h1>
+        <!-- <h1 class="display-6"><small class="text-muted">{{$t('professor.lastName')}}: </small>{{professorToShow.lastName}}</h1> -->
         <h1 class="display-6"><small class="text-muted">{{$t('professor.email')}}: </small>{{professorToShow.email}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('professor.address')}}: </small>{{professorToShow.address}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('professor.city')}}: </small>{{professorToShow.city.name}}</h1>
@@ -91,9 +91,9 @@
     <MDBModalHeader>
       <MDBModalTitle id="deleteModal"> {{$t('actions.deleting')}} </MDBModalTitle>
     </MDBModalHeader>
-    <MDBModalBody>{{$t('actions.deleteAction', {name: studentToDelete.firstName + " " + studentToDelete.lastName})}}</MDBModalBody>
+    <MDBModalBody>{{$t('actions.deleteAction', {name: professorToDelete.firstName + " " + professorToDelete.lastName})}}</MDBModalBody>
     <MDBModalFooter>
-      <MDBBtn color="danger" @click="deleteStudent">{{$t('actions.yes')}}</MDBBtn>
+      <MDBBtn color="danger" @click="deleteProfessor">{{$t('actions.yes')}}</MDBBtn>
       <MDBBtn color="outline" @click="deleteModal = false">{{$t('actions.no')}}</MDBBtn>
     </MDBModalFooter>
   </MDBModal>
@@ -122,7 +122,7 @@ import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
 
 export default {
-  name: "AppStudentList",
+  name: "AppProfessorList",
   components: {
     MDBContainer,
     MDBRow,
@@ -164,11 +164,12 @@ export default {
     const professorToShow = ref({});
     const openModal = (professor) => {
       professorToShow.value = professor;
+      const day = (Number(professor.reelectionDate.slice(0, 2)) + 1).toString()
+      professorToShow.value.reelectionDate = day + professor.reelectionDate.slice(-8)
       viewModal.value = true;
       loadProfessorsSubjects(professor.username)
         .then((res) => {
           subjects.value = res.data
-          console.log(res.data);
           })
         .catch((err) => console.log(err));
     };

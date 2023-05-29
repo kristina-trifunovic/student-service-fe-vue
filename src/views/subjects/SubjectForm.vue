@@ -18,30 +18,29 @@
           :validation-schema="schema"
           @submit="addOrUpdateSubject"
         >
-          <div class="row">
-            <!-- ID input -->
-            <div class="d-flex flex-column col-12">
-              <vee-field
-                class="form-control mb-2"
-                name="id"
-                type="text"
-                :placeholder="$t('subject.id')"
-                v-model="subject.id"
-                :disabled="mode == 'update'"
-              />
-              <ErrorMessage name="id" class="mb-3 text-danger" />
-            </div>
-            <!-- Name input -->
-            <div class="d-flex flex-column col-12">
-              <vee-field
-                class="form-control mb-2"
-                name="name"
-                type="text"
-                :placeholder="$t('subject.name')"
-                v-model="subject.name"
-              />
-              <ErrorMessage name="name" class="mb-3 text-danger" />
-            </div>
+          <!-- ID input -->
+          <!-- <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="id"
+              type="text"
+              :placeholder="$t('subject.id')"
+              v-model="subject.id"
+              :disabled="mode == 'update'"
+            />
+            <ErrorMessage name="id" class="mb-3 text-danger" />
+          </div> -->
+          <!-- Name input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="name"
+              type="text"
+              :placeholder="$t('subject.name')"
+              v-model="subject.name"
+            />
+            <ErrorMessage name="name" class="mb-3 text-danger" />
+          </div>
 
             <!-- No Of ESP input -->
             <div class="d-flex flex-column col-12">
@@ -136,7 +135,6 @@ export default {
     let subject = ref({});
 
     const schema = {
-      id: "required",
       name: "required|min:3|max:30",
       description: "max:200",
       noOfEsp: "required|max_value:9",
@@ -145,6 +143,7 @@ export default {
     };
 
     const addOrUpdateSubject = () => {
+      subject.value.id = Math.floor(Math.random() * 1000);
       if (mode.value == "add") {
         addSubject(subject.value)
           .then(() => redirect())

@@ -18,42 +18,40 @@
           :validation-schema="schema"
           @submit="addOrUpdateSubject"
         >
-          <div class="row">
-            <!-- ID input -->
-            <div class="d-flex flex-column col-12">
-              <vee-field
-                class="form-control mb-2"
-                name="id"
-                type="text"
-                :placeholder="$t('subject.id')"
-                v-model="subject.id"
-                :disabled="mode == 'update'"
-              />
-              <ErrorMessage name="id" class="mb-3 text-danger" />
-            </div>
-            <!-- Name input -->
-            <div class="d-flex flex-column col-12">
-              <vee-field
-                class="form-control mb-2"
-                name="name"
-                type="text"
-                :placeholder="$t('subject.name')"
-                v-model="subject.name"
-              />
-              <ErrorMessage name="name" class="mb-3 text-danger" />
-            </div>
+          <!-- ID input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="id"
+              type="text"
+              :placeholder="$t('subject.id')"
+              v-model="subject.id"
+              :disabled="mode == 'update'"
+            />
+            <ErrorMessage name="id" class="mb-3 text-danger" />
+          </div>
+          <!-- Name input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="name"
+              type="text"
+              :placeholder="$t('subject.name')"
+              v-model="subject.name"
+            />
+            <ErrorMessage name="name" class="mb-3 text-danger" />
+          </div>
 
-            <!-- No Of ESP input -->
-            <div class="d-flex flex-column col-12">
-              <vee-field
-                class="form-control mb-2"
-                name="noOfEsp"
-                type="number"
-                :placeholder="$t('subject.noOfEsp')"
-                v-model="subject.noOfEsp"
-              />
-              <ErrorMessage name="noOfEsp" class="mb-3 text-danger" />
-            </div>
+          <!-- No Of ESP input -->
+          <div class="d-flex flex-column col-12">
+            <vee-field
+              class="form-control mb-2"
+              name="noOfEsp"
+              type="number"
+              :placeholder="$t('subject.noOfEsp')"
+              v-model="subject.noOfEsp"
+            />
+            <ErrorMessage name="noOfEsp" class="mb-3 text-danger" />
           </div>
           <!-- Year Of Study input -->
           <div class="d-flex flex-column col-12">
@@ -64,8 +62,8 @@
               :placeholder="$t('subject.yearOfStudy')"
               v-model="subject.yearOfStudy"
             />
+            <ErrorMessage name="yearOfStudy" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="yearOfStudy" class="mb-3 text-danger" />
           <!-- Semester input -->
           <vee-field
             class="form-control mb-2"

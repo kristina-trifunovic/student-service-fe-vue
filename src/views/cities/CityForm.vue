@@ -35,8 +35,8 @@
               :placeholder="$t('city.name')"
               v-model="city.name"
             />
+            <ErrorMessage name="name" class="mb-3 text-danger" />
           </div>
-          <ErrorMessage name="name" class="mb-3 text-danger" />
           <!-- Submit button -->
           <MDBBtnGroup class="d-flex justify-content-center">
             <MDBBtn color="outline" type="submit">{{

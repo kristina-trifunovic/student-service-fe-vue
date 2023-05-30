@@ -125,7 +125,7 @@ const routes = [
     children: [
       {
         path: "form",
-        name: "exam-period-form",
+        name: "exam-period-add",
         component: ExamPeriodForm,
       },
     ],

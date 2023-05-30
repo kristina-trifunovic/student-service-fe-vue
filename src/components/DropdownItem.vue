@@ -5,7 +5,8 @@
     }}</MDBDropdownToggle>
     <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
       <MDBDropdownItem
-        :href="props.name"
+        tag="button"
+        @click="redirectList"
         v-show="props.name != 'exam period'"
         >{{
           $t("header.goToMenuComponent", {
@@ -13,7 +14,7 @@
           })
         }}</MDBDropdownItem
       >
-      <MDBDropdownItem href="form">{{
+      <MDBDropdownItem tag="button" @click="redirectForm">{{
         $t("header.addMenuComponent", {
           componentName: $t(`component.${name}`),
         })
@@ -29,7 +30,8 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem,
 } from "mdb-vue-ui-kit";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   name: "AppDropdown",
@@ -41,13 +43,35 @@ export default {
   },
   props: ["name", "plural"],
   setup(props) {
+    const router = useRouter();
     const dropdown = ref(false);
 
     const capitalizeFirstLetter = (s) => {
       return s && s[0].toUpperCase() + s.slice(1);
     };
 
-    return { props, dropdown, capitalizeFirstLetter };
+    let componentName = "";
+    onMounted(() => {
+      if (props.name === "exam period") componentName = "exam-period";
+      else componentName = props.name;
+    });
+
+    const redirectForm = () => {
+      router.push({ name: `${componentName}-add` });
+    };
+
+    const redirectList = () => {
+      router.push({ name: `${componentName}-list` });
+    };
+
+    return {
+      props,
+      dropdown,
+      capitalizeFirstLetter,
+      componentName,
+      redirectForm,
+      redirectList,
+    };
   },
 };
 </script>

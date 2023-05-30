@@ -30,21 +30,20 @@ const routes = [
   },
   {
     path: "/city",
-    name: "city",
     redirect: { name: "city-list" },
     children: [
       {
-        path: "/list",
+        path: "list",
         name: "city-list",
         component: CityList,
       },
       {
-        path: "/form",
+        path: "form",
         name: "city-add",
         component: CityForm,
       },
       {
-        path: "/form/:id",
+        path: "form/:id",
         name: "city-update",
         component: CityForm,
         beforeEnter: cityLoadOneResolver,
@@ -54,21 +53,20 @@ const routes = [
 
   {
     path: "/student",
-    name: "student",
     redirect: { name: "student-list" },
     children: [
       {
-        path: "/list",
+        path: "list",
         name: "student-list",
         component: StudentList,
       },
       {
-        path: "/form",
+        path: "form",
         name: "student-add",
         component: StudentForm,
       },
       {
-        path: "/form/:username",
+        path: "form/:username",
         name: "student-update",
         component: StudentForm,
         beforeEnter: studentLoadOneResolver,
@@ -78,21 +76,20 @@ const routes = [
 
   {
     path: "/subject",
-    name: "subject",
     redirect: { name: "subject-list" },
     children: [
       {
-        path: "/list",
+        path: "list",
         name: "subject-list",
         component: SubjectList,
       },
       {
-        path: "/form",
+        path: "form",
         name: "subject-add",
         component: SubjectForm,
       },
       {
-        path: "/form/:id",
+        path: "form/:id",
         name: "subject-update",
         component: SubjectForm,
         beforeEnter: subjectLoadOneResolver,
@@ -102,28 +99,29 @@ const routes = [
 
   {
     path: "/professor",
-    name: "professor",
     redirect: { name: "professor-list" },
+    children: [
+      {
+        path: "list",
+        name: "professor-list",
+        component: ProfessorList,
+      },
+      {
+        path: "form",
+        name: "professor-add",
+        component: ProfessorForm,
+      },
+      {
+        path: "form/:username",
+        name: "professor-update",
+        component: ProfessorForm,
+        beforeEnter: professorLoadOneResolver,
+      },
+    ],
   },
-  {
-    path: "/professor/list",
-    name: "professor-list",
-    component: ProfessorList,
-  },
-  {
-    path: "/professor/form",
-    name: "professor-add",
-    component: ProfessorForm,
-  },
-  {
-    path: "/professor/form/:username",
-    name: "professor-update",
-    component: ProfessorForm,
-    beforeEnter: professorLoadOneResolver,
-  },
+
   {
     path: "/exam-period",
-    name: "exam-period",
     children: [
       {
         path: "form",

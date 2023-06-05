@@ -11,6 +11,10 @@ import progressBar from "@/plugins/progress-bar";
 import { basicInterceptor } from "@/plugins/basic.interceptor";
 
 import "nprogress/nprogress.css";
+//theme
+import "primevue/resources/themes/tailwind-light/theme.css";
+//core
+import "primevue/resources/primevue.min.css";
 
 progressBar(router);
 

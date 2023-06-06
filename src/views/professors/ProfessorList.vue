@@ -1,4 +1,5 @@
 <template>
+<Toast />
   <MDBContainer>
     <MDBRow>
       <MDBCol
@@ -120,6 +121,9 @@ import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
+import Toast from 'primevue/toast';
 
 export default {
   name: "AppProfessorList",
@@ -137,11 +141,15 @@ export default {
     MDBModalFooter,
     MDBBtn,
     MDBListGroup,
-    MDBListGroupItem
+    MDBListGroupItem,
+    Toast
   },
   setup() {
     let professors = ref([]);
     let subjects = ref([])
+    
+    const toast = useToast();
+    const { t } = useI18n();
 
     const loadProfessors = () => {
       return axios.get(`${environment.serverUrl}/professors`);
@@ -151,9 +159,24 @@ export default {
       loadProfessors()
         .then((res) => {
           professors.value = res.data;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_load", {
+                componentName: t("component.professorPlural"),
+              }),
+              detail: "",
+              life: 3000
+            });
         })
-        // TODO add a popup
-        .catch((err) => console.log("error happened", err));
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_load", {
+                componentName: t("component.professorPlural"),
+              }),
+              detail: err,
+              life: 3000
+            })
+          )
     });
 
     const loadProfessorsSubjects = (professorUsername) => {
@@ -169,7 +192,15 @@ export default {
         .then((res) => {
           subjects.value = res.data
           })
-        .catch((err) => console.log(err));
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_load", {
+                componentName: t("component.subjectPlural"),
+              }),
+              detail: err,
+              life: 3000
+            })
+        )
     };
 
     const router = useRouter();
@@ -185,9 +216,23 @@ export default {
         .then(() => {
           const deletedProfessorIndex = professors.value.findIndex(professor => professor.username == professorToDelete.value.username)
           professors.value.splice(deletedProfessorIndex, 1)
-          deleteModal.value = false;
+          deleteModal.value = false;toast.add({
+              severity: "success",
+              summary: t("messages.success_delete", {
+                componentName: t("component.professor"),
+              }),
+              detail: "",
+              life: 3000
+            })
         })
-        .catch((err) => console.log('error happened', err))
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_delete", {
+                componentName: t("component.professor"),
+              }),
+              detail: err,
+              life: 3000
+            }))
     }
 
     return { professors, openModal, professorToShow, viewModal, router, onDelete, deleteModal, professorToDelete, deleteProfessor, subjects };

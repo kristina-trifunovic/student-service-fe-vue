@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <div class="container">
     <div class="row lg-6 md-6 align-items-center justify-content-center">
       <div class="col-lg-8 col-md-8 col-12">
@@ -187,15 +188,20 @@ import { useRoute, useRouter } from "vue-router";
 import { MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
 import { environment } from "@/environments/environment";
 import Calendar from "primevue/calendar";
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
 import axios from "axios";
+import Toast from "primevue/toast";
 import moment from "moment";
 
 export default {
   name: "AppProfessorForm",
-  components: { MDBBtnGroup, MDBBtn, Calendar },
+  components: { MDBBtnGroup, MDBBtn, Calendar, Toast },
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const toast = useToast();
+    const { t } = useI18n();
 
     let mode = ref("");
     onMounted(() => {
@@ -205,10 +211,28 @@ export default {
       } else mode.value = "add";
       loadCities()
         .then((res) => (cities.value = res.data))
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          toast.add({
+            severity: "error",
+            summary: t("messages.fail_load", {
+              componentName: t("component.cityPlural"),
+            }),
+            detail: err,
+            life: 3000,
+          })
+        );
       loadTitles()
         .then((res) => (titles.value = res.data))
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          toast.add({
+            severity: "error",
+            summary: t("messages.fail_load", {
+              componentName: t("component.titlePlural"),
+            }),
+            detail: err,
+            life: 3000,
+          })
+        );
     });
 
     let cities = ref([]);
@@ -242,13 +266,50 @@ export default {
       ).format("DD.MM.YYYY");
       if (mode.value == "add") {
         addProfessor(professor.value)
-          .then(() => redirect())
-          .catch((err) => console.log("error happened", err));
+          .then(() => {
+            setTimeout(() => redirect(), 1000);
+            toast.add({
+              severity: "success",
+              summary: t("messages.success_add", {
+                componentName: t("component.professor"),
+              }),
+              detail: "",
+              life: 3000,
+            });
+          })
+          .catch((err) =>
+            toast.add({
+              severity: "error",
+              summary: t("messages.fail_add", {
+                componentName: t("component.professor"),
+              }),
+              detail: err,
+              life: 3000,
+            })
+          );
       } else if (mode.value == "update") {
         updateProfessor(professor.value)
-          .then(() => redirect())
-          // TODO add a popup
-          .catch((err) => console.log("error happened", err));
+          .then(() => {
+            setTimeout(() => redirect(), 1000);
+            toast.add({
+              severity: "success",
+              summary: t("messages.success_update", {
+                componentName: t("component.professor"),
+              }),
+              detail: "",
+              life: 3000,
+            });
+          })
+          .catch((err) =>
+            toast.add({
+              severity: "error",
+              summary: t("messages.fail_update", {
+                componentName: t("component.professor"),
+              }),
+              detail: err,
+              life: 3000,
+            })
+          );
       }
     };
 

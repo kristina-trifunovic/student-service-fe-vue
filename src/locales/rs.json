@@ -20,7 +20,8 @@
     "professorPlural": "profesora",
     "studentPlural": "studenata",
     "examPlural": "ispita",
-    "exam periodPlural": "ispitnih rokova"
+    "exam periodPlural": "ispitnih rokova",
+    "titlePlural": "titula"
   },
   "login": {
     "welcome": "Dobrodošli",

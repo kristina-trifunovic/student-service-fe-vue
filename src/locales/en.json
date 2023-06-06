@@ -20,7 +20,8 @@
     "professorPlural": "professors",
     "studentPlural": "students",
     "examPlural": "exams",
-    "exam periodPlural": "exam periods"
+    "exam periodPlural": "exam periods",
+    "titlePlural": "titles"
   },
   "login": {
     "welcome": "Welcome to",

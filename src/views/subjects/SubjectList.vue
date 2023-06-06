@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <MDBContainer>
     <MDBRow>
       <MDBCol
@@ -116,6 +117,9 @@ import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
+import Toast from 'primevue/toast';
 
 export default {
   name: "AppSubjectList",
@@ -132,9 +136,13 @@ export default {
     MDBModalBody,
     MDBModalFooter,
     MDBBtn,
+    Toast
   },
   setup() {
     let subjects = ref([]);
+
+    const toast = useToast();
+    const { t } = useI18n();
 
     const loadSubjects = () => {
       return axios.get(`${environment.serverUrl}/subjects`);
@@ -144,9 +152,24 @@ export default {
       loadSubjects()
         .then((res) => {
           subjects.value = res.data;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_load", {
+                componentName: t("component.subjectPlural"),
+              }),
+              detail: "",
+              life: 3000
+            });
         })
-        // TODO add a popup
-        .catch((err) => console.log("error happened", err));
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_load", {
+                componentName: t("component.subjectPlural"),
+              }),
+              detail: err,
+              life: 3000
+            })
+          )
     });
 
     const viewModal = ref(false);
@@ -170,8 +193,23 @@ export default {
           const deletedSubjectIndex = subjects.value.findIndex(subject => subject.id == subjectToDelete.value.id)
           subjects.value.splice(deletedSubjectIndex, 1)
           deleteModal.value = false;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_delete", {
+                componentName: t("component.subject"),
+              }),
+              detail: "",
+              life: 3000
+            })
         })
-        .catch((err) => console.log('error happened', err))
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_delete", {
+                componentName: t("component.subject"),
+              }),
+              detail: err,
+              life: 3000
+            }))
     }
 
     return { subjects, openModal, subjectToShow, viewModal, router, onDelete, deleteModal, subjectToDelete, deleteSubject };

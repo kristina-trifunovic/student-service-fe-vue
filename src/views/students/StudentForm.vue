@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <div class="container">
     <div class="row lg-6 md-6 align-items-center justify-content-center">
       <div class="col-lg-8 col-md-8 col-12">
@@ -162,14 +163,19 @@ import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
 import { environment } from "@/environments/environment";
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
 import axios from "axios";
+import Toast from "primevue/toast";
 
 export default {
   name: "AppStudentForm",
-  components: { MDBBtnGroup, MDBBtn },
+  components: { MDBBtnGroup, MDBBtn, Toast },
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const toast = useToast();
+    const { t } = useI18n();
 
     let mode = ref("");
     onMounted(() => {
@@ -205,13 +211,50 @@ export default {
     const addOrUpdateStudent = () => {
       if (mode.value == "add") {
         addStudent(student.value)
-          .then(() => redirect())
-          .catch((err) => console.log("error happened", err));
+          .then(() => {
+            setTimeout(() => redirect(), 1000);
+            toast.add({
+              severity: "success",
+              summary: t("messages.success_add", {
+                componentName: t("component.student"),
+              }),
+              detail: "",
+              life: 3000,
+            });
+          })
+          .catch((err) =>
+            toast.add({
+              severity: "error",
+              summary: t("messages.fail_add", {
+                componentName: t("component.student"),
+              }),
+              detail: err,
+              life: 3000,
+            })
+          );
       } else if (mode.value == "update") {
         updateStudent(student.value)
-          .then(() => redirect())
-          // TODO add a popup
-          .catch((err) => console.log("error happened", err));
+          .then(() => {
+            setTimeout(() => redirect(), 1000);
+            toast.add({
+              severity: "success",
+              summary: t("messages.success_update", {
+                componentName: t("component.student"),
+              }),
+              detail: "",
+              life: 3000,
+            });
+          })
+          .catch((err) =>
+            toast.add({
+              severity: "error",
+              summary: t("messages.fail_update", {
+                componentName: t("component.student"),
+              }),
+              detail: err,
+              life: 3000,
+            })
+          );
       }
     };
 

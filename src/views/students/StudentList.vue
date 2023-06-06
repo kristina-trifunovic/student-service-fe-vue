@@ -1,4 +1,5 @@
 <template>
+<Toast />
   <MDBContainer>
     <MDBRow>
       <MDBCol
@@ -116,6 +117,9 @@ import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
+import Toast from 'primevue/toast';
 
 export default {
   name: "AppStudentList",
@@ -132,9 +136,13 @@ export default {
     MDBModalBody,
     MDBModalFooter,
     MDBBtn,
+    Toast
   },
   setup() {
     let students = ref([]);
+
+    const toast = useToast();
+    const { t } = useI18n();
 
     const loadStudents = () => {
       return axios.get(`${environment.serverUrl}/students`);
@@ -144,9 +152,24 @@ export default {
       loadStudents()
         .then((res) => {
           students.value = res.data;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_load", {
+                componentName: t("component.studentPlural"),
+              }),
+              detail: "",
+              life: 3000
+            });
         })
-        // TODO add a popup
-        .catch((err) => console.log("error happened", err));
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_load", {
+                componentName: t("component.studentPlural"),
+              }),
+              detail: err,
+              life: 3000
+            })
+          )
     });
 
     const viewModal = ref(false);
@@ -170,8 +193,23 @@ export default {
           const deletedStudentIndex = students.value.findIndex(student => student.username == studentToDelete.value.username)
           students.value.splice(deletedStudentIndex, 1)
           deleteModal.value = false;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_delete", {
+                componentName: t("component.student"),
+              }),
+              detail: "",
+              life: 3000
+            })
         })
-        .catch((err) => console.log('error happened', err))
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_delete", {
+                componentName: t("component.student"),
+              }),
+              detail: err,
+              life: 3000
+            }))
     }
 
     return { students, openModal, studentToShow, viewModal, router, onDelete, deleteModal, studentToDelete, deleteStudent };

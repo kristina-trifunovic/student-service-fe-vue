@@ -33,7 +33,7 @@
   "messages": {
     "success_delete": "Uspešno obrisan {componentName}",
     "fail_delete": "Neuspešno оbrisan {componentName}",
-    "success_add": "Uspešno dodan {componentName}",
+    "success_add": "Uspešno dodat {componentName}",
     "fail_add": "Neuspešno dodavanje {componentName}",
     "success_update": "Uspešno ažuriran {componentName}",
     "fail_update": "Neuspešno ažuriranje {componentName}",

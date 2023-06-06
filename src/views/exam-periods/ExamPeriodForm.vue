@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <div class="container">
     <div class="row lg-6 md-6 align-items-center justify-content-center">
       <div class="col-lg-8 col-md-8 col-12">
@@ -110,16 +111,21 @@ import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
 import { environment } from "@/environments/environment";
+import { useI18n } from "vue-i18n";
 import axios from "axios";
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
 import Calendar from "primevue/calendar";
 import moment from "moment";
 
 export default {
   name: "AppExamPeriodForm",
-  components: { MDBBtnGroup, MDBBtn, Calendar },
+  components: { MDBBtnGroup, MDBBtn, Calendar, Toast },
   setup() {
     const route = useRoute();
     const router = useRouter();
+    const toast = useToast();
+    const { t } = useI18n();
 
     let examPeriod = ref({});
     const schema = {
@@ -137,8 +143,26 @@ export default {
       );
       axios
         .post(`${environment.serverUrl}/exam-periods`, examPeriod.value)
-        .then(() => redirect())
-        .catch((err) => console.log(err));
+        .then(() =>
+          toast.add({
+            severity: "success",
+            summary: t("messages.success_add", {
+              componentName: t("component.exam period"),
+            }),
+            detail: "",
+            life: 3000,
+          })
+        )
+        .catch((err) =>
+          toast.add({
+            severity: "error",
+            summary: t("messages.fail_add", {
+              componentName: t("component.exam period"),
+            }),
+            detail: err,
+            life: 3000,
+          })
+        );
     };
 
     const redirect = () => {

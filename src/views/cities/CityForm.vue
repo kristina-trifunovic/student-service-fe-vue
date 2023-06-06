@@ -90,7 +90,7 @@ export default {
       if (mode.value == "add") {
         addCity(values)
           .then(() => {
-            setTimeout(() => redirect(), 2000);
+            setTimeout(() => redirect(), 1000);
             toast.add({
               severity: "success",
               summary: t("messages.success_add", {
@@ -113,7 +113,7 @@ export default {
       } else if (mode.value == "update") {
         updateCity(values)
           .then(() => {
-            setTimeout(() => redirect(), 2000);
+            setTimeout(() => redirect(), 1000);
             toast.add({
               severity: "success",
               summary: t("messages.success_update", {

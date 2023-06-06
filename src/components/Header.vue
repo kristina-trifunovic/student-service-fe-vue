@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <MDBNavbar
     v-show="userStore.userLoggedIn.firstName"
     expand="lg"
@@ -88,6 +89,9 @@ import {
 import useUserStore from "@/stores/user";
 import { ref } from "vue";
 import AppDropdown from "@/components/DropdownItem.vue";
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
+import Toast from "primevue/toast";
 
 export default {
   name: "AppHeader",
@@ -104,12 +108,16 @@ export default {
     MDBDropdownToggle,
     MDBDropdownMenu,
     MDBDropdownItem,
+    Toast,
   },
   setup() {
     const navbarCollapse = ref(false);
     const dropdownUser = ref(false);
 
     const userStore = useUserStore();
+
+    const toast = useToast();
+    const { t } = useI18n();
 
     let fullName = "";
     if (userStore.userLoggedIn.firstName) {
@@ -118,6 +126,12 @@ export default {
 
     const logout = () => {
       userStore.logout();
+      toast.add({
+        severity: "success",
+        summary: t("messages.success_logout"),
+        detail: "",
+        life: 3000,
+      });
     };
 
     return {

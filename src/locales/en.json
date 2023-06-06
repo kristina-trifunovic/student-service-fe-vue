@@ -44,6 +44,9 @@
     "deleting": "Deleting..."
   },
   "messages": {
+    "success_login": "Successfully logged in",
+    "fail_login": "Failed to login",
+    "success_logout": "Successfully logged out",
     "success_delete": "Successfully deleted {componentName}",
     "fail_delete": "Failed to delete {componentName}",
     "success_add": "Successfully added {componentName}",

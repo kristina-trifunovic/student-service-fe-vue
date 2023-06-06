@@ -58,6 +58,9 @@ import {
 } from "mdb-vue-ui-kit";
 import router from "@/router/index";
 import useUserStore from "@/stores/user";
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
+import Toast from "primevue/toast";
 
 export default {
   name: "AppLogin",
@@ -68,9 +71,14 @@ export default {
     MDBCheckbox,
     MDBBtn,
     MDBContainer,
+    Toast,
   },
   setup() {
     const userStore = useUserStore();
+
+    const toast = useToast();
+    const { t } = useI18n();
+
     const schema = {
       username: "required|min:4",
       password: "required",
@@ -89,9 +97,21 @@ export default {
           const token =
             "Basic " + btoa(`${values.username}:${values.password}`);
           sessionStorage.setItem("token", token);
+          toast.add({
+            severity: "success",
+            summary: t("messages.success_login"),
+            detail: "",
+            life: 3000,
+          });
         })
-        // TODO add a popup
-        .catch((err) => console.log("error happened", err));
+        .catch((err) =>
+          toast.add({
+            severity: "error",
+            summary: t("messages.fail_login"),
+            detail: err,
+            life: 3000,
+          })
+        );
     };
 
     return { schema, login };

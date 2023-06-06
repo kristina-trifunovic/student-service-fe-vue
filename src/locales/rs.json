@@ -32,6 +32,9 @@
     "password": "Lozinka"
   },
   "messages": {
+    "success_login": "Uspešno prijavljivanje",
+    "fail_login": "Neuspešno prijavljivanje",
+    "success_logout": "Uspešno odjavljivanje",
     "success_delete": "Uspešno obrisan {componentName}",
     "fail_delete": "Neuspešno оbrisan {componentName}",
     "success_add": "Uspešno dodat {componentName}",

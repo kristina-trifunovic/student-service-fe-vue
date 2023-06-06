@@ -1,4 +1,5 @@
 <template>
+  <Toast />
   <MDBContainer>
     <MDBRow>
       <MDBCol
@@ -99,6 +100,9 @@ import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
+import { useToast } from "primevue/usetoast";
+import { useI18n } from "vue-i18n";
+import Toast from 'primevue/toast';
 
 export default {
   name: "AppCityList",
@@ -115,6 +119,7 @@ export default {
     MDBModalBody,
     MDBModalFooter,
     MDBBtn,
+    Toast
   },
   setup() {
     let cities = ref([]);
@@ -123,13 +128,31 @@ export default {
       return axios.get(`${environment.serverUrl}/cities`);
     };
 
+    const toast = useToast();
+    const { t } = useI18n();
+
     onBeforeMount(() => {
       loadCities()
         .then((res) => {
           cities.value = res.data;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_load", {
+                componentName: t("component.cityPlural"),
+              }),
+              detail: "",
+              life: 3000
+            });
         })
-        // TODO add a popup
-        .catch((err) => console.log("error happened", err));
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_load", {
+                componentName: t("component.cityPlural"),
+              }),
+              detail: err,
+              life: 3000
+            })
+          )
     });
 
     const viewModal = ref(false);
@@ -153,8 +176,23 @@ export default {
           const deletedCityIndex = cities.value.findIndex(city => city.postalCode == cityToDelete.value.postalCode)
           cities.value.splice(deletedCityIndex, 1)
           deleteModal.value = false;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_delete", {
+                componentName: t("component.city"),
+              }),
+              detail: "",
+              life: 3000
+            })
         })
-        .catch((err) => console.log('error happened', err))
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_delete", {
+                componentName: t("component.city"),
+              }),
+              detail: err,
+              life: 3000
+            }))
     }
 
     return { cities, openModal, cityToShow, viewModal, router, onDelete, deleteModal, cityToDelete, deleteCity };

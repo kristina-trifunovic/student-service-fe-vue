@@ -3,6 +3,7 @@ import en from "@/locales/en.json";
 import rs from "@/locales/rs.json";
 
 export default createI18n({
+  allowComposition: true,
   locale: sessionStorage.getItem("language")
     ? sessionStorage.getItem("language")
     : "en",

@@ -43,14 +43,23 @@
     "deleting": "Deleting..."
   },
   "messages": {
-    "success_delete": "Successfully deleted {componentName}"
+    "success_delete": "Successfully deleted {componentName}",
+    "fail_delete": "Failed to delete {componentName}",
+    "success_add": "Successfully added {componentName}",
+    "fail_add": "Failed to add {componentName}",
+    "success_update": "Successfully updated {componentName}",
+    "fail_update": "Failed to update {componentName}",
+    "success_load": "Successfully loaded {componentName}",
+    "fail_load": "Loading of {componentName} not successfull"
   },
   "city": {
     "listTitle": "List of cities",
     "addTitle": "Add city",
     "updateTitle": "Update city",
     "postalCode": "Postal code",
-    "name": "Name"
+    "name": "Name",
+    "toastError": "Failed to {action} city",
+    "toastSuccess": ""
   },
   "student": {
     "listTitle": "List of students",

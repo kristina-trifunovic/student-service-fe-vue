@@ -164,8 +164,6 @@ export default {
     const professorToShow = ref({});
     const openModal = (professor) => {
       professorToShow.value = professor;
-      const day = (Number(professor.reelectionDate.slice(0, 2)) + 1).toString()
-      professorToShow.value.reelectionDate = day + professor.reelectionDate.slice(-8)
       viewModal.value = true;
       loadProfessorsSubjects(professor.username)
         .then((res) => {

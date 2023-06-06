@@ -55,6 +55,11 @@ export default {
             noOfEsp: "ESP",
             yearOfStudy: "Year of study",
             semester: "Semester",
+            reelectionDate: "Reelection date",
+            phone: "Phone",
+            title: "Title",
+            startDate: "Start date",
+            endDate: "End date",
           },
           messages: {
             required: "{field} is required.",
@@ -87,6 +92,11 @@ export default {
             noOfEsp: "ESP",
             yearOfStudy: "Godina studija",
             semester: "Semestar",
+            reelectionDate: "Datum reselekcije",
+            phone: "Telefon",
+            title: "Titula",
+            startDate: "Datum početka",
+            endDate: "Datum završetka",
           },
           messages: {
             required: "{field} je obavezno polje",

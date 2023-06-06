@@ -42,10 +42,17 @@
             <vee-field
               class="form-control mb-2"
               name="startDate"
-              type="date"
               :placeholder="$t('examPeriod.startDate')"
               v-model="examPeriod.startDate"
-            />
+            >
+              <calendar
+                style="margin-bottom: 0.5rem"
+                v-model="examPeriod.startDate"
+                :manualInput="false"
+                dateFormat="dd.mm.yy"
+                showIcon
+              ></calendar>
+            </vee-field>
             <ErrorMessage name="startDate" class="mb-3 text-danger" />
           </div>
           <!-- End date input -->
@@ -53,10 +60,17 @@
             <vee-field
               class="form-control mb-2"
               name="endDate"
-              type="date"
               :placeholder="$t('examPeriod.endDate')"
               v-model="examPeriod.endDate"
-            />
+            >
+              <calendar
+                style="margin-bottom: 0.5rem"
+                v-model="examPeriod.endDate"
+                :manualInput="false"
+                dateFormat="dd.mm.yy"
+                showIcon
+              ></calendar>
+            </vee-field>
             <ErrorMessage name="endDate" class="mb-3 text-danger" />
           </div>
           <!-- Semester input -->
@@ -92,15 +106,17 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
 import { environment } from "@/environments/environment";
 import axios from "axios";
+import Calendar from "primevue/calendar";
+import moment from "moment";
 
 export default {
   name: "AppExamPeriodForm",
-  components: { MDBBtnGroup, MDBBtn },
+  components: { MDBBtnGroup, MDBBtn, Calendar },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -113,17 +129,16 @@ export default {
     };
     const addExamPeriod = () => {
       examPeriod.value.id = Math.floor(Math.random() * 1000);
-      examPeriod.value.startDate = formatDate(examPeriod.value.startDate);
-      examPeriod.value.endDate = formatDate(examPeriod.value.endDate);
+      examPeriod.value.startDate = moment(examPeriod.value.startDate).format(
+        "DD.MM.YYYY"
+      );
+      examPeriod.value.endDate = moment(examPeriod.value.endDate).format(
+        "DD.MM.YYYY"
+      );
       axios
         .post(`${environment.serverUrl}/exam-periods`, examPeriod.value)
         .then(() => redirect())
         .catch((err) => console.log(err));
-    };
-
-    const formatDate = (date) => {
-      const [year, month, day] = date.split("-");
-      return `${day}.${month}.${year}`;
     };
 
     const redirect = () => {

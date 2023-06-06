@@ -5,7 +5,7 @@
     style="position: absolute; bottom: 0; right: 0"
   >
     <i class="flag flag-serbia"></i>
-    <MDBSwitch v-model="isEnglish" @click="changeLocale"></MDBSwitch>
+    <InputSwitch v-model="isEnglish" @click="changeLocale"></InputSwitch>
     <i class="flag flag-united-states"></i>
   </div>
   <router-view />
@@ -15,16 +15,16 @@
 import { onMounted, ref } from "vue";
 import AppHeader from "./components/Header.vue";
 import Dropdown from "primevue/dropdown";
-import { MDBSwitch } from "mdb-vue-ui-kit";
 import { setLocale } from "@vee-validate/i18n";
 import i18n from "@/plugins/i18n";
+import InputSwitch from "primevue/inputswitch";
 
 export default {
   name: "App",
   components: {
     AppHeader,
     Dropdown,
-    MDBSwitch,
+    InputSwitch,
   },
   setup() {
     const isEnglish = ref(

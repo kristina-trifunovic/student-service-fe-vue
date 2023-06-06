@@ -142,8 +142,8 @@ export default {
     };
 
     const addOrUpdateSubject = () => {
-      subject.value.id = Math.floor(Math.random() * 1000);
       if (mode.value == "add") {
+        subject.value.id = Math.floor(Math.random() * 1000);
         addSubject(subject.value)
           .then(() => redirect())
           .catch((err) => console.log("error happened", err));

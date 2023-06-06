@@ -126,18 +126,21 @@
             <ErrorMessage name="currentYearOfStudy" class="mb-3 text-danger" />
           </div>
           <!-- City select -->
-          <vee-field
-            class="form-control mb-2"
-            name="city"
-            as="select"
-            v-model="student.city"
-            :placeholder="$t('student.city')"
-          >
-            <option value="" disabled>{{ $t("student.selectCity") }}</option>
-            <option v-for="city in cities" :key="city.postalCode" :value="city">
-              {{ city.name }}
-            </option>
+          <vee-field name="city" v-model="student.city">
+            <select v-model="student.city" class="form-control mb-2">
+              <option value="" disabled>
+                {{ $t("student.selectCity") }}
+              </option>
+              <option
+                v-for="city in cities"
+                :key="city.postalCode"
+                :value="city"
+              >
+                {{ city.name }}
+              </option>
+            </select>
           </vee-field>
+          <ErrorMessage name="city" class="mb-3 text-danger" />
 
           <!-- Submit button -->
           <MDBBtnGroup class="d-flex justify-content-center">

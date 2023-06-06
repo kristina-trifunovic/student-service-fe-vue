@@ -90,55 +90,81 @@
             />
             <ErrorMessage name="address" class="mb-3 text-danger" />
           </div>
-          <!-- Reelection Date input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="reelectionDate"
-              type="date"
-              :placeholder="$t('professor.reelectionDate')"
-              value="professor.reelectionDate"
-              v-model="professor.reelectionDate"
-            />
-            <ErrorMessage name="reelectionDate" class="mb-3 text-danger" />
-          </div>
-          <!-- Phone input -->
-          <div class="d-flex flex-column col-12">
-            <vee-field
-              class="form-control mb-2"
-              name="phone"
-              type="text"
-              :placeholder="$t('professor.phone')"
-              v-model="professor.phone"
-            />
-            <ErrorMessage name="phone" class="mb-3 text-danger" />
+          <div class="row">
+            <!-- Reelection Date input -->
+            <div class="d-flex flex-column col-6">
+              <vee-field
+                class="form-control mb-2"
+                name="reelectionDate"
+                v-model="professor.reelectionDate"
+                :placeholder="$t('professor.reelectionDate')"
+              >
+                <calendar
+                  style="margin-bottom: 0.5rem"
+                  v-model="professor.reelectionDate"
+                  :manualInput="false"
+                  dateFormat="dd.mm.yy"
+                  showIcon
+                ></calendar>
+              </vee-field>
+              <ErrorMessage name="reelectionDate" class="mb-3 text-danger" />
+            </div>
+            <!-- Phone input -->
+            <div class="d-flex flex-column col-6">
+              <vee-field
+                class="form-control mb-2"
+                style="padding-top: 1rem"
+                name="phone"
+                type="text"
+                :placeholder="$t('professor.phone')"
+                v-model="professor.phone"
+              />
+              <ErrorMessage name="phone" class="mb-3 text-danger" />
+            </div>
           </div>
           <!-- City select -->
           <vee-field
-            class="form-control mb-2"
             name="city"
-            as="select"
-            v-model="professor.city"
             :placeholder="$t('professor.city')"
+            v-model="professor.city"
           >
-            <option value="" disabled>{{ $t("professor.selectCity") }}</option>
-            <option v-for="city in cities" :key="city.postalCode" :value="city">
-              {{ city.name }}
-            </option>
+            <select v-model="professor.city" class="form-control mb-2">
+              <option value="" disabled>
+                {{ $t("professor.selectCity") }}
+              </option>
+              <option
+                v-for="city in cities"
+                :key="city.postalCode"
+                :value="city"
+              >
+                {{ city.name }}
+              </option>
+            </select>
           </vee-field>
+          <ErrorMessage name="city" class="mb-3 text-danger" />
           <!-- Title select -->
-          <vee-field
-            class="form-control mb-2"
-            name="title"
-            as="select"
-            v-model="professor.title"
-            :placeholder="$t('professor.title')"
-          >
-            <option value="" disabled>{{ $t("professor.selectTitle") }}</option>
-            <option v-for="title in titles" :key="title.id" :value="title">
-              {{ title.professorTitle }}
-            </option>
+          <vee-field name="title" v-model="professor.title">
+            <select
+              v-model="professor.title"
+              class="form-control mb-2"
+              :placeholder="$t('professor.title')"
+              @change="onChange"
+              :selected="professor.title"
+            >
+              <option value="" disabled>
+                {{ $t("professor.selectTitle") }}
+              </option>
+              <option
+                v-for="title in titles"
+                :key="title.id"
+                :value="title"
+                :selected="value"
+              >
+                {{ title.professorTitle }}
+              </option>
+            </select>
           </vee-field>
+          <ErrorMessage name="title" class="mb-3 text-danger" />
 
           <!-- Submit button -->
           <MDBBtnGroup class="d-flex justify-content-center">
@@ -160,11 +186,13 @@ import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
 import { environment } from "@/environments/environment";
+import Calendar from "primevue/calendar";
 import axios from "axios";
+import moment from "moment";
 
 export default {
-  name: "AppStudentForm",
-  components: { MDBBtnGroup, MDBBtn },
+  name: "AppProfessorForm",
+  components: { MDBBtnGroup, MDBBtn, Calendar },
   setup() {
     const route = useRoute();
     const router = useRouter();
@@ -201,16 +229,17 @@ export default {
       email: "required|email|max:30",
       address: "min:3|max:50",
       city: "required",
+      title: "required",
       phone: "min:9|max:15|numeric",
-      reelectionDate: "",
+      reelectionDate: "required",
     };
 
     let professor = ref({});
 
     const addOrUpdateProfessor = () => {
-      professor.value.reelectionDate = formatDate(
+      professor.value.reelectionDate = moment(
         professor.value.reelectionDate
-      );
+      ).format("DD.MM.YYYY");
       if (mode.value == "add") {
         addProfessor(professor.value)
           .then(() => redirect())
@@ -234,11 +263,6 @@ export default {
       router.push({ name: "professor-list" });
     };
 
-    const formatDate = (reelectionDate) => {
-      const [year, month, day] = reelectionDate.split("-");
-      return `${day}.${month}.${year}`;
-    };
-
     return {
       professor,
       schema,
@@ -247,10 +271,7 @@ export default {
       mode,
       cities,
       titles,
-      formatDate,
     };
   },
 };
 </script>
-
-<style></style>

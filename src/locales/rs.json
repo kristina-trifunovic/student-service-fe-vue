@@ -126,11 +126,13 @@
     "no": "Ne"
   },
   "exam": {
+    "listTitle": "Lista ispita",
     "professor": "Profesor",
     "subject": "Predmet",
     "examPeriod": "Ispitni rok",
     "addTitle": "Dodaj ispit",
     "examDate": "Datum ispita",
-    "grade": "Ocena"
+    "grade": "Ocena",
+    "student": "Student"
   }
 }

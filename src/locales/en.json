@@ -126,11 +126,13 @@
     "no": "No"
   },
   "exam": {
+    "listTitle": "List of exams",
     "professor": "Professor",
     "subject": "Subject",
     "examPeriod": "Exam period",
     "addTitle": "Add exam",
     "examDate": "Exam date",
-    "grade": "Grade"
+    "grade": "Grade",
+    "student": "Student"
   }
 }

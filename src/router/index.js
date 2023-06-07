@@ -12,6 +12,7 @@ import ProfessorForm from "@/views/professors/ProfessorForm.vue";
 import ProfessorList from "@/views/professors/ProfessorList.vue";
 import ExamPeriodForm from "@/views/exam-periods/ExamPeriodForm.vue";
 import ExamForm from "@/views/exams/ExamForm.vue";
+import ExamList from "@/views/exams/ExamList.vue";
 
 import { cityLoadOneResolver } from "@/resolvers/city.resolver";
 import { studentLoadOneResolver } from "@/resolvers/student.resolver";
@@ -161,6 +162,11 @@ const routes = [
         name: "exam-add",
         component: ExamForm,
       },
+      {
+        path: "list",
+        name: "exam-list",
+        component: ExamList,
+      },
     ],
   },
 ];
@@ -182,7 +188,6 @@ router.beforeEach((to, from) => {
     const roleExists = JSON.parse(
       sessionStorage.getItem("user")
     ).authorities.some((authority) => roles.includes(authority.authority));
-    console.log(roleExists);
     if (!roleExists) {
       return { name: "home" };
       // toast.add({

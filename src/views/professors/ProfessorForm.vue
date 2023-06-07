@@ -180,7 +180,7 @@
               </option>
             </select>
           </vee-field>
-          <ErrorMessage name="title" class="mb-3 text-danger" />
+          <ErrorMessage name="subjects" class="mb-3 text-danger" />
 
           <!-- Submit button -->
           <MDBBtnGroup class="d-flex justify-content-center">

@@ -60,6 +60,11 @@ export default {
             title: "Title",
             startDate: "Start date",
             endDate: "End date",
+            professor: "Professor",
+            subject: "Subject",
+            examDate: "Exam date",
+            grade: "Grade",
+            examPeriod: "Exam period",
           },
           messages: {
             required: "{field} is required.",
@@ -97,6 +102,11 @@ export default {
             title: "Titula",
             startDate: "Datum početka",
             endDate: "Datum završetka",
+            professor: "Profesor",
+            subject: "Predmet",
+            examDate: "Datum ispita",
+            grade: "Ocena",
+            examPeriod: "Ispitni rok",
           },
           messages: {
             required: "{field} je obavezno polje",

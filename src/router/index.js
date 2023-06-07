@@ -11,6 +11,7 @@ import SubjectList from "@/views/subjects/SubjectList.vue";
 import ProfessorForm from "@/views/professors/ProfessorForm.vue";
 import ProfessorList from "@/views/professors/ProfessorList.vue";
 import ExamPeriodForm from "@/views/exam-periods/ExamPeriodForm.vue";
+import ExamForm from "@/views/exams/ExamForm.vue";
 
 import { cityLoadOneResolver } from "@/resolvers/city.resolver";
 import { studentLoadOneResolver } from "@/resolvers/student.resolver";
@@ -130,6 +131,16 @@ const routes = [
       },
     ],
     // redirect: { name: "exam-period-list" },
+  },
+  {
+    path: "/exam",
+    children: [
+      {
+        path: "form",
+        name: "exam-add",
+        component: ExamForm,
+      },
+    ],
   },
 ];
 

@@ -7,7 +7,7 @@
       <MDBDropdownItem
         tag="button"
         @click="redirectList"
-        v-show="props.name != 'exam period'"
+        v-show="props.name != 'exam period' && props.name != 'exam'"
         >{{
           $t("header.goToMenuComponent", {
             componentName: $t(`component.${name}Plural`),

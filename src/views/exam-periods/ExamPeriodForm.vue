@@ -96,7 +96,7 @@
             <MDBBtn color="outline" type="submit">{{
               $t("actions.save")
             }}</MDBBtn>
-            <MDBBtn color="warning" @click="redirect">{{
+            <MDBBtn color="warning" @click="examPeriod = {}">{{
               $t("actions.cancel")
             }}</MDBBtn>
           </MDBBtnGroup>

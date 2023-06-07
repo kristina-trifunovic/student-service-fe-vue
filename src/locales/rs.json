@@ -43,7 +43,9 @@
     "fail_update": "Neuspešno ažuriranje {componentName}",
     "success_load": "Uspešno učitavanje {componentName}",
     "fail_load": "Neuspešno učitavanje {componentName}",
-    "authorization_error": "Niste ovlašćeni da nastavite"
+    "authorization_error": "Niste ovlašćeni da nastavite",
+    "success_apply_exams": "Uspešno prijavljeni ispiti",
+    "fail_apply_exams": "Neuspešno prijavljeni ispiti"
   },
   "actions": {
     "delete": "Obriši",
@@ -55,7 +57,9 @@
     "yes": "Da",
     "no": "Ne",
     "deleteAction": "Da li ste sigurno da želite da obrišete {name}?",
-    "deleting": "Brišem..."
+    "deleting": "Brišem...",
+    "apply": "Prijavi",
+    "add": "Dodaj"
   },
   "city": {
     "listTitle": "Lista gradova",
@@ -133,6 +137,7 @@
     "addTitle": "Dodaj ispit",
     "examDate": "Datum ispita",
     "grade": "Ocena",
-    "student": "Student"
+    "student": "Student",
+    "applyExams": "Prijavljivanje ispita"
   }
 }

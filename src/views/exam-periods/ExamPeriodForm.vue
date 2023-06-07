@@ -150,7 +150,7 @@ export default {
               componentName: t("component.exam period"),
             }),
             detail: "",
-            life: 3000,
+            life: 2000,
           })
         )
         .catch((err) =>
@@ -160,7 +160,7 @@ export default {
               componentName: t("component.exam period"),
             }),
             detail: err,
-            life: 3000,
+            life: 2000,
           })
         );
     };

@@ -41,7 +41,9 @@
     "yes": "Yes",
     "no": "No",
     "deleteAction": "Are you sure you want to delete {name}?",
-    "deleting": "Deleting..."
+    "deleting": "Deleting...",
+    "apply": "Apply",
+    "add": "Add"
   },
   "messages": {
     "success_login": "Successfully logged in",
@@ -55,7 +57,9 @@
     "fail_update": "Failed to update {componentName}",
     "success_load": "Successfully loaded {componentName}",
     "fail_load": "Loading of {componentName} not successfull",
-    "authorization_error": "You are not authorized to proceed"
+    "authorization_error": "You are not authorized to proceed",
+    "success_apply_exams": "Exams applied successfully",
+    "fail_apply_exams": "Failed to apply exams"
   },
   "city": {
     "listTitle": "List of cities",
@@ -133,6 +137,7 @@
     "addTitle": "Add exam",
     "examDate": "Exam date",
     "grade": "Grade",
-    "student": "Student"
+    "student": "Student",
+    "applyExams": "Apply exams"
   }
 }

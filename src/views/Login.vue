@@ -101,7 +101,7 @@ export default {
             severity: "success",
             summary: t("messages.success_login"),
             detail: "",
-            life: 3000,
+            life: 2000,
           });
         })
         .catch((err) =>
@@ -109,7 +109,7 @@ export default {
             severity: "error",
             summary: t("messages.fail_login"),
             detail: err,
-            life: 3000,
+            life: 2000,
           })
         );
     };

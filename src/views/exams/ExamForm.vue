@@ -186,7 +186,7 @@ export default {
               componentName: t("component.professorPlural"),
             }),
             detail: err,
-            life: 3000,
+            life: 2000,
           })
         );
       loadSubjects()
@@ -198,7 +198,7 @@ export default {
               componentName: t("component.subjectPlural"),
             }),
             detail: err,
-            life: 3000,
+            life: 2000,
           })
         );
       loadExamPeriods()
@@ -210,7 +210,7 @@ export default {
               componentName: t("component.examPeriodPlural"),
             }),
             detail: err,
-            life: 3000,
+            life: 2000,
           })
         );
     });
@@ -231,7 +231,7 @@ export default {
               componentName: t("component.exam"),
             }),
             detail: "",
-            life: 3000,
+            life: 2000,
           })
         )
         .catch((err) =>
@@ -241,7 +241,7 @@ export default {
               componentName: t("component.exam"),
             }),
             detail: err,
-            life: 3000,
+            life: 2000,
           })
         );
     };

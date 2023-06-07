@@ -130,7 +130,7 @@ export default {
         severity: "success",
         summary: t("messages.success_logout"),
         detail: "",
-        life: 3000,
+        life: 2000,
       });
     };
 

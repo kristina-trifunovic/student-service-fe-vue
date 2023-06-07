@@ -158,7 +158,7 @@ export default {
                 componentName: t("component.studentPlural"),
               }),
               detail: "",
-              life: 3000
+              life: 2000
             });
         })
         .catch((err) => toast.add({
@@ -167,7 +167,7 @@ export default {
                 componentName: t("component.studentPlural"),
               }),
               detail: err,
-              life: 3000
+              life: 2000
             })
           )
     });
@@ -199,7 +199,7 @@ export default {
                 componentName: t("component.student"),
               }),
               detail: "",
-              life: 3000
+              life: 2000
             })
         })
         .catch((err) => toast.add({
@@ -208,7 +208,7 @@ export default {
                 componentName: t("component.student"),
               }),
               detail: err,
-              life: 3000
+              life: 2000
             }))
     }
 

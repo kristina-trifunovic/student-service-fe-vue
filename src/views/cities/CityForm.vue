@@ -97,7 +97,7 @@ export default {
                 componentName: t("component.city"),
               }),
               detail: "",
-              life: 3000,
+              life: 2000,
             });
           })
           .catch((err) =>
@@ -107,7 +107,7 @@ export default {
                 componentName: t("component.city"),
               }),
               detail: err,
-              life: 3000,
+              life: 2000,
             })
           );
       } else if (mode.value == "update") {
@@ -120,7 +120,7 @@ export default {
                 componentName: t("component.city"),
               }),
               detail: "",
-              life: 3000,
+              life: 2000,
             });
           })
           .catch((err) =>
@@ -130,7 +130,7 @@ export default {
                 componentName: t("component.city"),
               }),
               detail: err,
-              life: 3000,
+              life: 2000,
             })
           );
       }

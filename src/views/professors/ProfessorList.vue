@@ -165,7 +165,7 @@ export default {
                 componentName: t("component.professorPlural"),
               }),
               detail: "",
-              life: 3000
+              life: 2000
             });
         })
         .catch((err) => toast.add({
@@ -174,7 +174,7 @@ export default {
                 componentName: t("component.professorPlural"),
               }),
               detail: err,
-              life: 3000
+              life: 2000
             })
           )
     });
@@ -198,7 +198,7 @@ export default {
                 componentName: t("component.subjectPlural"),
               }),
               detail: err,
-              life: 3000
+              life: 2000
             })
         )
     };
@@ -222,7 +222,7 @@ export default {
                 componentName: t("component.professor"),
               }),
               detail: "",
-              life: 3000
+              life: 2000
             })
         })
         .catch((err) => toast.add({
@@ -231,7 +231,7 @@ export default {
                 componentName: t("component.professor"),
               }),
               detail: err,
-              life: 3000
+              life: 2000
             }))
     }
 

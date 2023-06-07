@@ -19,6 +19,12 @@
           componentName: $t(`component.${name}`),
         })
       }}</MDBDropdownItem>
+      <MDBDropdownItem
+        v-show="props.name == 'exam'"
+        tag="button"
+        @click="redirectToApplyExams"
+        >{{ $t("exam.applyExams") }}</MDBDropdownItem
+      >
     </MDBDropdownMenu>
   </MDBDropdown>
 </template>
@@ -64,6 +70,10 @@ export default {
       router.push({ name: `${componentName}-list` });
     };
 
+    const redirectToApplyExams = () => {
+      router.push({ name: "exam-apply" });
+    };
+
     return {
       props,
       dropdown,
@@ -71,6 +81,7 @@ export default {
       componentName,
       redirectForm,
       redirectList,
+      redirectToApplyExams,
     };
   },
 };

@@ -141,7 +141,7 @@ export default {
                 componentName: t("component.cityPlural"),
               }),
               detail: "",
-              life: 3000
+              life: 2000
             });
         })
         .catch((err) => toast.add({
@@ -150,7 +150,7 @@ export default {
                 componentName: t("component.cityPlural"),
               }),
               detail: err,
-              life: 3000
+              life: 2000
             })
           )
     });
@@ -182,7 +182,7 @@ export default {
                 componentName: t("component.city"),
               }),
               detail: "",
-              life: 3000
+              life: 2000
             })
         })
         .catch((err) => toast.add({
@@ -191,7 +191,7 @@ export default {
                 componentName: t("component.city"),
               }),
               detail: err,
-              life: 3000
+              life: 2000
             }))
     }
 

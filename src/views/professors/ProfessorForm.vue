@@ -149,19 +149,34 @@
               v-model="professor.title"
               class="form-control mb-2"
               :placeholder="$t('professor.title')"
-              @change="onChange"
-              :selected="professor.title"
             >
               <option value="" disabled>
                 {{ $t("professor.selectTitle") }}
               </option>
-              <option
-                v-for="title in titles"
-                :key="title.id"
-                :value="title"
-                :selected="value"
-              >
+              <option v-for="title in titles" :key="title.id" :value="title">
                 {{ title.professorTitle }}
+              </option>
+            </select>
+          </vee-field>
+          <ErrorMessage name="title" class="mb-3 text-danger" />
+
+          <!-- Subjects select -->
+          <vee-field name="subjects" v-model="professor.subjects">
+            <select
+              v-model="newSubjects"
+              class="form-control mb-2"
+              :placeholder="$t('professor.subjects')"
+              multiple
+            >
+              <option value="" disabled>
+                {{ $t("professor.selectSubjects") }}
+              </option>
+              <option
+                v-for="subject in subjects"
+                :key="subject.id"
+                :value="subject"
+              >
+                {{ subject.name }}
               </option>
             </select>
           </vee-field>
@@ -204,6 +219,8 @@ export default {
     const { t } = useI18n();
 
     let mode = ref("");
+    let newSubjects = ref([]);
+
     onMounted(() => {
       if (route.params.username) {
         professor.value = route.meta.professor["data"];
@@ -233,6 +250,19 @@ export default {
             life: 3000,
           })
         );
+      loadSubjectsWithNoProfessor()
+        .then((res) => (subjects.value = res.data))
+        .catch((err) => {
+          console.log(err);
+          toast.add({
+            severity: "error",
+            summary: t("messages.fail_load", {
+              componentName: t("component.subjectPlural"),
+            }),
+            detail: err,
+            life: 3000,
+          });
+        });
     });
 
     let cities = ref([]);
@@ -243,6 +273,11 @@ export default {
     let titles = ref([]);
     const loadTitles = () => {
       return axios.get(`${environment.serverUrl}/titles`);
+    };
+
+    let subjects = ref([]);
+    const loadSubjectsWithNoProfessor = () => {
+      return axios.get(`${environment.serverUrl}/subjects/no-professors`);
     };
 
     const schema = {
@@ -265,6 +300,7 @@ export default {
         professor.value.reelectionDate
       ).format("DD.MM.YYYY");
       if (mode.value == "add") {
+        professor.value.subjects = newSubjects.value;
         addProfessor(professor.value)
           .then(() => {
             setTimeout(() => redirect(), 1000);
@@ -288,6 +324,7 @@ export default {
             })
           );
       } else if (mode.value == "update") {
+        newSubjects.value.forEach((s) => professor.value.subjects.push(s));
         updateProfessor(professor.value)
           .then(() => {
             setTimeout(() => redirect(), 1000);
@@ -332,6 +369,8 @@ export default {
       mode,
       cities,
       titles,
+      subjects,
+      newSubjects,
     };
   },
 };

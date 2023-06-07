@@ -109,7 +109,8 @@
     "title": "Title",
     "selectTitle": "Select a title",
     "selectCity": "Select a city",
-    "subjects": "Subjects"
+    "subjects": "Subjects",
+    "selectSubjects": "Select subjects"
   },
   "examPeriod": {
     "listTitle": "List of exam periods",

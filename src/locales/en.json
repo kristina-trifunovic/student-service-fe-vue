@@ -54,7 +54,8 @@
     "success_update": "Successfully updated {componentName}",
     "fail_update": "Failed to update {componentName}",
     "success_load": "Successfully loaded {componentName}",
-    "fail_load": "Loading of {componentName} not successfull"
+    "fail_load": "Loading of {componentName} not successfull",
+    "authorization_error": "You are not authorized to proceed"
   },
   "city": {
     "listTitle": "List of cities",

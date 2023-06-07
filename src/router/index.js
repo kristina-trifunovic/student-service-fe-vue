@@ -23,6 +23,9 @@ const routes = [
     path: "/",
     name: "home",
     component: Home,
+    meta: {
+      roles: ["ROLE_ADMIN", "ROLE_PROFESSOR", "ROLE_STUDENT"],
+    },
   },
   {
     path: "/login",
@@ -32,6 +35,9 @@ const routes = [
   {
     path: "/city",
     redirect: { name: "city-list" },
+    meta: {
+      roles: ["ROLE_ADMIN"],
+    },
     children: [
       {
         path: "list",
@@ -55,6 +61,9 @@ const routes = [
   {
     path: "/student",
     redirect: { name: "student-list" },
+    meta: {
+      roles: ["ROLE_ADMIN", "ROLE_STUDENT"],
+    },
     children: [
       {
         path: "list",
@@ -78,6 +87,9 @@ const routes = [
   {
     path: "/subject",
     redirect: { name: "subject-list" },
+    meta: {
+      roles: ["ROLE_ADMIN"],
+    },
     children: [
       {
         path: "list",
@@ -101,6 +113,9 @@ const routes = [
   {
     path: "/professor",
     redirect: { name: "professor-list" },
+    meta: {
+      roles: ["ROLE_ADMIN"],
+    },
     children: [
       {
         path: "list",
@@ -123,6 +138,9 @@ const routes = [
 
   {
     path: "/exam-period",
+    meta: {
+      roles: ["ROLE_ADMIN"],
+    },
     children: [
       {
         path: "form",
@@ -134,6 +152,9 @@ const routes = [
   },
   {
     path: "/exam",
+    meta: {
+      roles: ["ROLE_ADMIN", "ROLE_PROFESSOR"],
+    },
     children: [
       {
         path: "form",
@@ -155,6 +176,22 @@ router.beforeEach((to, from) => {
   }
   if (sessionStorage.getItem("user") && to.name == "login") {
     return { name: "home" };
+  }
+  if (sessionStorage.getItem("user")) {
+    const roles = to.meta["roles"];
+    const roleExists = JSON.parse(
+      sessionStorage.getItem("user")
+    ).authorities.some((authority) => roles.includes(authority.authority));
+    console.log(roleExists);
+    if (!roleExists) {
+      return { name: "home" };
+      // toast.add({
+      //   severity: "error",
+      //   summary: t("messages.authorization_error"),
+      //   detail: "",
+      //   life: 3000,
+      // });
+    }
   }
 });
 

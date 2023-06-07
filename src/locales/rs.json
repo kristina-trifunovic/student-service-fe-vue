@@ -42,7 +42,8 @@
     "success_update": "Uspešno ažuriran {componentName}",
     "fail_update": "Neuspešno ažuriranje {componentName}",
     "success_load": "Uspešno učitavanje {componentName}",
-    "fail_load": "Neuspešno učitavanje {componentName}"
+    "fail_load": "Neuspešno učitavanje {componentName}",
+    "authorization_error": "Niste ovlašćeni da nastavite"
   },
   "actions": {
     "delete": "Obriši",

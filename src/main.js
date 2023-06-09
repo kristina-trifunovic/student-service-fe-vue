@@ -10,6 +10,7 @@ import PrimeVue from "primevue/config";
 import progressBar from "@/plugins/progress-bar";
 import { basicInterceptor } from "@/plugins/basic.interceptor";
 import ToastService from "primevue/toastservice";
+import ConfirmationService from "primevue/confirmationservice";
 
 import "nprogress/nprogress.css";
 //theme
@@ -29,6 +30,7 @@ app.use(i18n);
 app.use(VeeValidatePlugin);
 app.use(PrimeVue);
 app.use(ToastService);
+app.use(ConfirmationService);
 basicInterceptor();
 
 sessionStorage.setItem("language", "en");

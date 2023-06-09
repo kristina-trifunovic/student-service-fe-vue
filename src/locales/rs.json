@@ -54,6 +54,7 @@
     "save": "Sačuvaj",
     "cancel": "Otkaži",
     "close": "Zatvori",
+    "remove": "Ukloni",
     "yes": "Da",
     "no": "Ne",
     "deleteAction": "Da li ste sigurno da želite da obrišete {name}?",
@@ -138,6 +139,7 @@
     "examDate": "Datum ispita",
     "grade": "Ocena",
     "student": "Student",
-    "applyExams": "Prijavljivanje ispita"
+    "applyExams": "Prijavljivanje ispita",
+    "confirmDialog": "Da li ste sigurno da želite da prijavite sledeće ispite?"
   }
 }

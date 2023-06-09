@@ -64,7 +64,7 @@ const routes = [
     path: "/student",
     redirect: { name: "student-list" },
     meta: {
-      roles: ["ROLE_ADMIN", "ROLE_STUDENT"],
+      roles: ["ROLE_ADMIN"],
     },
     children: [
       {
@@ -172,6 +172,9 @@ const routes = [
         path: "apply",
         name: "exam-apply",
         component: ExamApply,
+        meta: {
+          roles: ["ROLE_STUDENT"],
+        },
       },
     ],
   },

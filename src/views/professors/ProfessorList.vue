@@ -216,7 +216,8 @@ export default {
         .then(() => {
           const deletedProfessorIndex = professors.value.findIndex(professor => professor.username == professorToDelete.value.username)
           professors.value.splice(deletedProfessorIndex, 1)
-          deleteModal.value = false;toast.add({
+          deleteModal.value = false;
+          toast.add({
               severity: "success",
               summary: t("messages.success_delete", {
                 componentName: t("component.professor"),

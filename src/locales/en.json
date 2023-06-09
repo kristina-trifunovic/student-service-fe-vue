@@ -38,6 +38,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "close": "Close",
+    "remove": "Remove",
     "yes": "Yes",
     "no": "No",
     "deleteAction": "Are you sure you want to delete {name}?",
@@ -138,6 +139,7 @@
     "examDate": "Exam date",
     "grade": "Grade",
     "student": "Student",
-    "applyExams": "Apply exams"
+    "applyExams": "Apply exams",
+    "confirmDialog": "Are you sure you want to apply these exams?"
   }
 }

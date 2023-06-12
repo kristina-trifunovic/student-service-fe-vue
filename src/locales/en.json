@@ -21,7 +21,8 @@
     "studentPlural": "students",
     "examPlural": "exams",
     "exam periodPlural": "exam periods",
-    "titlePlural": "titles"
+    "titlePlural": "titles",
+    "grade": "grade"
   },
   "login": {
     "welcome": "Welcome to",
@@ -80,6 +81,7 @@
     "indexYear": "Index year",
     "firstName": "First name",
     "lastName": "Last name",
+    "name": "Name",
     "email": "Email",
     "currentYearOfStudy": "Current year of study",
     "city": "City",

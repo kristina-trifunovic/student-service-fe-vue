@@ -21,7 +21,8 @@
     "studentPlural": "studenata",
     "examPlural": "ispita",
     "exam periodPlural": "ispitnih rokova",
-    "titlePlural": "titula"
+    "titlePlural": "titula",
+    "grade": "ocena"
   },
   "login": {
     "welcome": "Dobrodošli",
@@ -80,6 +81,7 @@
     "indexYear": "Godina indeksa",
     "firstName": "Ime",
     "lastName": "Prezime",
+    "name": "Ime",
     "email": "Email",
     "currentYearOfStudy": "Trenutna godina studija",
     "city": "Grad",

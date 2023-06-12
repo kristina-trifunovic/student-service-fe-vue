@@ -181,8 +181,12 @@ export default {
       return axios.get(`${environment.serverUrl}/students/exams/${userStore.userLoggedIn.username}/${exam.id.examPeriodId}/${exam.id.subjectId}`);
     }
 
+    const loadStudentExamsByProfessor = () => {
+      return axios.get(`${environment.serverUrl}/student-takes-exam/${userStore.userLoggedIn.username}`);
+    }
+
     const saveGrade = (exam, grade, studentUsername) => {
-      return axios.put(`${environment.serverUrl}/exams/${grade}/${studentUsername}`, exam);
+      return axios.put(`${environment.serverUrl}/student-takes-exam/${grade}/${studentUsername}`, exam);
     }
 
     const onRowEditSave = (event) => {
@@ -213,23 +217,30 @@ export default {
     const viewModal = ref(false);
     const examToShow = ref({});
     const openModal = (exam) => {
+      studentsGrades.value = []
       examToShow.value = exam;
       viewModal.value = true;
-      loadStudentsFromExamToShow(examToShow.value)
+      let studentExam = ref([])
+      loadStudentExamsByProfessor()
         .then((res) => {
-          for (let i = 0; i < res.data.length; i++) {
-            studentsGrades.value.push({student: res.data[i], grade: 0})
-          }
-        })
-        .catch((err) => toast.add({
-              severity: "error",
-              summary: t("messages.fail_load", {
-                componentName: t("component.studentPlural"),
-              }),
-              detail: err,
-              life: 2000
-            })
-          )
+          studentExam.value = res.data
+          loadStudentsFromExamToShow(examToShow.value)
+          .then((res) => {
+            for (let i = 0; i < res.data.length; i++) {
+              let grade = studentExam.value.filter(se => se.exam.professor.username == userStore.userLoggedIn.username && se.student.username == res.data[i].username)[0].grade
+              studentsGrades.value.push({student: res.data[i], grade: grade})
+            }
+          })
+          .catch((err) => toast.add({
+                severity: "error",
+                summary: t("messages.fail_load", {
+                  componentName: t("component.studentPlural"),
+                }),
+                detail: err,
+                life: 2000
+              })
+            )
+      })
     };
 
     const router = useRouter();

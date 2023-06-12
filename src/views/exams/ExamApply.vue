@@ -138,6 +138,7 @@ import Calendar from "primevue/calendar";
 import useUserStore from "@/stores/user";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import { useRouter } from "vue-router";
 
 export default {
   name: "AppExamApply",
@@ -158,6 +159,7 @@ export default {
   setup() {
     const toast = useToast();
     const confirm = useConfirm();
+    const router = useRouter();
 
     const { t } = useI18n();
     const userStore = useUserStore();
@@ -234,7 +236,6 @@ export default {
     const removeExam = (exam) => {
       let i = examsToApply.value.findIndex((e) => e.id === exam.id);
       let removedExam = examsToApply.value.splice(i, 1);
-      console.log(removedExam);
       exams.value.push(...removedExam);
     };
 

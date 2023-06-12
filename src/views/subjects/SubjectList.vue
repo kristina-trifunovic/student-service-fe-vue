@@ -10,46 +10,24 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
-        <MDBTable class="align-middle mb-0 bg-white col-12">
-          <thead class="bg-light">
-            <tr>
-              <th>{{ $t("subject.id") }}</th>
-              <th>{{ $t("subject.name") }}</th>
-              <th>{{ $t("subject.noOfEsp") }}</th>
-              <th>{{ $t("subject.yearOfStudy") }}</th>
-              <th>{{ $t("subject.semester") }}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="subject in subjects" :key="subject.id">
-              <td>
-                <p class="fw-normal mb-1">{{ subject.id }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ subject.name }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ subject.noOfEsp }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ subject.yearOfStudy }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ $t(`subject.${subject.semester}`) }}</p>
-              </td>
-              <td>
-                <MDBBtnGroup>
-                  <MDBBtn color="light" @click="openModal(subject)">{{
-                    $t("actions.view")
-                  }}</MDBBtn>
-                  <MDBBtn color="warning" @click="router.push({name: 'subject-update', params: {id: subject.id} })">{{ $t("actions.edit") }}</MDBBtn>
-                  <MDBBtn color="danger" @click="onDelete(subject)">{{ $t("actions.delete") }}</MDBBtn>
-                </MDBBtnGroup>
-              </td>
-            </tr>
-          </tbody>
-        </MDBTable>
+        <DataTable :value="subjects" paginator removableSort :rows="5" :rowsPerPageOptions="[2, 3, 5, 10]" tableStyle="min-width: 50rem">
+          <Column field="id" sortable :header="$t('subject.id')"></Column>
+          <Column field="name" sortable :header="$t('subject.name')"></Column>
+          <Column field="noOfEsp" sortable :header="$t('subject.noOfEsp')"></Column>
+          <Column field="yearOfStudy" sortable :header="$t('subject.yearOfStudy')"></Column>
+          <Column field="semester" sortable :header="$t('subject.semester')"></Column>
+          <Column>
+            <template #body="slotProps">
+              <MDBBtnGroup>
+                <MDBBtn color="light" @click="openModal(slotProps.data)">{{
+                  $t("actions.view")
+                }}</MDBBtn>
+                <MDBBtn color="warning" @click="router.push({name: 'student-update', params: {id: slotProps.data.id} })">{{ $t("actions.edit") }}</MDBBtn>
+                <MDBBtn color="danger" @click="onDelete(slotProps.data)">{{ $t("actions.delete") }}</MDBBtn>
+              </MDBBtnGroup>
+            </template>
+          </Column>
+        </DataTable>
       </MDBCol>
     </MDBRow>
   </MDBContainer>
@@ -104,7 +82,6 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBTable,
   MDBBtn,
   MDBBtnGroup,
   MDBModal,
@@ -120,6 +97,8 @@ import { useRouter } from 'vue-router';
 import { useToast } from "primevue/usetoast";
 import { useI18n } from "vue-i18n";
 import Toast from 'primevue/toast';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
 export default {
   name: "AppSubjectList",
@@ -127,7 +106,6 @@ export default {
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBTable,
     MDBBtn,
     MDBBtnGroup,
     MDBModal,
@@ -136,7 +114,9 @@ export default {
     MDBModalBody,
     MDBModalFooter,
     MDBBtn,
-    Toast
+    Toast,
+    DataTable,
+    Column
   },
   setup() {
     let subjects = ref([]);

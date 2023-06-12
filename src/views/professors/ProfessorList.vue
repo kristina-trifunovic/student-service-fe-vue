@@ -10,42 +10,27 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
-        <MDBTable class="align-middle mb-0 bg-white col-12">
-          <thead class="bg-light">
-            <tr>
-              <th>{{ $t("professor.name") }}</th>
-              <th>{{ $t("professor.email") }}</th>
-              <th>{{ $t("professor.phone") }}</th>
-              <th>{{ $t("professor.title") }}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="professor in professors" :key="professor.id">
-              <td>
-                <p class="fw-normal mb-1">{{ professor.firstName + " " + professor.lastName }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ professor.email }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ professor.phone }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ professor.title.professorTitle }}</p>
-              </td>
-              <td>
-                <MDBBtnGroup>
-                  <MDBBtn color="light" @click="openModal(professor)">{{
-                    $t("actions.view")
-                  }}</MDBBtn>
-                  <MDBBtn color="warning" @click="router.push({name: 'professor-update', params: {username: professor.username} })">{{ $t("actions.edit") }}</MDBBtn>
-                  <MDBBtn color="danger" @click="onDelete(professor)">{{ $t("actions.delete") }}</MDBBtn>
-                </MDBBtnGroup>
-              </td>
-            </tr>
-          </tbody>
-        </MDBTable>
+        <DataTable :value="professors" paginator removableSort :rows="5" :rowsPerPageOptions="[2, 3, 5, 10]" tableStyle="min-width: 50rem">
+          <Column field="name" sortable :header="$t('professor.name')">
+            <template #body="slotProps"><p class="fw-normal mb-1">{{ slotProps.data.firstName + " " + slotProps.data.lastName }}</p></template>
+          </Column>
+          <Column field="email" sortable :header="$t('professor.email')"></Column>
+          <Column field="phone" sortable :header="$t('professor.phone')"></Column>
+          <Column field="title" sortable :header="$t('professor.title')">
+            <template #body="slotProps"><p class="fw-normal mb-1">{{ slotProps.data.title.professorTitle }}</p></template>
+          </Column>
+          <Column>
+            <template #body="slotProps">
+              <MDBBtnGroup>
+                <MDBBtn color="light" @click="openModal(slotProps.data)">{{
+                  $t("actions.view")
+                }}</MDBBtn>
+                <MDBBtn color="warning" @click="router.push({name: 'professor-update', params: {username: slotProps.data.username} })">{{ $t("actions.edit") }}</MDBBtn>
+                <MDBBtn color="danger" @click="onDelete(slotProps.data)">{{ $t("actions.delete") }}</MDBBtn>
+              </MDBBtnGroup>
+            </template>
+          </Column>
+        </DataTable>
       </MDBCol>
     </MDBRow>
   </MDBContainer>
@@ -106,7 +91,6 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBTable,
   MDBBtn,
   MDBBtnGroup,
   MDBModal,
@@ -124,6 +108,8 @@ import { useRouter } from 'vue-router';
 import { useToast } from "primevue/usetoast";
 import { useI18n } from "vue-i18n";
 import Toast from 'primevue/toast';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
 export default {
   name: "AppProfessorList",
@@ -131,7 +117,6 @@ export default {
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBTable,
     MDBBtn,
     MDBBtnGroup,
     MDBModal,
@@ -142,7 +127,9 @@ export default {
     MDBBtn,
     MDBListGroup,
     MDBListGroupItem,
-    Toast
+    Toast,
+    DataTable,
+    Column
   },
   setup() {
     let professors = ref([]);

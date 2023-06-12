@@ -10,46 +10,30 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
-        <MDBTable class="align-middle mb-0 bg-white col-12">
-          <thead class="bg-light">
-            <tr>
-              <th>{{ $t("student.index") }}</th>
-              <th>{{ $t("student.firstName") }}</th>
-              <th>{{ $t("student.lastName") }}</th>
-              <th>{{ $t("student.email") }}</th>
-              <th>{{ $t("student.city") }}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="student in students" :key="student">
-              <td>
-                <p class="fw-normal mb-1">{{ student.index.indexNumber + "/" + student.index.indexYear }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ student.firstName }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ student.lastName }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ student.email }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ student.city.name }}</p>
-              </td>
-              <td>
-                <MDBBtnGroup>
-                  <MDBBtn color="light" @click="openModal(student)">{{
-                    $t("actions.view")
-                  }}</MDBBtn>
-                  <MDBBtn color="warning" @click="router.push({name: 'student-update', params: {username: student.username} })">{{ $t("actions.edit") }}</MDBBtn>
-                  <MDBBtn color="danger" @click="onDelete(student)">{{ $t("actions.delete") }}</MDBBtn>
-                </MDBBtnGroup>
-              </td>
-            </tr>
-          </tbody>
-        </MDBTable>
+        <DataTable :value="students" paginator removableSort :rows="5" :rowsPerPageOptions="[2, 3, 5, 10]" tableStyle="min-width: 50rem">
+          <Column field="index.indexNumber" sortable :header="$t('student.index')">
+            <template #body="slotProps">
+              <p class="fw-normal mb-1">{{ slotProps.data.index.indexNumber + "/" + slotProps.data.index.indexYear }}</p>
+            </template>
+          </Column>
+          <Column field="firstName" sortable :header="$t('student.firstName')"></Column>
+          <Column field="lastName" sortable :header="$t('student.lastName')"></Column>
+          <Column field="email" sortable :header="$t('student.email')"></Column>
+          <Column field="city.name" sortable :header="$t('student.city')">
+            <template #body="slotProps"><p class="fw-normal mb-1">{{ slotProps.data.city.name }}</p></template>
+          </Column>
+          <Column>
+            <template #body="slotProps">
+              <MDBBtnGroup>
+                <MDBBtn color="light" @click="openModal(slotProps.data)">{{
+                  $t("actions.view")
+                }}</MDBBtn>
+                <MDBBtn color="warning" @click="router.push({name: 'student-update', params: {username: slotProps.data.username} })">{{ $t("actions.edit") }}</MDBBtn>
+                <MDBBtn color="danger" @click="onDelete(slotProps.data)">{{ $t("actions.delete") }}</MDBBtn>
+              </MDBBtnGroup>
+            </template>
+          </Column>
+        </DataTable>
       </MDBCol>
     </MDBRow>
   </MDBContainer>
@@ -104,7 +88,6 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBTable,
   MDBBtn,
   MDBBtnGroup,
   MDBModal,
@@ -120,6 +103,8 @@ import { useRouter } from 'vue-router';
 import { useToast } from "primevue/usetoast";
 import { useI18n } from "vue-i18n";
 import Toast from 'primevue/toast';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 
 export default {
   name: "AppStudentList",
@@ -127,7 +112,6 @@ export default {
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBTable,
     MDBBtn,
     MDBBtnGroup,
     MDBModal,
@@ -136,7 +120,9 @@ export default {
     MDBModalBody,
     MDBModalFooter,
     MDBBtn,
-    Toast
+    Toast,
+    DataTable,
+    Column
   },
   setup() {
     let students = ref([]);

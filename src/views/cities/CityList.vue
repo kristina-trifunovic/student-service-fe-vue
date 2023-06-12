@@ -9,35 +9,22 @@
       >
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
-      <MDBCol md="6">
-        <MDBTable class="align-middle mb-0 bg-white col-6">
-          <thead class="bg-light">
-            <tr>
-              <th>{{ $t("city.postalCode") }}</th>
-              <th>{{ $t("city.name") }}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="city in cities" :key="city.postalCode">
-              <td>
-                <p class="fw-normal mb-1">{{ city.postalCode }}</p>
-              </td>
-              <td>
-                <p class="fw-normal mb-1">{{ city.name }}</p>
-              </td>
-              <td>
-                <MDBBtnGroup>
-                  <MDBBtn color="light" @click="openModal(city)">{{
-                    $t("actions.view")
-                  }}</MDBBtn>
-                  <MDBBtn color="warning" @click="router.push({name: 'city-update', params: {id: city.postalCode} })">{{ $t("actions.edit") }}</MDBBtn>
-                  <MDBBtn color="danger" @click="onDelete(city)">{{ $t("actions.delete") }}</MDBBtn>
-                </MDBBtnGroup>
-              </td>
-            </tr>
-          </tbody>
-        </MDBTable>
+      <MDBCol md="8">
+      <DataTable :value="cities" paginator removableSort :rows="5" :rowsPerPageOptions="[2, 3, 5, 10]" tableStyle="min-width: 50rem">
+          <Column field="postalCode" sortable :header="$t('city.postalCode')"></Column>
+          <Column field="name" sortable :header="$t('city.name')"></Column>
+          <Column>
+            <template #body="slotProps">
+              <MDBBtnGroup>
+                <MDBBtn color="light" @click="openModal(slotProps.data)">{{
+                  $t("actions.view")
+                }}</MDBBtn>
+                <MDBBtn color="warning" @click="router.push({name: 'city-update', params: {id: slotProps.data.postalCode} })">{{ $t("actions.edit") }}</MDBBtn>
+                <MDBBtn color="danger" @click="onDelete(slotProps.data)">{{ $t("actions.delete") }}</MDBBtn>
+              </MDBBtnGroup>
+            </template>
+          </Column>
+      </DataTable>
       </MDBCol>
     </MDBRow>
   </MDBContainer>
@@ -87,7 +74,6 @@ import {
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBTable,
   MDBBtn,
   MDBBtnGroup,
   MDBModal,
@@ -96,6 +82,8 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from "mdb-vue-ui-kit";
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 import { ref, onBeforeMount } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
@@ -110,7 +98,6 @@ export default {
     MDBContainer,
     MDBRow,
     MDBCol,
-    MDBTable,
     MDBBtn,
     MDBBtnGroup,
     MDBModal,
@@ -119,7 +106,9 @@ export default {
     MDBModalBody,
     MDBModalFooter,
     MDBBtn,
-    Toast
+    Toast,
+    DataTable,
+    Column
   },
   setup() {
     let cities = ref([]);

@@ -57,35 +57,13 @@
               </template>
             </Column>
             <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
-
-
-
-
-
-            <!-- <Column :header="$t('exam.grade')">
-              <template #body="slotProps">
-                <InputNumber :disabled="!slotProps.data" v-model="examToShow.grade" inputId="minmax" :min="5" :max="10" />
-              </template>
-            </Column>
-            <Column>
-              <template #body>
-                <MDBBtn color="warning" @click="saveGrade(examToShow)">
-                  {{ $t("actions.save") }}
-                </MDBBtn>
-              </template>
-            </Column> -->
         </DataTable>
       </p>
     </MDBModalBody>
     <MDBModalFooter>
-      <!-- <MDBBtnGroup>
-        <MDBBtn color="warning" @click="saveGrade(examToShow)">
-          {{ $t("actions.save") }}
-        </MDBBtn> -->
-        <MDBBtn color="secondary" @click="viewModal = false">
-          {{ $t("actions.close") }}
-        </MDBBtn>
-      <!-- </MDBBtnGroup> -->
+      <MDBBtn color="secondary" @click="viewModal = false">
+        {{ $t("actions.close") }}
+      </MDBBtn>
     </MDBModalFooter>
   </MDBModal>
 </template>

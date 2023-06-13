@@ -46,7 +46,9 @@
     "fail_load": "Neuspešno učitavanje {componentName}",
     "authorization_error": "Niste ovlašćeni da nastavite",
     "success_apply_exams": "Uspešno prijavljeni ispiti",
-    "fail_apply_exams": "Neuspešno prijavljeni ispiti"
+    "fail_apply_exams": "Neuspešno prijavljeni ispiti",
+    "sucess_add_literature": "Uspešno dodata literatura",
+    "fail_add_literature": "Neuspešno dodata literatura"
   },
   "actions": {
     "delete": "Obriši",
@@ -61,7 +63,8 @@
     "deleteAction": "Da li ste sigurno da želite da obrišete {name}?",
     "deleting": "Brišem...",
     "apply": "Prijavi",
-    "add": "Dodaj"
+    "add": "Dodaj",
+    "upload": "Dodaj"
   },
   "city": {
     "listTitle": "Lista gradova",
@@ -86,7 +89,8 @@
     "currentYearOfStudy": "Trenutna godina studija",
     "city": "Grad",
     "address": "Adresa",
-    "selectCity": "Izaberi grad"
+    "selectCity": "Izaberi grad",
+    "examList": "Lista prijavljenih ispita"
   },
   "subject": {
     "listTitle": "Lista predmeta",
@@ -100,7 +104,8 @@
     "description": "Opis",
     "selectSemester": "Izaberi semestar",
     "Summer": "Letnji",
-    "Winter": "Zimski"
+    "Winter": "Zimski",
+    "addLiterature": "Dodaj literaturu"
   },
   "professor": {
     "listTitle": "Lista profesora",
@@ -118,7 +123,8 @@
     "selectTitle": "Izaberi titulu",
     "selectCity": "Izaberi grad",
     "selectSubjects": "Izaberi predmete",
-    "subjects": "Predmeti"
+    "subjects": "Predmeti",
+    "subjectList": "Lista predmeta koje profesor predaje"
   },
   "examPeriod": {
     "listTitle": "Lista ispitnih rokova",

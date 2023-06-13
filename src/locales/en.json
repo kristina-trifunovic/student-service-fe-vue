@@ -45,7 +45,8 @@
     "deleteAction": "Are you sure you want to delete {name}?",
     "deleting": "Deleting...",
     "apply": "Apply",
-    "add": "Add"
+    "add": "Add",
+    "upload": "Upload"
   },
   "messages": {
     "success_login": "Successfully logged in",
@@ -61,7 +62,9 @@
     "fail_load": "Loading of {componentName} not successfull",
     "authorization_error": "You are not authorized to proceed",
     "success_apply_exams": "Exams applied successfully",
-    "fail_apply_exams": "Failed to apply exams"
+    "fail_apply_exams": "Failed to apply exams",
+    "sucess_add_literature": "Successfully added literature",
+    "fail_add_literature": "Failed to add literature"
   },
   "city": {
     "listTitle": "List of cities",
@@ -86,7 +89,8 @@
     "currentYearOfStudy": "Current year of study",
     "city": "City",
     "address": "Address",
-    "selectCity": "Select a city"
+    "selectCity": "Select a city",
+    "examList": "List of applied exams"
   },
   "subject": {
     "listTitle": "List of subjects",
@@ -100,7 +104,8 @@
     "description": "Description",
     "selectSemester": "Select a semester",
     "Summer": "Summer",
-    "Winter": "Winter"
+    "Winter": "Winter",
+    "addLiterature": "Add literature"
   },
   "professor": {
     "listTitle": "List of professors",
@@ -118,7 +123,8 @@
     "selectTitle": "Select a title",
     "selectCity": "Select a city",
     "subjects": "Subjects",
-    "selectSubjects": "Select subjects"
+    "selectSubjects": "Select subjects",
+    "subjectList": "List of subjects professor teaches"
   },
   "examPeriod": {
     "listTitle": "List of exam periods",

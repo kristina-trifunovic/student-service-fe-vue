@@ -168,11 +168,8 @@ export default {
       offset.value = page.rows * page.page;
       pageInfo.value.pageSize = page.rows
       pageInfo.value.pageNo = page.page
-      console.log('page', page);
-      console.log('offset', offset.value);
       loadCities(pageInfo.value)
         .then((res) => {
-          console.log(res.data);
           cities.value = res.data.content;
           pageInfo.totalItems = res.data.totalElements;
           pageInfo.pageSize = res.data.size;

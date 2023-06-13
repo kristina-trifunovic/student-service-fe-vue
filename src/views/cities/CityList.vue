@@ -10,21 +10,29 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="8">
-      <DataTable :value="cities" paginator removableSort :rows="5" :rowsPerPageOptions="[2, 3, 5, 10]" tableStyle="min-width: 50rem">
-          <Column field="postalCode" sortable :header="$t('city.postalCode')"></Column>
-          <Column field="name" sortable :header="$t('city.name')"></Column>
-          <Column>
-            <template #body="slotProps">
-              <MDBBtnGroup>
-                <MDBBtn color="light" @click="openModal(slotProps.data)">{{
-                  $t("actions.view")
-                }}</MDBBtn>
-                <MDBBtn color="warning" @click="router.push({name: 'city-update', params: {id: slotProps.data.postalCode} })">{{ $t("actions.edit") }}</MDBBtn>
-                <MDBBtn color="danger" @click="onDelete(slotProps.data)">{{ $t("actions.delete") }}</MDBBtn>
-              </MDBBtnGroup>
-            </template>
-          </Column>
-      </DataTable>
+        <DataTable :value="cities" removableSort :rows="5" tableStyle="min-width: 50rem">
+            <Column field="postalCode" sortable :header="$t('city.postalCode')"></Column>
+            <Column field="name" sortable :header="$t('city.name')"></Column>
+            <Column>
+              <template #body="slotProps">
+                <MDBBtnGroup>
+                  <MDBBtn color="light" @click="openModal(slotProps.data)">{{
+                    $t("actions.view")
+                  }}</MDBBtn>
+                  <MDBBtn color="warning" @click="router.push({name: 'city-update', params: {id: slotProps.data.postalCode} })">{{ $t("actions.edit") }}</MDBBtn>
+                  <MDBBtn color="danger" @click="onDelete(slotProps.data)">{{ $t("actions.delete") }}</MDBBtn>
+                </MDBBtnGroup>
+              </template>
+            </Column>
+        </DataTable>
+        <Paginator
+          :rows="pageInfo.pageSize"
+          @page="onPageChange"
+          :totalRecords="pageInfo.totalItems"
+          :rowsPerPageOptions="[2, 3, 5, 10]"
+          class="mt-5"
+          v-model:first="offset"
+        />
       </MDBCol>
     </MDBRow>
   </MDBContainer>
@@ -84,13 +92,14 @@ import {
 } from "mdb-vue-ui-kit";
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import { ref, onBeforeMount } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
 import { useToast } from "primevue/usetoast";
 import { useI18n } from "vue-i18n";
 import Toast from 'primevue/toast';
+import Paginator from 'primevue/paginator';
 
 export default {
   name: "AppCityList",
@@ -108,22 +117,33 @@ export default {
     MDBBtn,
     Toast,
     DataTable,
-    Column
+    Column,
+    Paginator
   },
   setup() {
-    let cities = ref([]);
-
-    const loadCities = () => {
-      return axios.get(`${environment.serverUrl}/cities`);
-    };
+    const cities = ref([]);
+    const pageInfo = ref({pageNo: 0, pageSize:3, totalItems: 10, sortBy: 'postalCode', sortOrder:'asc'});
+    const offset = ref(0);
 
     const toast = useToast();
     const { t } = useI18n();
 
-    onBeforeMount(() => {
-      loadCities()
+    const loadCities = (pageInfo) => {
+      const params = new URLSearchParams();
+      params.append('pageNo', pageInfo.pageNo);
+      params.append('pageSize', pageInfo.pageSize);
+      params.append('sortBy', pageInfo.sortBy);
+      params.append('sortOrder', pageInfo.sortOrder);
+      return axios.get(`${environment.serverUrl}/cities/page`, {params: params})
+    };
+
+    onMounted(() => {
+      loadCities(pageInfo.value)
         .then((res) => {
-          cities.value = res.data;
+          cities.value = res.data.content;
+          pageInfo.value.totalItems = res.data.totalElements;
+          pageInfo.value.pageSize = res.data.size;
+          pageInfo.value.pageNo = res.data.number;
           toast.add({
               severity: "success",
               summary: t("messages.success_load", {
@@ -143,6 +163,39 @@ export default {
             })
           )
     });
+
+    const onPageChange = (page) => {
+      offset.value = page.rows * page.page;
+      pageInfo.value.pageSize = page.rows
+      pageInfo.value.pageNo = page.page
+      console.log('page', page);
+      console.log('offset', offset.value);
+      loadCities(pageInfo.value)
+        .then((res) => {
+          console.log(res.data);
+          cities.value = res.data.content;
+          pageInfo.totalItems = res.data.totalElements;
+          pageInfo.pageSize = res.data.size;
+          pageInfo.pageNo = res.data.number;
+          toast.add({
+              severity: "success",
+              summary: t("messages.success_load", {
+                componentName: t("component.cityPlural"),
+              }),
+              detail: "",
+              life: 2000
+            });
+        })
+        .catch((err) => toast.add({
+              severity: "error",
+              summary: t("messages.fail_load", {
+                componentName: t("component.cityPlural"),
+              }),
+              detail: err,
+              life: 2000
+            })
+          )
+    }
 
     const viewModal = ref(false);
     const cityToShow = ref({});
@@ -184,7 +237,7 @@ export default {
             }))
     }
 
-    return { cities, openModal, cityToShow, viewModal, router, onDelete, deleteModal, cityToDelete, deleteCity };
+    return { cities, openModal, cityToShow, viewModal, router, onDelete, deleteModal, cityToDelete, deleteCity, pageInfo, onPageChange, offset };
   },
 };
 </script>

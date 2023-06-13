@@ -10,7 +10,7 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="8">
-        <DataTable :value="cities" removableSort :rows="5" tableStyle="min-width: 50rem">
+        <DataTable :value="cities" removableSort tableStyle="min-width: 50rem">
             <Column field="postalCode" sortable :header="$t('city.postalCode')"></Column>
             <Column field="name" sortable :header="$t('city.name')"></Column>
             <Column>
@@ -29,7 +29,7 @@
           :rows="pageInfo.pageSize"
           @page="onPageChange"
           :totalRecords="pageInfo.totalItems"
-          :rowsPerPageOptions="[2, 3, 5, 10]"
+          :rowsPerPageOptions="pageOptions"
           class="mt-5"
           v-model:first="offset"
         />
@@ -92,6 +92,7 @@ import {
 } from "mdb-vue-ui-kit";
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Paginator from 'primevue/paginator';
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
@@ -99,7 +100,6 @@ import { useRouter } from 'vue-router';
 import { useToast } from "primevue/usetoast";
 import { useI18n } from "vue-i18n";
 import Toast from 'primevue/toast';
-import Paginator from 'primevue/paginator';
 
 export default {
   name: "AppCityList",
@@ -122,8 +122,9 @@ export default {
   },
   setup() {
     const cities = ref([]);
-    const pageInfo = ref({pageNo: 0, pageSize:3, totalItems: 10, sortBy: 'postalCode', sortOrder:'asc'});
+    const pageInfo = ref({pageNo: 0, pageSize: 5, totalItems: 10, sortBy: 'postalCode', sortOrder:'asc'});
     const offset = ref(0);
+    const pageOptions = [2, 3, 5, 10];
 
     const toast = useToast();
     const { t } = useI18n();
@@ -134,41 +135,7 @@ export default {
       params.append('pageSize', pageInfo.pageSize);
       params.append('sortBy', pageInfo.sortBy);
       params.append('sortOrder', pageInfo.sortOrder);
-      return axios.get(`${environment.serverUrl}/cities/page`, {params: params})
-    };
-
-    onMounted(() => {
-      loadCities(pageInfo.value)
-        .then((res) => {
-          cities.value = res.data.content;
-          pageInfo.value.totalItems = res.data.totalElements;
-          pageInfo.value.pageSize = res.data.size;
-          pageInfo.value.pageNo = res.data.number;
-          toast.add({
-              severity: "success",
-              summary: t("messages.success_load", {
-                componentName: t("component.cityPlural"),
-              }),
-              detail: "",
-              life: 2000
-            });
-        })
-        .catch((err) => toast.add({
-              severity: "error",
-              summary: t("messages.fail_load", {
-                componentName: t("component.cityPlural"),
-              }),
-              detail: err,
-              life: 2000
-            })
-          )
-    });
-
-    const onPageChange = (page) => {
-      offset.value = page.rows * page.page;
-      pageInfo.value.pageSize = page.rows
-      pageInfo.value.pageNo = page.page
-      loadCities(pageInfo.value)
+      axios.get(`${environment.serverUrl}/cities/page`, {params: params})
         .then((res) => {
           cities.value = res.data.content;
           pageInfo.totalItems = res.data.totalElements;
@@ -192,6 +159,17 @@ export default {
               life: 2000
             })
           )
+    };
+
+    onMounted(() => {
+      loadCities(pageInfo.value)
+    });
+
+    const onPageChange = (page) => {
+      offset.value = page.rows * page.page;
+      pageInfo.value.pageSize = page.rows
+      pageInfo.value.pageNo = page.page
+      loadCities(pageInfo.value)
     }
 
     const viewModal = ref(false);
@@ -234,7 +212,7 @@ export default {
             }))
     }
 
-    return { cities, openModal, cityToShow, viewModal, router, onDelete, deleteModal, cityToDelete, deleteCity, pageInfo, onPageChange, offset };
+    return { cities, openModal, cityToShow, viewModal, router, onDelete, deleteModal, cityToDelete, deleteCity, pageOptions, pageInfo, onPageChange, offset };
   },
 };
 </script>

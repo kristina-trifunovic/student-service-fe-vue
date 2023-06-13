@@ -97,7 +97,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 
 export default {
-  name: "AppProfessorList",
+  name: "AppExamList",
   components: {
     MDBContainer,
     MDBRow,

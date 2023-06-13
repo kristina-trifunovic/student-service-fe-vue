@@ -10,7 +10,7 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
-        <DataTable :value="students" paginator removableSort :rows="5" :rowsPerPageOptions="[2, 3, 5, 10]" tableStyle="min-width: 50rem">
+        <DataTable :value="students" removableSort tableStyle="min-width: 50rem">
           <Column field="index.indexNumber" sortable :header="$t('student.index')">
             <template #body="slotProps">
               <p class="fw-normal mb-1">{{ slotProps.data.index.indexNumber + "/" + slotProps.data.index.indexYear }}</p>
@@ -34,6 +34,14 @@
             </template>
           </Column>
         </DataTable>
+        <Paginator
+          :rows="pageInfo.pageSize"
+          @page="onPageChange"
+          :totalRecords="pageInfo.totalItems"
+          :rowsPerPageOptions="pageOptions"
+          class="mt-5"
+          v-model:first="offset"
+        />
       </MDBCol>
     </MDBRow>
   </MDBContainer>
@@ -96,7 +104,7 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from "mdb-vue-ui-kit";
-import { ref, onBeforeMount } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
@@ -105,6 +113,7 @@ import { useI18n } from "vue-i18n";
 import Toast from 'primevue/toast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Paginator from 'primevue/paginator';
 
 export default {
   name: "AppStudentList",
@@ -122,7 +131,8 @@ export default {
     MDBBtn,
     Toast,
     DataTable,
-    Column
+    Column,
+    Paginator
   },
   setup() {
     let students = ref([]);
@@ -130,14 +140,19 @@ export default {
     const toast = useToast();
     const { t } = useI18n();
 
-    const loadStudents = () => {
-      return axios.get(`${environment.serverUrl}/students`);
-    };
+    const pageInfo = ref({pageNo: 0, pageSize: 5, totalItems: 6, sortBy: 'firstName', sortOrder:'asc'});
+    const offset = ref(0);
+    const pageOptions = [2, 3, 5, 10]
 
-    onBeforeMount(() => {
-      loadStudents()
+    const loadStudents = (pageInfo) => {
+      const params = new URLSearchParams();
+      params.append('pageNo', pageInfo.pageNo);
+      params.append('pageSize', pageInfo.pageSize);
+      params.append('sortBy', pageInfo.sortBy);
+      params.append('sortOrder', pageInfo.sortOrder);
+      axios.get(`${environment.serverUrl}/students/page`, {params: params})
         .then((res) => {
-          students.value = res.data;
+          students.value = res.data.content;
           toast.add({
               severity: "success",
               summary: t("messages.success_load", {
@@ -156,7 +171,18 @@ export default {
               life: 2000
             })
           )
+    };
+
+    onMounted(() => {
+      loadStudents(pageInfo.value) 
     });
+
+    const onPageChange = (page) => {
+      offset.value = page.rows * page.page;
+      pageInfo.value.pageSize = page.rows
+      pageInfo.value.pageNo = page.page
+      loadStudents(pageInfo.value)
+    }
 
     const viewModal = ref(false);
     const studentToShow = ref({});
@@ -198,7 +224,7 @@ export default {
             }))
     }
 
-    return { students, openModal, studentToShow, viewModal, router, onDelete, deleteModal, studentToDelete, deleteStudent };
+    return { students, openModal, studentToShow, viewModal, router, onDelete, deleteModal, studentToDelete, deleteStudent, pageOptions, pageInfo, onPageChange, offset };
   },
 };
 </script>

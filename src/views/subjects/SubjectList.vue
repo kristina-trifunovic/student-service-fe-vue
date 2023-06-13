@@ -10,7 +10,7 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
-        <DataTable :value="subjects" paginator removableSort :rows="5" :rowsPerPageOptions="[2, 3, 5, 10]" tableStyle="min-width: 50rem">
+        <DataTable :value="subjects" removableSort tableStyle="min-width: 50rem">
           <Column field="id" sortable :header="$t('subject.id')"></Column>
           <Column field="name" sortable :header="$t('subject.name')"></Column>
           <Column field="noOfEsp" sortable :header="$t('subject.noOfEsp')"></Column>
@@ -28,6 +28,14 @@
             </template>
           </Column>
         </DataTable>
+        <Paginator
+          :rows="pageInfo.pageSize"
+          @page="onPageChange"
+          :totalRecords="pageInfo.totalItems"
+          :rowsPerPageOptions="pageOptions"
+          class="mt-5"
+          v-model:first="offset"
+        />
       </MDBCol>
     </MDBRow>
   </MDBContainer>
@@ -90,7 +98,7 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from "mdb-vue-ui-kit";
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
 import axios from "axios";
 import { environment } from "@/environments/environment";
 import { useRouter } from 'vue-router';
@@ -99,6 +107,7 @@ import { useI18n } from "vue-i18n";
 import Toast from 'primevue/toast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Paginator from 'primevue/paginator';
 
 export default {
   name: "AppSubjectList",
@@ -116,7 +125,8 @@ export default {
     MDBBtn,
     Toast,
     DataTable,
-    Column
+    Column,
+    Paginator
   },
   setup() {
     let subjects = ref([]);
@@ -124,14 +134,19 @@ export default {
     const toast = useToast();
     const { t } = useI18n();
 
-    const loadSubjects = () => {
-      return axios.get(`${environment.serverUrl}/subjects`);
-    };
+    const pageInfo = ref({pageNo: 0, pageSize: 5, totalItems: 6, sortBy: 'id', sortOrder:'asc'});
+    const offset = ref(0);
+    const pageOptions = [2, 3, 5, 10]
 
-    onBeforeMount(() => {
-      loadSubjects()
+    const loadSubjects = (pageInfo) => {
+      const params = new URLSearchParams();
+      params.append('pageNo', pageInfo.pageNo);
+      params.append('pageSize', pageInfo.pageSize);
+      params.append('sortBy', pageInfo.sortBy);
+      params.append('sortOrder', pageInfo.sortOrder);
+      axios.get(`${environment.serverUrl}/subjects/page`, {params: params})
         .then((res) => {
-          subjects.value = res.data;
+          subjects.value = res.data.content;
           toast.add({
               severity: "success",
               summary: t("messages.success_load", {
@@ -150,7 +165,18 @@ export default {
               life: 2000
             })
           )
+    };
+
+    onMounted(() => {
+      loadSubjects(pageInfo.value)        
     });
+
+    const onPageChange = (page) => {
+      offset.value = page.rows * page.page;
+      pageInfo.value.pageSize = page.rows
+      pageInfo.value.pageNo = page.page
+      loadSubjects(pageInfo.value)
+    }
 
     const viewModal = ref(false);
     const subjectToShow = ref({});
@@ -192,7 +218,7 @@ export default {
             }))
     }
 
-    return { subjects, openModal, subjectToShow, viewModal, router, onDelete, deleteModal, subjectToDelete, deleteSubject };
+    return { subjects, openModal, subjectToShow, viewModal, router, onDelete, deleteModal, subjectToDelete, deleteSubject, pageOptions, pageInfo, onPageChange, offset };
   },
 };
 </script>

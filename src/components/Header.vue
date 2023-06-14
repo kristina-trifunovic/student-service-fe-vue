@@ -60,9 +60,9 @@
         </MDBDropdownToggle>
         <MDBDropdownMenu>
           <MDBDropdownItem disabled href="#">{{ fullName }}</MDBDropdownItem>
-          <MDBDropdownItem href="#">{{
+          <!-- <MDBDropdownItem href="#">{{
             $t("header.settings")
-          }}</MDBDropdownItem>
+          }}</MDBDropdownItem> -->
           <MDBDropdownItem href="#" @click="logout">{{
             $t("header.logout")
           }}</MDBDropdownItem>

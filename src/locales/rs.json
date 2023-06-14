@@ -48,7 +48,8 @@
     "success_apply_exams": "Uspešno prijavljeni ispiti",
     "fail_apply_exams": "Neuspešno prijavljeni ispiti",
     "sucess_add_literature": "Uspešno dodata literatura",
-    "fail_add_literature": "Neuspešno dodata literatura"
+    "fail_add_literature": "Neuspešno dodata literatura",
+    "no_elements_found": "Nema pronađenih {componentName}."
   },
   "actions": {
     "delete": "Obriši",

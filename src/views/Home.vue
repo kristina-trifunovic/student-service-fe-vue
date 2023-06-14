@@ -22,7 +22,7 @@
             </form>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 1em">
           <div class="col text-center">
             <MDBBtnGroup>
               <MDBBtn color="warning" @click="uploadLiteratureToSubject">
@@ -36,11 +36,7 @@
         </div>
       </div>
     </MDBModalBody>
-    <MDBModalFooter>
-      <MDBBtn color="secondary" @click="viewModal = false">
-        {{ $t("actions.close") }}
-      </MDBBtn>
-    </MDBModalFooter>
+    <MDBModalFooter></MDBModalFooter>
   </MDBModal>
   <div class="container" style="margin-top: 2rem">
     <div class="row">
@@ -83,6 +79,18 @@
                 </p>
               </div>
             </div>
+            <hr v-show="isAdmin" />
+            <div class="row" v-show="isAdmin">
+              <div class="col-sm-3">
+                <p class="mb-0">{{ $t("student.city") }}</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">
+                  {{ user.city.postalCode + ", " + user.city.name }}
+                </p>
+              </div>
+            </div>
+
             <div v-show="professor.reelectionDate">
               <hr />
               <div class="row">
@@ -122,6 +130,17 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row" v-show="isAdmin">
+      <div class="card mb-4 text-center">
+        <div class="card-body">
+          <img src="@/assets/chart.png" alt="graph" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
         <div class="card mb-4" v-show="student.index">
           <div class="card-body">
             <DataTable
@@ -129,6 +148,13 @@
               removableSort
               tableStyle="min-width: 50rem"
             >
+              <template #empty>
+                {{
+                  $t("messages.no_elements_found", {
+                    componentName: $t("component.examPlural"),
+                  })
+                }}</template
+              >
               <Column
                 field="subject.name"
                 sortable
@@ -144,13 +170,11 @@
                 sortable
                 :header="$t('exam.examDate')"
               ></Column>
-              <caption>
-                {{
-                  $t("student.examList")
-                }}
-              </caption>
             </DataTable>
           </div>
+          <p class="fst-italic" style="text-align: right; margin-right: 1em">
+            {{ $t("student.examList") }}
+          </p>
         </div>
         <div class="card mb-4" v-show="professor.reelectionDate">
           <div class="card-body">
@@ -159,6 +183,13 @@
               removableSort
               tableStyle="min-width: 50rem"
             >
+              <template #empty>
+                {{
+                  $t("messages.no_elements_found", {
+                    componentName: $t("component.subjectPlural"),
+                  })
+                }}</template
+              >
               <Column field="id" sortable :header="$t('subject.id')"></Column>
               <Column
                 field="name"
@@ -182,19 +213,12 @@
                   }}</MDBBtn>
                 </template>
               </Column>
-              <caption>
-                {{
-                  $t("professor.subjectList")
-                }}
-              </caption>
             </DataTable>
           </div>
+          <p class="fst-italic" style="text-align: right; margin-right: 1em">
+            {{ $t("professor.subjectList") }}
+          </p>
         </div>
-        <!-- <div class="card mb-4 text-center" v-show="isAdmin">
-          <div class="card-body">
-            <img src="assets/pictures/chart.png" alt="graph" />
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -215,9 +239,10 @@ import {
   MDBModalTitle,
   MDBModalBody,
   MDBModalFooter,
-  Toast,
 } from "mdb-vue-ui-kit";
 import { useToast } from "primevue/usetoast";
+import Toast from "primevue/toast";
+import { useI18n } from "vue-i18n";
 
 export default {
   name: "AppHome",
@@ -236,6 +261,7 @@ export default {
   setup() {
     const userStore = useUserStore();
     const toast = useToast();
+    const { t } = useI18n();
 
     let user = userStore.userLoggedIn;
     let professor = ref({});
@@ -245,22 +271,37 @@ export default {
     let subjectToAddLiterature = ref();
     let literature = ref();
 
-    let isAdmin = true;
+    let isAdmin = ref(true);
 
     onBeforeMount(() => {
-      loadProfessor()
-        .then((res) => {
-          professor.value = res.data;
-          isAdmin = false;
-        })
-        .catch((err) => console.log(err));
-      loadStudent()
-        .then((res) => {
-          student.value = res.data;
-          console.log(student.value);
-          isAdmin = false;
-        })
-        .catch((err) => console.log(err));
+      const roles = userStore.userLoggedIn.authorities;
+      if (roles[0].authority === "ROLE_PROFESSOR") {
+        loadProfessor()
+          .then((res) => {
+            professor.value = res.data;
+            isAdmin.value = false;
+          })
+          .catch(() => {});
+      } else if (roles[0].authority === "ROLE_STUDENT") {
+        loadStudent()
+          .then((res) => {
+            student.value = res.data;
+            isAdmin.value = false;
+          })
+          .catch(() => {});
+        loadStudentsAppliedExams()
+          .then((res) => (exams.value = res.data))
+          .catch((err) =>
+            toast.add({
+              severity: "error",
+              summary: t("messages.fail_load", {
+                componentName: t("components.examPlural"),
+              }),
+              detail: err,
+              life: 2000,
+            })
+          );
+      }
     });
 
     const loadProfessor = () => {
@@ -271,6 +312,12 @@ export default {
       return axios.get(`${environment.serverUrl}/students/${user.username}`);
     };
 
+    const loadStudentsAppliedExams = () => {
+      return axios.get(
+        `${environment.serverUrl}/exams/${userStore.userLoggedIn.username}/applied-exams`
+      );
+    };
+
     const viewModal = ref(false);
     const openModal = (subject) => {
       viewModal.value = true;
@@ -278,8 +325,7 @@ export default {
     };
 
     const onUploadLiterature = (e) => {
-      console.log(e);
-      literature = e.target.files[0];
+      literature.value = e.target.files[0];
     };
 
     const uploadLiterature = () => {
@@ -293,8 +339,7 @@ export default {
 
     const uploadLiteratureToSubject = () => {
       uploadLiterature()
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           toast.add({
             severity: "success",
             summary: t("messages.success_add_literature"),
@@ -317,6 +362,7 @@ export default {
       professor,
       student,
       isAdmin,
+      viewModal,
       exams,
       openModal,
       literature,

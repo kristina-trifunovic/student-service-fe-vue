@@ -82,7 +82,7 @@ export default {
 
     const schema = {
       postalCode: "required|min_value:10000|max_value:99999",
-      name: "required|alpha|min:2|max:30",
+      name: "required|min:2|max:30",
     };
 
     let city = ref({});

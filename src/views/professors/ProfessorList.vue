@@ -11,6 +11,7 @@
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
         <DataTable :value="professors" removableSort tableStyle="min-width: 50rem">
+          <template #empty> {{$t("messages.no_elements_found", {componentName: $t('component.professorPlural')}) }}</template>
           <Column field="name" sortable :header="$t('professor.name')">
             <template #body="slotProps"><p class="fw-normal mb-1">{{ slotProps.data.firstName + " " + slotProps.data.lastName }}</p></template>
           </Column>
@@ -62,7 +63,7 @@
         <h1 class="display-6"><small class="text-muted">{{$t('professor.phone')}}: </small>{{professorToShow.phone}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('professor.reelectionDate')}}: </small>{{professorToShow.reelectionDate}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('professor.title')}}: </small>{{professorToShow.title.professorTitle}}</h1>
-        <div v-show="subjects">
+        <div v-show="subjects.length != 0">
           <h1 class="display-6"><small class="text-muted">{{$t('professor.subjects')}}: </small></h1>
           <h1 class="display-6" v-for="subject in subjects" :key="subject.id">&nbsp;&nbsp;{{subject.name}}</h1>
         </div>

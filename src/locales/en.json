@@ -63,8 +63,9 @@
     "authorization_error": "You are not authorized to proceed",
     "success_apply_exams": "Exams applied successfully",
     "fail_apply_exams": "Failed to apply exams",
-    "sucess_add_literature": "Successfully added literature",
-    "fail_add_literature": "Failed to add literature"
+    "success_add_literature": "Successfully added literature",
+    "fail_add_literature": "Failed to add literature",
+    "no_elements_found": "No {componentName} found."
   },
   "city": {
     "listTitle": "List of cities",

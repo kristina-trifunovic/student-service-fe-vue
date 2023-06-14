@@ -11,6 +11,7 @@
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
         <DataTable :value="exams" tableStyle="min-width: 50rem">
+          <template #empty> {{$t("messages.no_elements_found", {componentName: $t('component.examPlural')}) }}</template>
             <Column field="subject.name" :header="$t('exam.subject')"></Column>
             <Column field="examDate" :header="$t('exam.examDate')"></Column>
             <Column field="examPeriod.name" :header="$t('exam.examPeriod')"></Column>
@@ -43,6 +44,7 @@
         <h3><small class="text-muted">{{$t('exam.professor')}}: </small>{{examToShow.professor.firstName + " " + examToShow.professor.lastName}}</h3>
         <DataTable :value="studentsGrades" v-model:editingRows="editingRows" @row-edit-save="onRowEditSave" tableClass="editable-cells-table"
                     editMode="row" tableStyle="min-width: 35rem" v-show="studentsGrades.length != 0">
+                    <template #empty> {{$t("messages.no_elements_found", {componentName: $t('component.examPlural')}) }}</template>
              <Column :header="$t('student.name')">
               <template #body="slotProps">
                 <p class="fw-normal mb-1">{{ slotProps.data.student.firstName + " " + slotProps.data.student.lastName }}</p>
@@ -128,6 +130,30 @@ export default {
     const userStore = useUserStore();
 
     onBeforeMount(() => {
+      const roles = userStore.userLoggedIn.authorities;
+      if (roles[0].authority === "ROLE_ADMIN") {
+        loadExams()
+          .then((res) => {
+            exams.value = res.data;
+            toast.add({
+                severity: "success",
+                summary: t("messages.success_load", {
+                  componentName: t("component.examPlural"),
+                }),
+                detail: "",
+                life: 2000
+              });
+          })
+          .catch((err) => toast.add({
+                severity: "error",
+                summary: t("messages.fail_load", {
+                  componentName: t("component.examPlural"),
+                }),
+                detail: err,
+                life: 2000
+              })
+            )
+      } else {
       loadProfessorsExams()
         .then((res) => {
           exams.value = res.data;
@@ -149,7 +175,12 @@ export default {
               life: 2000
             })
           )
+      }
     });
+
+    const loadExams = () => {
+      return axios.get(`${environment.serverUrl}/exams`);
+    }
 
     const loadProfessorsExams = () => {
       return axios.get(`${environment.serverUrl}/exams/${userStore.userLoggedIn.username}`);

@@ -253,7 +253,6 @@ export default {
       loadSubjectsWithNoProfessor()
         .then((res) => (subjects.value = res.data))
         .catch((err) => {
-          console.log(err);
           toast.add({
             severity: "error",
             summary: t("messages.fail_load", {

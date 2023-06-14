@@ -185,7 +185,7 @@ export default {
       } else mode.value = "add";
       loadCities()
         .then((res) => (cities.value = res.data))
-        .catch((err) => console.log(err));
+        .catch(() => {});
     });
 
     let cities = ref([]);

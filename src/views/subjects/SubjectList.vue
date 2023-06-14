@@ -11,6 +11,7 @@
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
         <DataTable :value="subjects" removableSort tableStyle="min-width: 50rem">
+          <template #empty> {{$t("messages.no_elements_found", {componentName: $t('component.subjectPlural')}) }}</template>
           <Column field="id" sortable :header="$t('subject.id')"></Column>
           <Column field="name" sortable :header="$t('subject.name')"></Column>
           <Column field="noOfEsp" sortable :header="$t('subject.noOfEsp')"></Column>
@@ -22,7 +23,7 @@
                 <MDBBtn color="light" @click="openModal(slotProps.data)">{{
                   $t("actions.view")
                 }}</MDBBtn>
-                <MDBBtn color="warning" @click="router.push({name: 'student-update', params: {id: slotProps.data.id} })">{{ $t("actions.edit") }}</MDBBtn>
+                <MDBBtn color="warning" @click="router.push({name: 'subject-update', params: {id: slotProps.data.id} })">{{ $t("actions.edit") }}</MDBBtn>
                 <MDBBtn color="danger" @click="onDelete(slotProps.data)">{{ $t("actions.delete") }}</MDBBtn>
               </MDBBtnGroup>
             </template>
@@ -189,8 +190,8 @@ export default {
 
     const deleteModal = ref(false);
     const subjectToDelete = ref({})
-    const onDelete = (student) => {
-      subjectToDelete.value = student;
+    const onDelete = (subject) => {
+      subjectToDelete.value = subject;
       deleteModal.value = true;
     }
     const deleteSubject = () => {

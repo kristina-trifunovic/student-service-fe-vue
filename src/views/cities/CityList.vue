@@ -11,6 +11,7 @@
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="8">
         <DataTable :value="cities" removableSort tableStyle="min-width: 50rem">
+          <template #empty> {{$t("messages.no_elements_found", {componentName: $t('component.cityPlural')}) }}</template>
             <Column field="postalCode" sortable :header="$t('city.postalCode')"></Column>
             <Column field="name" sortable :header="$t('city.name')"></Column>
             <Column>

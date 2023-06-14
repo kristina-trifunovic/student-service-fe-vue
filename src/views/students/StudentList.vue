@@ -10,17 +10,25 @@
     </MDBRow>
     <MDBRow class="d-flex justify-content-center">
       <MDBCol md="12">
-        <DataTable :value="students" removableSort tableStyle="min-width: 50rem">
+        <DataTable v-model:filters="filters" filterDisplay="row" :value="students" removableSort tableStyle="min-width: 50rem">
+          <template #empty> {{$t("messages.no_elements_found", {componentName: $t('component.studentPlural')}) }}</template>
           <Column field="index.indexNumber" sortable :header="$t('student.index')">
             <template #body="slotProps">
               <p class="fw-normal mb-1">{{ slotProps.data.index.indexNumber + "/" + slotProps.data.index.indexYear }}</p>
             </template>
           </Column>
-          <Column field="firstName" sortable :header="$t('student.firstName')"></Column>
+          <Column field="firstName" sortable :header="$t('student.firstName')">
+            <template #filter="{ filterModel, filterCallback }">
+              <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+            </template>
+          </Column>
           <Column field="lastName" sortable :header="$t('student.lastName')"></Column>
           <Column field="email" sortable :header="$t('student.email')"></Column>
           <Column field="city.name" sortable :header="$t('student.city')">
             <template #body="slotProps"><p class="fw-normal mb-1">{{ slotProps.data.city.name }}</p></template>
+            <template #filter="{ filterModel, filterCallback }">
+              <InputText v-model="filterModel.value" type="text" @input="filterCallback()" class="p-column-filter" />
+            </template>
           </Column>
           <Column>
             <template #body="slotProps">
@@ -114,6 +122,8 @@ import Toast from 'primevue/toast';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Paginator from 'primevue/paginator';
+import { FilterMatchMode } from 'primevue/api';
+import InputText from 'primevue/inputtext';
 
 export default {
   name: "AppStudentList",
@@ -132,7 +142,8 @@ export default {
     Toast,
     DataTable,
     Column,
-    Paginator
+    Paginator,
+    InputText
   },
   setup() {
     let students = ref([]);
@@ -224,7 +235,12 @@ export default {
             }))
     }
 
-    return { students, openModal, studentToShow, viewModal, router, onDelete, deleteModal, studentToDelete, deleteStudent, pageOptions, pageInfo, onPageChange, offset };
+    const filters = ref({
+    firstName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    'city.name': { value: null, matchMode: FilterMatchMode.STARTS_WITH }
+});
+
+    return { students, openModal, studentToShow, viewModal, router, onDelete, deleteModal, studentToDelete, deleteStudent, pageOptions, pageInfo, onPageChange, offset, filters };
   },
 };
 </script>

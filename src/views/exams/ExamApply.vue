@@ -61,15 +61,6 @@
                 <p class="pl-2">{{ slotProps.message.message }}</p>
                 <div class="d-flex justify-content-center">
                   <MDBTable class="align-middle mb-0 bg-white col-12">
-                    <thead class="bg-light">
-                      <tr>
-                        <th>{{}}</th>
-                        <th>{{}}</th>
-                        <th>{{}}</th>
-                        <th>{{}}</th>
-                        <th></th>
-                      </tr>
-                    </thead>
                     <tbody>
                       <tr v-for="exam in examsToApply" :key="exam.id">
                         <td>
@@ -198,6 +189,7 @@ export default {
       let index = exams.value.findIndex((e) => e.id === exam.id);
       examsToApply.value.push(exam);
       exams.value.splice(index, 1);
+      if (exams.value.length === 0) confirmApplyExams();
     };
 
     const rollbackSelection = () => {

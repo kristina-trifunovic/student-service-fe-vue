@@ -18,6 +18,10 @@ export default defineStore("user", {
           username: "",
         },
   }),
+  getters: {
+    fullName: (state) =>
+      state.userLoggedIn.firstName + " " + state.userLoggedIn.lastName,
+  },
   actions: {
     login(credentials) {
       return this.authenticate(credentials);

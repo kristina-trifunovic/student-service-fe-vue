@@ -155,7 +155,7 @@ const routes = [
   {
     path: "/exam",
     meta: {
-      roles: ["ROLE_ADMIN", "ROLE_PROFESSOR"],
+      roles: ["ROLE_ADMIN"],
     },
     children: [
       {
@@ -167,6 +167,9 @@ const routes = [
         path: "list",
         name: "exam-list",
         component: ExamList,
+        meta: {
+          roles: ["ROLE_PROFESSOR"],
+        },
       },
       {
         path: "apply",

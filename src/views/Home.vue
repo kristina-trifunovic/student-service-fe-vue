@@ -206,11 +206,17 @@
                 sortable
                 :header="$t('subject.semester')"
               ></Column>
-              <Column>
+              <Column :header="$t('subject.literature')">
                 <template #body="slotProps">
-                  <MDBBtn color="light" @click="openModal(slotProps.data)">{{
-                    $t("subject.addLiterature")
-                  }}</MDBBtn>
+                  <MDBBtn
+                    v-if="!slotProps.data.literature"
+                    color="light"
+                    @click="openModal(slotProps.data)"
+                    >{{ $t("subject.addLiterature") }}</MDBBtn
+                  >
+                  <p v-else>
+                    {{ slotProps.data.literature.split("\\").slice(-1)[0] }}
+                  </p>
                 </template>
               </Column>
             </DataTable>
@@ -338,6 +344,7 @@ export default {
     };
 
     const uploadLiteratureToSubject = () => {
+      subjectToAddLiterature.value.literature = literature.value.name;
       uploadLiterature()
         .then(() => {
           toast.add({
@@ -346,6 +353,7 @@ export default {
             detail: "",
             life: 2000,
           });
+          viewModal.value = false;
         })
         .catch((err) =>
           toast.add({

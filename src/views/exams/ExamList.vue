@@ -55,7 +55,7 @@
                   {{ data.grade }}
               </template>
               <template #editor="{ data }">
-                  <InputNumber v-model="data.grade" />
+                  <InputNumber v-model="data.grade" min="5" max="10"/>
               </template>
             </Column>
             <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
@@ -236,7 +236,7 @@ export default {
           loadStudentsFromExamToShow(examToShow.value)
           .then((res) => {
             for (let i = 0; i < res.data.length; i++) {
-              let grade = studentExam.value.filter(se => se.exam.professor.username == userStore.userLoggedIn.username && se.student.username == res.data[i].username)[0].grade
+              let grade = studentExam.value.find(se => se.exam.professor.username == userStore.userLoggedIn.username && se.student.username == res.data[i].username).grade
               studentsGrades.value.push({student: res.data[i], grade: grade})
             }
           })

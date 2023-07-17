@@ -84,19 +84,6 @@
             </div>
           </div>
 
-          <!-- Grade input -->
-          <div class="d-flex flex-column">
-            <vee-field
-              class="form-control mb-2"
-              style="padding-top: 1rem"
-              name="grade"
-              type="number"
-              :placeholder="$t('exam.grade')"
-              v-model="exam.grade"
-            />
-            <ErrorMessage name="grade" class="mb-3 text-danger" />
-          </div>
-
           <!-- Exam Date input -->
           <div class="row">
             <label>{{ $t("exam.examDate") }}</label>
@@ -158,7 +145,6 @@ export default {
       examPeriod: "required",
       subject: "required",
       examDate: "required",
-      grade: "min_value:5|max_value:10",
     };
 
     let professors = ref([]);

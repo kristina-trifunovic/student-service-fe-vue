@@ -225,6 +225,10 @@ export default {
       if (route.params.username) {
         professor.value = route.meta.professor["data"];
         mode.value = "update";
+        professor.value.reelectionDate = moment(
+          professor.value.reelectionDate,
+          "DD.MM.YYYY"
+        ).toDate();
       } else mode.value = "add";
       loadCities()
         .then((res) => (cities.value = res.data))

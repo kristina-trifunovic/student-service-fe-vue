@@ -143,7 +143,7 @@ export default {
       );
       axios
         .post(`${environment.serverUrl}/exam-periods`, examPeriod.value)
-        .then(() =>
+        .then(() => {
           toast.add({
             severity: "success",
             summary: t("messages.success_add", {
@@ -151,8 +151,9 @@ export default {
             }),
             detail: "",
             life: 2000,
-          })
-        )
+          });
+          examPeriod.value = {};
+        })
         .catch((err) =>
           toast.add({
             severity: "error",

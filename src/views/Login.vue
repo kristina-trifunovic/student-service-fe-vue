@@ -118,3 +118,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.container {
+  min-height: 100vh;
+}
+.row {
+  min-height: 80vh;
+}
+</style>

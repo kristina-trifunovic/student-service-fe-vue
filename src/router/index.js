@@ -201,13 +201,12 @@ router.beforeEach((to, from) => {
       sessionStorage.getItem("user")
     ).authorities.some((authority) => roles.includes(authority.authority));
     if (!roleExists) {
+      const message =
+        sessionStorage.getItem("language") === "en"
+          ? "You are not autorized to proceed!"
+          : "Nemate prava da pristupite linku!";
+      alert(message);
       return { name: "home" };
-      // toast.add({
-      //   severity: "error",
-      //   summary: t("messages.authorization_error"),
-      //   detail: "",
-      //   life: 2000,
-      // });
     }
   }
 });

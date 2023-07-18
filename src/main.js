@@ -11,6 +11,7 @@ import progressBar from "@/plugins/progress-bar";
 import { basicInterceptor } from "@/plugins/basic.interceptor";
 import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
+import moment from "moment";
 
 import "nprogress/nprogress.css";
 //theme
@@ -31,6 +32,12 @@ app.use(VeeValidatePlugin);
 app.use(PrimeVue);
 app.use(ToastService);
 app.use(ConfirmationService);
+app.config.globalProperties.$filters = {
+  datePipe(value) {
+    if (!value) return "";
+    return moment(value, "DD.MM.YYYY").add(1, "days").format("DD.MM.YYYY");
+  },
+};
 basicInterceptor();
 
 sessionStorage.setItem("language", "en");

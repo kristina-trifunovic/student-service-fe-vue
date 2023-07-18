@@ -169,11 +169,13 @@
                 sortable
                 :header="$t('exam.examPeriod')"
               ></Column>
-              <Column
-                field="examDate"
-                sortable
-                :header="$t('exam.examDate')"
-              ></Column>
+              <Column :header="$t('exam.examDate')">
+                <template #body="slotProps">
+                  <p class="fw-normal mb-1">
+                    {{ $filters.datePipe(slotProps.data.examDate) }}
+                  </p>
+                </template>
+              </Column>
             </DataTable>
           </div>
           <p class="fst-italic" style="text-align: right; margin-right: 1em">

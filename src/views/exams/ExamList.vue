@@ -13,7 +13,11 @@
         <DataTable :value="exams" tableStyle="min-width: 50rem">
           <template #empty> {{$t("messages.no_elements_found", {componentName: $t('component.examPlural')}) }}</template>
             <Column field="subject.name" :header="$t('exam.subject')"></Column>
-            <Column field="examDate" :header="$t('exam.examDate')"></Column>
+            <Column :header="$t('exam.examDate')">
+              <template #body="slotProps">
+                <p class="fw-normal mb-1">{{ $filters.datePipe(slotProps.data.examDate) }}</p>
+              </template>
+            </Column>
             <Column field="examPeriod.name" :header="$t('exam.examPeriod')"></Column>
             <Column>
               <template #body="slotProps">
@@ -39,7 +43,7 @@
     <MDBModalBody>
       <p style="margin-left: 2em;">
         <h3><small class="text-muted">{{$t('exam.subject')}}: </small>{{examToShow.subject.name}}</h3>
-        <h3><small class="text-muted">{{$t('exam.examDate')}}: </small>{{examToShow.examDate}}</h3>
+        <h3><small class="text-muted">{{$t('exam.examDate')}}: </small>{{$filters.datePipe(examToShow.examDate)}}</h3>
         <h3><small class="text-muted">{{$t('exam.examPeriod')}}: </small>{{examToShow.examPeriod.name}}</h3>
         <h3><small class="text-muted">{{$t('exam.professor')}}: </small>{{examToShow.professor.firstName + " " + examToShow.professor.lastName}}</h3>
         <DataTable :value="studentsGrades" v-model:editingRows="editingRows" @row-edit-save="onRowEditSave" tableClass="editable-cells-table"

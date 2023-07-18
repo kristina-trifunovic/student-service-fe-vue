@@ -61,7 +61,7 @@
         <h1 class="display-6"><small class="text-muted">{{$t('professor.address')}}: </small>{{professorToShow.address}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('professor.city')}}: </small>{{professorToShow.city.name}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('professor.phone')}}: </small>{{professorToShow.phone}}</h1>
-        <h1 class="display-6"><small class="text-muted">{{$t('professor.reelectionDate')}}: </small>{{professorToShow.reelectionDate}}</h1>
+        <h1 class="display-6"><small class="text-muted">{{$t('professor.reelectionDate')}}: </small>{{$filters.datePipe(professorToShow.reelectionDate)}}</h1>
         <h1 class="display-6"><small class="text-muted">{{$t('professor.title')}}: </small>{{professorToShow.title.professorTitle}}</h1>
         <div v-show="subjects.length != 0">
           <h1 class="display-6"><small class="text-muted">{{$t('professor.subjects')}}: </small></h1>

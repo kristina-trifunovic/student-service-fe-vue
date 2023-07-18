@@ -26,7 +26,9 @@
                 <p class="fw-normal mb-1">{{ exam.subject.name }}</p>
               </td>
               <td>
-                <p class="fw-normal mb-1">{{ exam.examDate }}</p>
+                <p class="fw-normal mb-1">
+                  {{ $filters.datePipe(exam.examDate) }}
+                </p>
               </td>
               <td>
                 <p class="fw-normal mb-1">{{ exam.examPeriod.name }}</p>
@@ -67,7 +69,9 @@
                           <p class="fw-normal mb-1">{{ exam.subject.name }}</p>
                         </td>
                         <td>
-                          <p class="fw-normal mb-1">{{ exam.examDate }}</p>
+                          <p class="fw-normal mb-1">
+                            {{ $filters.datePipe(exam.examDate) }}
+                          </p>
                         </td>
                         <td>
                           <p class="fw-normal mb-1">

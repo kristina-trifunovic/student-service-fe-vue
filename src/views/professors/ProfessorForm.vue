@@ -228,7 +228,9 @@ export default {
         professor.value.reelectionDate = moment(
           professor.value.reelectionDate,
           "DD.MM.YYYY"
-        ).toDate();
+        )
+          .add(1, "days")
+          .toDate();
       } else mode.value = "add";
       loadCities()
         .then((res) => (cities.value = res.data))

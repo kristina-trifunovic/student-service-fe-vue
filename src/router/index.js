@@ -168,7 +168,7 @@ const routes = [
         name: "exam-list",
         component: ExamList,
         meta: {
-          roles: ["ROLE_PROFESSOR"],
+          roles: ["ROLE_PROFESSOR", "ROLE_ADMIN"],
         },
       },
       {

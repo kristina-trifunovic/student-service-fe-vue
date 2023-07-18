@@ -1,6 +1,6 @@
 <template>
   <Toast />
-  <!-- View Modal -->
+  <!-- Literature Modal -->
   <MDBModal
     id="viewModal"
     tabindex="-1"
@@ -25,7 +25,11 @@
         <div class="row" style="margin-top: 1em">
           <div class="col text-center">
             <MDBBtnGroup>
-              <MDBBtn color="warning" @click="uploadLiteratureToSubject">
+              <MDBBtn
+                color="warning"
+                @click="uploadLiteratureToSubject"
+                :disabled="!literature"
+              >
                 {{ $t("actions.upload") }}
               </MDBBtn>
               <MDBBtn color="secondary" @click="viewModal = false">

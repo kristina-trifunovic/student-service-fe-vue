@@ -40,6 +40,6 @@ app.config.globalProperties.$filters = {
 };
 basicInterceptor();
 
-sessionStorage.setItem("language", "en");
+sessionStorage.setItem("language", "rs");
 
 app.mount("#app");

@@ -7,15 +7,15 @@ import ToastService from "primevue/toastservice";
 describe("Login.vue", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
-    const localVue = createLocalVue();
-    localVue.use(PrimeVue);
-    localVue.use(ToastService);
+    // const localVue = createLocalVue();
+    // localVue.use(PrimeVue);
+    // localVue.use(ToastService);
   });
 
   // For this test to work, the language of the app must be Serbian - rs
   it("checks text on login page", () => {
     const wrapper = mount(Login, {
-      localVue,
+      // localVue,
       global: {
         mocks: {
           $t: () => "Dobrodošli",
